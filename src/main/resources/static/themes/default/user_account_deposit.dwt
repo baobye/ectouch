@@ -1,0 +1,61 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+<ul class="nav nav-tabs account" role="tablist">
+    <li><a href="{:url('User/account_detail')}" >{$lang.add_surplus_log}</a></li>
+    <li><a href="{:url('User/account_log')}" >{$lang.view_application}</a></li>
+	<li class="active"><a href="{:url('User/account_deposit')}" >{$lang.surplus_type_0}</a></li>
+	<li><a href="{:url('User/account_raply')}" >{$lang.surplus_type_1}</a></li>
+  </ul>
+<form action="{:url('user/act_account')}" method="post" name="theForm" >
+  <div class="ect-bg-colorf flow-consignee" style="margin-bottom:0.6em;">
+    <ul class="o-info">
+      <li>
+        <div class="input-text"><b class="pull-left">{$lang.deposit_money}：</b><span>
+          <input name="amount" placeholder="{$lang.deposit_money}" type="text" class="inputBg_touch" value="{$order.amount|escape}" />
+          </span></div>
+      </li>
+    </ul>
+  </div>
+  <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="table table-bordered">
+            <tr align="center">
+              <td bgcolor="#ffffff">{$lang.payment}</td>
+              <td bgcolor="#ffffff" width="17%">{$lang.pay_fee}</td>
+            </tr>
+            <!-- {foreach from=$payment item=list} -->
+            <tr>
+              <td bgcolor="#ffffff" align="left">
+        			  <ul class="ect-radio">
+                    <li>
+                      <input name="payment_id" type="radio" id="zf{$list.pay_id}" value="{$list.pay_id}">
+                      <label for="zf{$list.pay_id}"><i></i>{$list.pay_name}</label>
+                    </li>
+                </ul></td>
+              <td bgcolor="#ffffff" align="center">{$list.pay_fee}</td>
+            </tr>
+            <!-- {/foreach} -->
+            </table>
+  <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+    <input type="hidden" name="surplus_type" value="0" />
+    <input type="hidden" name="rec_id" value="{$order.id}" />
+    <input type="hidden" name="act" value="act_account" />
+    <input type="submit" name="submit" class="btn btn-info ect-bg-colory"  value="{$lang.submit_request}"/>
+  </div>
+</form>
+</div>
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script> 
+<script type="text/javascript">
+	region.isAdmin = false;
+	{foreach from=$lang.flow_js item=item key=key}
+	var {$key} = "{$item}";
+	{/foreach}
+	{literal}
+	onload = function() {
+	      if (!document.all)
+	      {
+	        document.forms['theForm'].reset();
+	      }
+	}
+	{/literal}
+</script>
+</body></html>

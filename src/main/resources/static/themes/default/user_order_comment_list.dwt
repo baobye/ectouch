@@ -1,0 +1,45 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+{if $show_asynclist}
+<div class="ect-pro-list user-order" style="border-bottom:none;">
+    <ul id="J_ItemList">
+       <li class="single_item"></li>
+       <a href="javascript:;" style="text-align:center" class="get_more"></a>
+    </ul>
+</div>
+{else}
+	<div class="ect-pro-list user-order" style="border-bottom:none;">
+		<ul id="J_ItemList">
+		 <!--{foreach name=goods_list from=$goods_list item=orders}-->
+			<li>
+			<a href="{:url('user/order_comment_list', array('id'=>$this->_var['orders']['goods_id']))}">
+			<img src="{$orders.goods_img}" class="pull-left" />
+			<dl>
+			   <dd>{$orders.name}</dd></br>			   
+			</dl>
+			
+			<dd>
+				 <a  style="" href="{:url('user/order_comment_list',array('id'=>$this->_var['orders']['goods_id']))}">				
+					  <button style="  border: 0px;  position: absolute;  top: 67px;  right: 10px;}">去评价</button>
+				 </a> 				
+		    </dd>
+			</li>
+		<!--{/foreach}-->
+		</ul>
+	</div>
+
+ {include file='library/page.lbi '}
+{/if}
+</div>
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<footer class="logo"><a href="http://www.ectouch.cn" title="ECTouch官网" 
+target="_blank"><img src="__TPL__/images/copyright.png" width="176" height="60"></a></footer>
+<script type="text/javascript">
+{foreach from=$lang.merge_order_js item=item key=key}
+    var {$key} = "{$item}";
+{/foreach}
+if({$show_asynclist}){
+get_asynclist('index.php?m=default&c=user&a=async_order_list&pay={$pay}' , '__TPL__/images/loader.gif');
+}
+</script> 
+</body></html>

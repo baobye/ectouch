@@ -1,0 +1,29 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+
+	 <div class="set-new-box">
+            <img src="__TPL__/sale/images/kawc.png"/>
+       </div>        
+	<div class="dpxq_border"></div>
+	<div class="set2_content">
+	<div class="dpgl_list">
+		<span class="set3_list2">注册成功！请保存以下信息：</span>
+		<i class="iconfont icon-huangse icon-hao" onclick="close_class('set2_content')"></i>
+		<br>
+		<div class="yjtx2_content1">
+				<span class="yjtx2_list4" style="display: block;">微店地址：<br>{$sale_url}</span>
+		</div>
+	</div>
+</div>
+<div class="set2_listz">
+	<span class="set2_list1zz">新手必读</span>
+</div>
+<div class="set2_listz">
+	<span class="set2_list1z">{$novice}</span>
+</div>
+
+<div class="yhk_content2">
+	<a href="{:url('sale/index')}"><span class="yhk_content">进入我的微店</span></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!-- 商品列表 start-->
+<!--{if $goods}-->
+{if $goods.iteration % 2 == 0}
+<li class="fr">
+{else}
+<li class="fl">
+{/if}
+  <a href="{$goods.url}"><img src="{$goods.goods_img}" alt="{$goods.name}" /></a>
+  <a href="{$goods.url}"><p>{$goods.name}</p></a>
+  <span><!--{if $goods.promote_price}-->{$goods.promote_price}<!--{else}-->{$goods.shop_price}<!--{/if}--></span>
+</li>
+<!-- {/if}--> 
+<!-- 商品列表 end--> 

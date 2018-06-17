@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我的分享</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+</head>
+<body>
+    <div class="con" >
+        <div class="ect-bg">
+            <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>我的分享</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+
+            <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+            </nav>
+        </div>
+        <img src="/images/cc.jpg" th:src="${imgurl}" style=" height: auto; width: auto\9; width:100%;">
+    </div>
+
+</body>
+</html>

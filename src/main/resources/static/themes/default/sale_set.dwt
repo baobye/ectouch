@@ -1,0 +1,28 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+  <div class="set-new-box">
+    <img src="__TPL__/sale/images/kd.png"/>
+  </div>      
+  <div class="dpxq_border"></div>
+  <form action="{:url('sale/sale_set')}" method="post" id="formSub" onsubmit="return submit_saleSet();">
+    <div class="set4_box"> <span class="set4_contentm">店铺名称:</span><span class="set4_content2">&nbsp;例：{:C('SHOP_NAME')}xx微店</span> </div>
+    <div class="set4_box1">
+      
+      <div class="set4_nav1"><input  type="text"  name="data[shop_name]" id="shop_name" placeholder="店名" value=""  class="set-4-input" /></div>
+    </div>
+    <br>
+    <div class="set4_box"> <b class="set4_contentm">真实姓名: </div></br>
+    <div class="set4_box2"><input  type="text"  name="data[real_name]" id="real_name" placeholder="姓名(必填)" value="" class="set-4-input" /></div>
+
+    <div class="set4_box"> <b class="set4_contentm">手机号：</div></br>
+    <div class="set4_box2"><input  type="text"  name="data[shop_mobile]" id="shop_mobile" placeholder="手机号码(必填)" value="" class="set-4-input" /></div>
+
+    <div class="set4_box"> <b class="set4_contentm">QQ号：</div></br>
+    <div class="set4_box2"><input  type="text"  name="data[shop_qq]" id="shop_qq" placeholder="QQ号(选填)" value="" class="set-4-input" /></div>
+
+    <div class="t-a-center"><button type="submit" class="set-4-submit">{:L('next_step')}</button></div>
+  </form>
+  </div>
+</div>
+</body>
+</html>

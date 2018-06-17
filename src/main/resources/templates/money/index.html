@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>资金管理</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script th:inline="javascript">
+
+        function goPage(page) {
+
+            var number = [[${number}]];
+            var pages = [[${pages}]]
+            number = number + page;
+            if(number <= 0){
+                return;
+            }
+            if(number > pages){
+                return;
+            }
+            window.location.href='/money/index?page='+number+'&size=5';
+        }
+    </script>
+</head>
+
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>资金管理</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <ul class="nav nav-tabs account" role="tablist">
+        <li class="active"><a href="/money/index?page=1&size=5" >奖金明细</a></li>
+        <li><a href="/money/record?page=1&size=5" >申请记录</a></li>
+        <li><a href="/money/recharge" >账户充值</a></li>
+        <li><a href="/money/withdraw" >余额提现</a></li>
+    </ul>
+
+    <div class="user-account-detail">
+        <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}">
+            <li>
+                <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.sumMoney}+'元'">￥10.00元</span></p>
+                <p class="content">
+                    <span class="pull-right text-right type" th:if="${money.type eq 1}">增加</span>
+                    <span class="pull-right text-right type" th:if="${money.type eq 2}">减少</span>
+
+                </p>
+                <p class="content">
+                    <span class="pull-left text-left type" th:if="${money.status eq 0}">状态:上级已发放</span>
+                    <span class="pull-left text-left type" th:if="${money.status eq 1}">状态:上级未发放</span>
+                </p>
+            </li>
+        </ul>
+        <p class="pull-right count" style="background-color: bisque;" >您当前的可用资金为：<b class="ect-colory" th:text="'￥'+${user.dzb}+'元'">￥1000000.00元</b></p>
+    </div>
+    <ul class="pager ect-margin-lr ect-page">
+        <li class="pull-left"><a href="javascript:goPage(-1)">上一页</a></li>
+        <li class="form-select">
+            <i class="fa fa-sort-desc"></i>
+            <select name="sel_question" onChange="window.location.href=this.value;">
+                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/money/index?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
+            </select>
+        </li>
+        <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
+    </ul>
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+</body>
+</html>

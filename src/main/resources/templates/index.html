@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>浑河玫瑰 瑰蜜</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="keywords" content="浑河玫瑰，瑰蜜" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
+    <link rel="stylesheet" href="css/swiper-3.4.0.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/member.css">
+    <link rel="stylesheet" type="text/css" href="/themes/default/css/search_index.css"/>
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/themes/default/fonts/iconfont.css">
+</head>
+<body>
+<div id="dowebok">
+    <div class="section section1">
+        <div class="main1_logo"><img src="images/main2_logo.png"></div>
+    </div>
+    <div class="section section2">
+        <div class="main1_logo"></div>
+    </div>
+    <div class="section section3">
+        <div class="main1_logo3"><img src="images/main1_logo.png"></div>
+
+    </div>
+</div>
+<div class="arrow"><img src="images/arrow.png"></div>
+<!--div class="header">
+    <span class="header_l"><img src="images/logo.png"></span>
+    <span class="header_r" id="menu">
+           <a href="/homepage"><i class="iconfont">&#xe621;</i><span>首 页</span></a>
+				<span onclick="">购物</span>
+				<span onclick="">我的</span>
+			</span>
+</div -->
+
+
+<footer class="member-footer">
+    <ul>
+        <li class="fl member-footer-list btn">
+            <a href="/homepage"><i class="iconfont icon-shouye"></i><span>首 页</span></a>
+        </li>
+
+        <li class="fl member-footer-list btn">
+            <a href="/storage/index"><i class="iconfont icon-cailiaokufang"></i><span>云库房</span></a>
+        </li>
+        <li class="fl member-footer-list btn">
+            <a href="/goods/index"><i class="iconfont icon-shangpinziliao"></i><span>商品</span></a>
+        </li>
+        <li class="fl member-footer-list btn">
+            <a href="/cart"><i class="iconfont icon-gouwucheman"></i><span>购物车</span></a>
+        </li>
+        <li class="fl member-footer-list btn">
+            <a href="/"><i class="iconfont icon-wo"></i><span>我</span></a>
+        </li>
+    </ul>
+</footer>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.fullPage.min.js"></script>
+<script type="text/javascript" src="js/swiper-3.4.0.jquery.min.js"></script>
+<script>
+    $(function() {
+        $('.swiper-slide').css('height', $('.swiper-slide').width() * 950 / 590 + 'px');
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.a',
+            effect: 'coverflow',
+            centeredSlides: true,
+            loop: true,
+            speed: 1000,
+            autoplay: 3000,
+            autoplayDisableOnInteraction: false,
+            slidesPerView: 'auto',
+            coverflow: {
+                rotate: 0,
+                stretch: -20,
+                depth: 350,
+                modifier: 1,
+                slideShadows: false
+            },
+            paginationType: 'custom',
+            preventLinksPropagation: true,
+            paginationCustomRender: function(swiper, current, total) {
+                $("#section4_list .swiper-slide").each(function(i, item) {
+                    $(this).css("opacity", 0.66);
+                });
+                $("#section4_list .swiper-slide-active").each(function(i, item) {
+                    $(this).css("opacity", 1);
+                });
+                for(var i = 1; i <= 5; i++) {
+                    $("#section4_tit" + i).hide();
+                }
+                $("#section4_tit" + current).fadeIn();
+                $(".swiper_points span").each(function() {
+                    $(this).css("background", "rgba(255, 255, 255, 0.3)");
+                });
+                $("#swiper_point" + current).css("background", "rgba(255, 255, 255, 1)");
+            }
+        });
+        $('#dowebok').fullpage({
+            navigation: false,
+            easing: 'easeInQuart',
+            slidesNavigation: true,
+            loopHorizontal: true,
+            controlArrowColor: 'transparent',
+            slidesNavPosition: 'bottom',
+            onLeave: function(cur, next) {
+                if(next == 3) {
+                    $(".arrow").fadeOut();
+                } else {
+                    $(".arrow").fadeIn();
+                    $(".swiper_points").fadeOut();
+                }
+            }
+        });
+    });
+
+    function line(id) {
+        for(var i = 1; i <= 5; i++) {
+            $("#page" + i).css("border-bottom", "0px solid #fff");
+        }
+        $(id).css("border-bottom", "1px solid #fff");
+    }
+</script>
+
+</html>

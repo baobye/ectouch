@@ -1,0 +1,65 @@
+ body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em,  ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video{margin:0;padding:0;border:0;font-family: "Microsoft Yahei";vertical-align:baseline; }
+blockquote, q{quotes:none;}
+blockquote:before, blockquote:after, q:before, q:after{content:"";content:none;}
+a { text-decoration:none; }
+ul li{list-style:none;
+}
+.sale_list{
+	display:block;
+}
+.a_left{
+	float:left;
+}
+.icon-pos,icon-jiantou1{color:#858585;float:right;font-size:1.5rem; margin-top:-2.5rem; }
+.icon-jiantou{color:#FFF;line-height:4.2rem;font-size:1.5rem;}
+.icon-huise,icon-jiantou1{color:#858585;float:right;font-size:1.5rem; }
+.dpgl_list3 .icon-huise ,icon-jiantou2{ float:right; line-height:2.4rem;font-size:1.8rem;}
+.icon-quanbushangpin,.icon-fenxiao,.icon-gonggaofuzhi,.icon-861erweima,.icon-weixin,.icon-mingpian,.icon-jinbichongzhi,.icon-qianbao,.icon-zhifubao,.icon-yinxingqia{
+	color:#41a28e;
+	font-size:2.2rem;
+	
+	}
+	
+.icon-weixin,.icon-qqkongjianline,.icon-renren,.icon-tengxunweibo,.icon-xinlangweibo{
+	font-size:6rem;
+	color:#41a28e;
+	width:33%;
+	}
+.icon-fenxiang{
+	float:right;
+	color:#FFF;
+	margin-top:-1.8rem;
+	font-size:1.6rem;
+	}	
+.icon-huiyuan	{
+	font-size:6rem;
+	color:#999;
+	
+	}
+.icon-jiaoyichenggong{
+	font-size:10rem;
+	color:#999;	}
+.icon-beise,icon-hao{ margin-top:-1.8rem;color:#FFF; float:right; font-size:2rem;}	
+.icon-huangse,icon-hao{color:#C60;font-size:2rem; float:right;line-height:3.8rem;}	
+.icon-duihao1{color:#41a28e;font-size:2rem;}
+.icon-gongshangyinxingsolid,.nongyeyinxingsolid{font-size:6.75rem}
+.icon-gongshangyinxingsolid{ color:#ba1f27; line-height:14rem; }
+.nongyeyinxingsolid{	
+	 color:#063; 
+	}
+margin-top:1.8rem; font-size:1.8rem;	
+.icon-hao{color:#C60; float:left;}
+.icon-nongyeyinxingsolid{font-size:6.75rem;margin-top:12rem;color:#009959;}
+icon-weizhi,icon-duihao{
+	color:#41a28e;font-size:6rem;
+	
+	}
+.icon-lvse,icon-duihao{font-size:2.5rem;color:#41a28e;margin-left:0.2rem;}
+.icon-luse,icon-duihao{font-size:4.5rem;color:#41a28e;}
+
+.button-background-color{
+    background-color: #41A28E !important;
+}
+.icon-color:before{
+    color:#A7A7A7 !important;
+}

@@ -1,0 +1,21 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div>
+          	<!--{foreach from=$list item=li}-->
+				<div class="dpgl_list" style="overflow:hidden"> 
+				   <span class="bdda2_list2">
+						{if $li.user_img}
+						<img src="{$li.user_img}" style="width:5rem; margin-right:1rem; float:left;">
+						{else}
+						<img src="__TPL__/images/member-photo-img2.jpeg" style="width:5rem; margin-right:1rem; float:left;">
+						{/if}
+				   </span>				
+				   <span class="bdda2_list2" style="top:0rem">{$li.shop_name}</span>
+				   <span class="bdda2_list">总销售佣金：{$li.sum_money}</span>
+			    </div>
+
+          	  <div class="dpxq_border" ></div>
+			<!--{/foreach}-->     
+    </div>
+        {include file='library/sale_page.lbi '}
+</body>
+</html>

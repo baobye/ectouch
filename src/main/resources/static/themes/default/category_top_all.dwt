@@ -1,0 +1,51 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+	<!-- #BeginLibraryItem "/library/new_search_small.lbi" --><!-- #EndLibraryItem -->
+	<aside>
+		<div class="menu-left scrollbar-none" id="sidebar">
+			<ul>
+				{foreach from=$category item="vo" name="vo"}
+				<li {if $smarty.foreach.vo.index == 0} class="active"{/if}>{if count($vo.cat_id)>0}{$vo.name}{else}<a href="{$vo.url}">{$vo.name}</a>{/if}</li>
+				{/foreach}
+			</ul>
+		</div>
+	</aside>
+	{foreach from=$category item="val" name="val"}
+	<section class="menu-right padding-all j-content"{if $smarty.foreach.val.index != 0} style="display:none"{/if}>
+		{foreach from=$val.cat_id item="vo" name='category'}
+			{if count($vo.cat_id)>0}
+				<h5>{$vo.name}</h5>
+				<ul>
+				{foreach from=$vo.cat_id item="v"}
+					<li class="w-3"><a href="{:url('category/index',array('id'=>$this->_var['v']['id']))}"></a>
+					<img src="{$v.img}" /><span>{$v.name}</span></li>
+				{/foreach}
+				</ul>
+			{else}
+				{if $smarty.foreach.category.iteration==1}
+				<h5>{$val.name}</h5>
+				<ul>
+				{foreach from=$val.cat_id item="v"}
+					<li class="w-3"><a href="{:url('category/index',array('id'=>$this->_var['v']['id']))}"></a>
+					<img src="{$v.img}" /><span>{$v.name}</span></li>
+				{/foreach}
+				</ul>
+				{/if}
+			{/if}
+		{/foreach}
+	</section>
+	{/foreach}
+</div>
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+	$(function($){
+		$('#sidebar ul li').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			var index = $(this).index();
+			$('.j-content').eq(index).show().siblings('.j-content').hide();
+		})
+	})
+</script>
+</body>
+</html>

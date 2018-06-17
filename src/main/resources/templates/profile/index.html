@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+</head>
+
+<body>
+<!--BEGIN toast-->
+<div id="toast" style="display: none;">
+    <div class="weui-mask_transparent"></div>
+    <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content" id="toastText">已完成</p>
+    </div>
+</div>
+<!--end toast-->
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>个人资料</span> <a href="/" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+
+    <script type="text/javascript">
+        var bonus_sn_empty = "请输入您要添加的红包号码！";
+        var bonus_sn_error = "您输入的红包号码格式不正确！";
+        var email_empty = "请输入您的电子邮件地址！";
+        var email_error = "您输入的电子邮件地址格式不正确！";
+        var old_password_empty = "请输入您的原密码！";
+        var new_password_empty = "请输入您的新密码！";
+        var confirm_password_empty = "请输入您的确认密码！";
+        var both_password_error = "您现两次输入的密码不一致！";
+        var msg_blank = "不能为空";
+        var no_select_question = "- 您没有完成密码提示问题的操作";
+    </script>
+    <form name="wapUser" id="wapUser" action="/profile/updateUser" method="post" onSubmit="">
+        <section class="flow-consignee ect-bg-colorf">
+            <ul>
+                <li>
+                    <div class="input-text"><b class="pull-left">用户名：</b>
+                        <input type="hidden" name="userId" th:value="${user.userId}">
+                        <span th:text="${user.username}"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">本人姓名：</b>
+                        <span th:text="${user.name}"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">身份证号：</b>
+                        <span th:text="${user.idCard}"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">银行名称：</b>
+                        <span>
+                            <input name="bankName" type="text" placeholder="请输入银行名称" th:value="${user.bankName}"  value="">
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">银行卡号：</b>
+                        <span>
+                            <input name="bankCode" type="text" placeholder="请输入银行卡号" th:value="${user.bankCode}"  value="">
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">微信号：</b>
+                        <span>
+                            <input name="wechat" type="text" placeholder="请输入微信号" th:value="${user.wechat}"  value="">
+                        </span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="input-text"><b class="pull-left">手机:</b>
+                        <span th:text="${user.tel}"></span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <input name="act" type="hidden" value="profile" />
+        <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+            <input name="submit" id="showTooltips" type="button" value="确认修改" class="btn btn-info ect-bg-colory" />
+        </div>
+    </form>
+
+    <!--section class="flow-consignee ect-bg-colorf">
+        <ul>
+            <a href="/profile/password" name="password">
+                <li>修改密码</li>
+            </a>
+            <a href="/profile/addressList" name="address">
+                <li>收货地址</li>
+            </a>
+        </ul>
+    </section>
+
+    <section class="flow-consignee ect-bg-colorf">
+        <ul>
+            <li><a href="/login?logout=true">注销退出</a></li>
+        </ul>
+    </section -->
+</div>
+
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+
+    $(function () {
+        $('#showTooltips').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: '/profile/updateUser',
+                data: $('#wapUser').serialize(),
+                success: function (r) {
+                    if (r.error == 1) {
+                        var $toast = $('#toast');
+                        if ($toast.css('display') != 'none') return;
+                        $toast.fadeIn(500);
+                        setTimeout(function () {
+                            $toast.fadeOut(500);
+                        }, 2000);
+                    } else {
+                        $("#toastText").text("处理失败");
+                        var $toast = $('#toast');
+                        if ($toast.css('display') != 'none') return;
+                        $toast.fadeIn(500);
+                        setTimeout(function () {
+                            $toast.fadeOut(500);
+                        }, 2000);
+                    }
+                },
+            });
+        });
+    })
+</script>
+</body>
+</html>

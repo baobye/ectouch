@@ -1,0 +1,64 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+    <div class="a-raply-info">
+        24小时内到账，法定节假日3天到账,最低提现{$txxz}元
+    </div>
+    <form action="{:url('Sale/act_account')}" method="post" name="theForm" >
+    <div class="bank-card">
+        <ul>
+            {if $bank_info}
+            <li>
+                <a href="{:url('sale/select_bank')}">
+                    <label for="banck-check-01"><i></i></label>
+                    <h4>{$bank_info.bank_name}</h4>
+                    <span>{$bank_info.bank_card}</span>
+                </a>
+            </li>
+            {else}
+            <li>
+                <a href="{:url('sale/select_bank')}">
+                    <label for="banck-check-01"><i></i></label>
+                    <h4>选择银行卡</h4>
+                </a>
+            </li>
+            {/if}
+        </ul>
+
+    </div>
+    <div class="jg-text">
+        <label>金额<span>(元)</span></label>
+        <div class="jg-text-input">
+            <input type="hidden" name="bank" value="{$bank_info.id}">
+            <input type="text" name="amount" placeholder="当前可提取佣金为{$surplus_amount}">
+        </div>
+    </div>
+    <div class="t-a-center margin-top-2"><input type="submit" value="{:L('next_step')}" class=" set-div-button"></div>
+        </form>
+    <style>
+        body{background:#f0f0f6;}
+        .wdyj_content11{margin-top:-1.7rem;}
+
+        .a-raply-info{background:#FCF8E3; padding: 1rem 0; text-align: center; font-size:1.5rem; color: #494949; border-bottom:1px solid #DEDEE5;}
+        .bank-card ul{margin-top:0.8rem; border-top:1px solid #DEDEE5; border-bottom: 1px solid #DEDEE5;}
+        .bank-card ul li{
+            position:relative; padding:1.6rem; background:#fff; border-bottom:1px solid #EBEBEF;}
+        .bank-card ul li:last-child{border-bottom:none;}
+
+        .bank-card ul li label{ position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
+        .bank-card ul li label i{position: absolute; right:1.6rem; top: 50%; margin-top:-1rem; display:block; height:2rem; width:3rem; }
+        .bank-card input:checked+label i{background:url(images/check_ok_03.png) center center no-repeat; background-size:cover;}
+        .bank-card input[type=radio]{ display: none;}
+        .bank-card ul li h4{font-size: 1.9rem; color:#303030; font-weight: 100;}
+        .bank-card ul li span{font-size:1.2rem; color: #a4a4a4; margin-top:0.2rem; display: block;}
+
+        .jg-text{margin:0; padding: 1.4rem; border-bottom:1px solid #dedee5; border-top:1px solid #dedee5; font-size:1.5rem; position: relative; background:#fff; margin-top:1rem;}
+
+        .jg-text-input{ position:absolute; left: 7rem; right: 1.6rem; top:1.3rem; color:#303030}
+        .jg-text-input input[type=text]{width:100%; font-size:1.4rem; border:0;padding-bottom:0.5rem}
+        .jg-text label{color:#303030;}
+        .jg-text span{color:#7a7a7a; margin-left:.2rem;}
+
+    </style>
+
+</body>
+</html>

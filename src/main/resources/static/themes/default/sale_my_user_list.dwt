@@ -1,0 +1,14 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+
+    <!--{foreach from=$list item=li}-->
+    <div class="dpgl_list">
+        <img src="{$li.headimgurl}" class="user-list-img" />
+        <span class="dpgl_list2">{$li.user_name}</span><br />
+        <span class="yjfd_list">{$li.time}</span>
+    </div>
+    <div class="dpxq_border"></div>
+    <!--{/foreach}-->
+</div>
+</body>
+</html>

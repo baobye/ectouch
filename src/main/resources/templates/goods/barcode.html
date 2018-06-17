@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <title>二维码扫描</title>
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <meta name="Generator" content="ECTouch 2.2.30" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>会员中心</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+</head>
+
+<body>
+    <div class="con">
+        <div class="ect-bg">
+            <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>扫描商品</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune icon-write"></a></header>
+            <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+            </nav>
+        </div>
+        <div style="display: table;vertical-align: middle;">
+            <div class="qr-btn" node-type="qr-btn" style="display: table-cell;vertical-align: middle;">扫描二维码
+                <div style="  position: absolute;top: 50%;height: 240px; margin-top: -120px; /* negative half of the height */"><input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码" /></div>
+            </div>
+        </div>
+        <div class="result-qrcode">
+        </div>
+    </div>
+
+    <script src="/js/zepto.js"></script>
+    <script src="/js/qrcode.lib.min.js"></script>
+    <script src="/js/qrcode.js"></script>
+    <script>
+        //初始化扫描二维码按钮，传入自定义的 node-type 属性
+        $(function() {
+            Qrcode.init($('[node-type=qr-btn]'));
+        });
+    </script>
+</body>
+
+</html>

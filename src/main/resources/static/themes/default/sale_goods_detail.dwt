@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>本店订单详情</title>
+	</head>
+	<style>
+		/*公共样式*/
+		@media only screen and (max-width:310px) and (min-width:300px){html{font-size:8.33333px}.viewport{max-width:300px}}
+		@media only screen and (max-width:320px) and (min-width:310px){html{font-size:8.88889px}.viewport{max-width:320px}}
+		@media only screen and (max-width:360px) and (min-width:320px){html{font-size:8.88889px}.viewport{max-width:360px}}
+		@media only screen and (max-width:360px) and (min-width:350px){html{font-size:10px}.viewport{max-width:360px}}
+		@media only screen and (max-width:480px) and (min-width:360px){html{font-size:10px}.viewport{max-width:480px}}
+		@media only screen and (max-width:480px) and (min-width:470px){html{font-size:13.33333px}.viewport{max-width:480px}}
+		@media only screen and (max-width:560px) and (min-width:480px){html{font-size:13.33333px}.viewport{max-width:560px}}
+		@media only screen and (max-width:570px) and (min-width:560px){html{font-size:15.83333px}.viewport{max-width:570px}}
+		@media only screen and (max-width:640px) and (min-width:570px){html{font-size:15.83333px}.viewport{max-width:640px}}
+		@media only screen and (max-width:640px) and (min-width:630px){html{font-size:17.77778px}.viewport{max-width:640px}}
+		@media only screen and (max-width:710px) and (min-width:640px){html{font-size:17.77778px}.viewport{max-width:710px}}
+		 body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em,  ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video{margin:0;padding:0;border:0;font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", STXihei, STHeiti, "Microsoft YaHei", Heiti, SimSun, sans-serif;
+		-webkit-font-smoothing: antialiased; }
+		blockquote, q{quotes:none;}
+		blockquote:before, blockquote:after, q:before, q:after{content:"";content:none;}
+		a { text-decoration:none; }
+		ul li{list-style:none;
+		}
+		/*订单样式*/
+		.f-bg{background:#f0f0f6;margin:0 auto;}
+		.f-goods-cont-box{padding:1.2rem 1rem;border-bottom: 1px solid #f0f0f0;max-width:640px;font-size:1.6rem;font-weight:400;margin:0 auto;background: #fff;}
+		.f-goods-detail-box header{background:#41a28e;text-align:center;color:#fff;}
+		.f-goods-detail-box p{padding-top:5rem;font-size:1.4rem;}
+		.f-goods-detail-box h1{font-size:4rem;padding-bottom:4rem;padding-top:1rem;}
+		.dis-box{display:-webkit-box;display:-moz-box;display:-ms-box;display:box}
+		.box-flex{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;box-flex:1;display:block;width:100%}
+		.f-goods-detail-list{font-size:1.5rem;margin-top: 0.5rem;}
+		.f-goods-name-box{width:7.5rem;color:#979797;}
+		.f-goods-num{color:#3b3b3b;margin-left: 0.6rem;}
+		.f-goods-cont-box span{color:#979797;} 
+		.f-goods-detail-box h3,.f-goods-detail-box h4{font-size:1.3rem;font-weight:400;color:#3b3b3b;}
+		.f-shop-list{width:10rem;padding-right:1rem;}
+		.f-shop-list img{width:100%;}
+		.f-goods-detail-box h4{padding-top:0.5rem;}
+		.f-goods-detail-box h5{font-size:1.3rem;font-weight:400;}
+		.f-goods-cont-box h2{text-align:right;font-size:1.7rem;color:#40a28e;}
+		.f-yongjin-color{color:#40a28e;}
+		.f-y-num{margin-left:0.8rem;}
+	</style>
+
+	<body class="f-bg">
+		<!--{foreach from=$orders_list item=item}-->
+		<div class="f-goods-detail-box">
+			<header>
+				<p>订单佣金（元）</p>
+				<h1>{$item.log.user_money}</h1>
+			</header>
+			<div class="f-goods-cont-box">
+				<ul class="f-goods-detail-list dis-box">
+					<li class="f-goods-name-box">订单号:</li>
+					<li class="box-flex f-goods-num">{$item.order_sn}</li>
+				</ul>
+				<ul class="f-goods-detail-list dis-box">
+					<li class="f-goods-name-box">下单时间:</li>
+					<li class="box-flex f-goods-num">{$item.order_time}</li>
+				</ul>
+
+				<ul class="f-goods-detail-list dis-box">
+					<li class="f-goods-name-box">姓名:</li>
+					<li class="box-flex f-goods-num">{$item.user_name}</li>
+				</ul>
+				<ul class="f-goods-detail-list dis-box">
+					<li class="f-goods-name-box">电话:</li>
+					<li class="box-flex f-goods-num">{$item.shop_mobile}</li>
+				</ul>
+			</div>
+			<!--{foreach from=$item.goods item=goods_info}-->
+			<div class="f-goods-cont-box">				
+				<ul class="dis-box">
+					<li class="f-shop-list"><img src="{$goods_info.goods_thumb}"></li>
+					<li class="box-flex f-shop-content">
+						<h3>{$goods_info.goods_name}</h3>
+		    	<h4><span>价格：</span>{$goods_info.goods_price}<span class="f-y-num">数量：</span>{$goods_info.goods_number}</h4>
+				<h5><span>销售佣金总额：</span>{$goods_info.touch_sale}</h5>
+		        <h5 class="f-yongjin-color"><span>佣金比例：</span>{$goods_info.profit}%<span class="f-y-num">佣金金额：</span>{$goods_info.money}</h5>
+		    </li>
+			
+		</ul>		
+		</div>
+		<!--{/foreach}-->
+		<div class="f-goods-cont-box">	
+		<h2>合计:{$item.log.user_money}元</h2>
+			</div>
+	</div>
+	<!--{/foreach}-->
+</body>
+</html>

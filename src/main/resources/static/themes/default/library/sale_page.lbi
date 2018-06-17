@@ -1,0 +1,34 @@
+<!-- {if $pager} -->
+<div class="pagination">
+    <p style="float:left">
+        <!-- {if $pager.page_prev} -->
+        <a class="pagination-left" href="{$pager.page_prev}" >&lt;上一页</a>
+        <!-- {else} -->
+        <a class="no pagination-left">&lt;上一页</a>
+        <!-- {/if} -->
+    </p>
+    <p class="p-select">
+
+            <select name="page"  class="form-control" onchange="window.location.href=this.options[this.selectedIndex].value" >
+            <!--{if $pager}-->
+            {foreach from=$pager.page_number key=key item=item}
+              <option value="{$item}" {if $pager.page eq $key}selected=true{/if}>{$key}/{$pager.page_count}</option>
+            {/foreach}
+            <!--{/if}-->
+            </select>
+	</p>
+    <p  style="float:right  ">
+		<!-- {if $pager.page_next} -->
+              <a  class="pagination-right" href="{$pager.page_next}" >下一页&gt;</a>
+              <!-- {else} -->
+              <a class="no pagination-right">下一页&gt;</a> 
+              <!-- {/if} -->
+    </p>
+</div>
+    <style>
+    .pagination{width:100%; overflow: hidden; position: relative; height:3rem; padding: 2rem; box-sizing: border-box;line-height: 0.3rem;}
+    .p-select{ position: absolute;left: 6rem; right:6rem; text-align: center ;top: 1.2rem;}
+    .p-select select{border:none; background:none;}
+    </style>
+<!--{/if}-->
+ 

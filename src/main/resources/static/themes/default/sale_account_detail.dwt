@@ -1,0 +1,30 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem --><body>
+<style>
+    .dpgl_list{font-size:1.5rem; margin: 0; padding:1.2rem; border-bottom:1px solid #e3e3e3;}
+    .dpgl_list p{overflow:hidden; clear: both; }
+    .dpgl_list .lv-color{color:#41a28e;}
+    .dpgl_list .dd-color{color: rgba(245, 47, 47, 0.61);}
+    .dpgl_list .pull-left{float:left;}
+    .dpgl_list .pull-right{float:right;}
+    .dpgl_list .dpgl-p1{font-size: 1.7rem;}
+    .dpgl_list .dpgl-p2{font-size:1.4rem; color:#888;}
+    .dpgl_list .dpgl-desc{font-size:1.3rem; color:#666;}
+</style>
+
+    <div>
+            <!--{foreach from=$account_log item=li}-->
+             <div class="dpgl_list">
+                 <ul>
+                     <li>
+                        <p class="dpgl-p1"><span class="pull-left">{$li.change_type}</span><span class="pull-right">{$li.amount}</span></p>
+                         <p class="dpgl-p2"><span class="pull-left">{$li.change_time}</span>{if  $li.status eq 0}<span class="pull-right dd-color">等待处理</span>{else}<span class="pull-right lv-color">成功</span>{/if}</p>
+                         <p class="dpgl-desc">{$li.change_desc}</p>
+                     </li>
+                 </ul>
+              </div>
+			 <!--{/foreach}-->
+        {include file='library/sale_page.lbi '}
+
+    </div>
+</body>
+</html>

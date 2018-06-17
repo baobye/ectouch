@@ -1,0 +1,10 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+  <!--{foreach from=$list item=li}-->
+  <div class="dpgl_list"> <a href="{:url('sale/shop_detail',array('id'=>$this->_var['li']['user_id']))}"><span class="dpgl_list2">店名：{$li.shop_name}</span></a><br>
+    <span class="yjfd_list">分销时间：{$li.time}</span><i class="iconfont icon-huise icon-jiantou1"></i> </div>
+  <div class="dpxq_border"></div>
+  <!-- {/foreach}-->
+</div>
+</body>
+</html>

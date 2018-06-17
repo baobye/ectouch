@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>购物车</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <script type="text/javascript" src="/themes/default/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+</head>
+<body>
+
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>购物车</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune icon-write"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <p class="flow-price ect-padding-lr ect-padding-tb"> 共<b id="total_number">4</b>件商品，总价(不含运费)：<b class="ect-colory" id="goods_subtotal">￥44444.00元</b> </p>
+    <section class="ect-pro-list flow-pic ect-border-bottom0">
+        <ul>
+            <li>
+                <div class="ect-clear-over"> <a href="/ectouch/index.php?m=default&amp;c=goods&amp;a=index&amp;id=1&amp;u=2"><img src="http://127.0.0.1/ectouch/data/assets/images/201805/thumb_img/1_thumb_G_1525583545289.jpg" title="电视"></a>
+                    <dl>
+                        <dt>
+                            <h4 class="title"><a href="/ectouch/index.php?m=default&amp;c=goods&amp;a=index&amp;id=1&amp;u=2">电视
+
+
+                            </a></h4>
+                        </dt>
+                        <dd class="ect-color999">
+                            <p></p>
+                            <p><strong class="ect-colory">￥11111.00元</strong></p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="ect-margin-tb ect-margin-bottom0 ect-clear-over flow-num-del">
+                    <div class="input-group pull-left wrap"> <span class="input-group-addon" onclick="change_goods_number('1',5)">-</span>
+                        <input type="hidden" id="back_number5" value="1">
+                        <input type="text" class="form-num form-contro" name="5" id="goods_number5" autocomplete="off" value="1" onfocus="back_goods_number(5)" onblur="change_goods_number('2',5)">
+                        <span class="input-group-addon" onclick="change_goods_number('3',5)">+</span> </div>
+
+
+                    <div class="pull-right flow-del text-center"> <a href="javascript:if (confirm('您确实要把该商品移出购物车吗？')) location.href='/ectouch/index.php?m=default&amp;c=flow&amp;a=drop_goods&amp;id=5&amp;u=2';" style="padding: 2px 5px;">删除</a> </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <div class="flow-jiesuan ect-padding-lr ect-padding-tb">
+        <a href="/goods/checkout" type="button" class="btn btn-info ect-btn-info ect-bg">立即结算</a>
+    </div>
+
+
+</div>
+
+
+
+
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+<script type="text/javascript" src="/assets/js/shopping_flow.js"></script>
+
+<script>
+    function back_goods_number(id){
+        var goods_number = document.getElementById('goods_number'+id).value;
+        document.getElementById('back_number'+id).value = goods_number;
+    }
+    function change_goods_number(type, id)
+    {
+        var goods_number = document.getElementById('goods_number'+id).value;
+        if(type != 2){back_goods_number(id)}
+        if(type == 1){goods_number--;}
+        if(type == 3){goods_number++;}
+        if(goods_number <=0 ){goods_number=1;}
+        if(!/^[0-9]*$/.test(goods_number)){goods_number = document.getElementById('back_number'+id).value;}
+        document.getElementById('goods_number'+id).value = goods_number;
+        $.post('/index.php?m=default&c=flow&a=ajax_update_cart&u=2', {
+            rec_id : id,goods_number : goods_number
+        }, function(data) {
+            change_goods_number_response(data,id);
+        }, 'json');
+    }
+    // 处理返回信息并显示
+    function change_goods_number_response(result,id)
+    {
+        if (result.error == 0){
+            var rec_id = result.rec_id;
+            $("#goods_number_"+rec_id).val(result.goods_number);
+            document.getElementById('total_number').innerHTML = result.total_number;//更新数量
+            document.getElementById('goods_subtotal').innerHTML = result.total_desc;//更新小计
+            if (document.getElementById('ECS_CARTINFO')){
+                //更新购物车数量
+                document.getElementById('ECS_CARTINFO').innerHTML = result.cart_info;
+            }
+        }else if (result.message != ''){
+            alert(result.message);
+            var goods_number = document.getElementById('back_number'+id).value;
+            document.getElementById('goods_number'+id).value = goods_number;
+        }
+    }
+
+    /*点击下拉手风琴效果*/
+    $('.collapse').collapse()
+    $(".checkout-select a").click(function(){
+        if(!$(this).hasClass("select")){
+            $(this).addClass("select");
+        }else{
+            $(this).removeClass("select");
+        }
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>充值</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+</head>
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>资金管理</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <ul class="nav nav-tabs account" role="tablist">
+        <li><a href="/money/index?page=1&size=5" >奖金明细</a></li>
+        <li><a href="/money/record?page=1&size=5" >申请记录</a></li>
+        <li class="active"><a href="/money/recharge" >账户充值</a></li>
+        <li><a href="/money/withdraw" >余额提现</a></li>
+    </ul>
+    <form action="/money/rechargeSubmit" method="post" name="theForm" >
+        <div class="ect-bg-colorf flow-consignee" style="margin-bottom:0.6em;">
+            <ul class="o-info">
+                <li>
+                    <div class="input-text"><b class="pull-left">充值金额：</b>
+                        <span>
+                            <input name="realMoney" placeholder="充值金额" type="text" class="inputBg_touch" value="" />
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="table table-bordered">
+            <tr align="center">
+                <td bgcolor="#ffffff">支付方式</td>
+                <td bgcolor="#ffffff" width="17%">手续费</td>
+            </tr>
+            <tr>
+                <td bgcolor="#ffffff" align="left">
+                    <ul class="ect-radio">
+                        <li>
+                            <input name="payment_id" type="radio" id="zf3" value="3">
+                            <label for="zf3"><i></i>银行汇款/转帐</label>
+                        </li>
+                    </ul></td>
+                <td bgcolor="#ffffff" align="center">0</td>
+            </tr>
+        </table>
+        <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+            <input type="hidden" name="surplus_type" value="0" />
+            <input type="hidden" name="rec_id" value="" />
+            <input type="hidden" name="act" value="act_account" />
+            <input type="submit" name="submit" class="btn btn-info ect-bg-colory"  value="提交申请"/>
+        </div>
+    </form>
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+
+<script type="text/javascript" src="/assets/script/region.js"></script>
+<script type="text/javascript" src="/assets/js/shopping_flow.js"></script>
+<script type="text/javascript">
+    region.isAdmin = false;
+    var consignee_not_null = "收货人姓名不能为空！";
+    var country_not_null = "请您选择收货人所在国家！";
+    var province_not_null = "请您选择收货人所在省份！";
+    var city_not_null = "请您选择收货人所在城市！";
+    var district_not_null = "请您选择收货人所在区域！";
+    var invalid_email = "您输入的邮件地址不是一个合法的邮件地址。";
+    var address_not_null = "收货人的详细地址不能为空！";
+    var tele_not_null = "电话不能为空！";
+    var shipping_not_null = "请您选择配送方式！";
+    var payment_not_null = "请您选择支付方式！";
+    var goodsattr_style = "1";
+    var tele_invaild = "电话号码不有效的号码";
+    var zip_not_num = "邮政编码只能填写数字";
+    var mobile_invaild = "手机号码不是合法号码";
+    var mobile_not_null = "手机号码不能为空";
+
+    onload = function() {
+        if (!document.all)
+        {
+            document.forms['theForm'].reset();
+        }
+    }
+
+</script>
+</body></html>

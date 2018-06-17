@@ -1,0 +1,49 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+<style>
+.user-account-message{font-size:2.5rem;margin-left:30%;margin-top:30%;}
+
+
+</style>
+{if $message_list}
+    <div class="user-account-detail" >
+      <ul class="ect-bg-colorf" >
+        <!--{foreach name=message_list from=$message_list item=msg}-->
+        <li class="single_item">
+            <p> 
+            <a style="color:#1CA2E1; float:right; font-weight:normal;" onclick="if (!confirm('{$lang.confirm_remove_msg}')) return false;" href="{$msg.url}">{$lang.drop}</a>{$msg.msg_type}:{$msg.msg_title} - {$msg.msg_time} </p>
+            <p style="color:#999;"> {$msg.msg_content} </p>
+            <!--{if $msg.re_msg_content}-->
+            <table>
+              <tr>
+                <td> {$lang.shopman_reply}({$msg.re_msg_time})<br/>
+                  {$msg.re_msg_content} </td>
+              </tr>
+            </table>
+            <!--{/if}-->
+        </li>
+        <!--{/foreach}-->
+      </ul>
+    </div>
+{include file='library/page.lbi'}
+
+{else}
+<div class="user-account-detail" >
+	<div class="user-account-message">
+		目前还没有消息
+	</div>
+  <ul class="ect-bg-colorf" id="J_ItemList">
+    <li class="single_item"></li>
+    <a href="javascript:;" style="text-align:center" class="get_more"></a>
+  </ul>
+</div>
+{/if}
+
+</div>
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+{if empty($order_id)}
+<script type="text/javascript">
+get_asynclist('{:url("user/msg_list")}' , '__TPL__/images/loader.gif');
+</script>
+{/if}
+</body></html>

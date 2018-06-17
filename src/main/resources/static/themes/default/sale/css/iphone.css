@@ -1,0 +1,26 @@
+@media only screen and (max-width:310px) and (min-width:300px){html{font-size:8.33333px}.viewport{max-width:300px}}
+@media only screen and (max-width:320px) and (min-width:310px){html{font-size:8.88889px}.viewport{max-width:320px}}
+@media only screen and (max-width:360px) and (min-width:320px){html{font-size:8.88889px}.viewport{max-width:360px}}
+@media only screen and (max-width:360px) and (min-width:350px){html{font-size:10px}.viewport{max-width:360px}}
+@media only screen and (max-width:480px) and (min-width:360px){html{font-size:10px}.viewport{max-width:480px}}
+@media only screen and (max-width:480px) and (min-width:470px){html{font-size:13.33333px}.viewport{max-width:480px}}
+@media only screen and (max-width:560px) and (min-width:480px){html{font-size:13.33333px}.viewport{max-width:560px}}
+@media only screen and (max-width:570px) and (min-width:560px){html{font-size:15.83333px}.viewport{max-width:570px}}
+@media only screen and (max-width:640px) and (min-width:570px){html{font-size:15.83333px}.viewport{max-width:640px}}
+@media only screen and (max-width:640px) and (min-width:630px){html{font-size:17.77778px}.viewport{max-width:640px}}
+@media only screen and (max-width:710px) and (min-width:640px){html{font-size:17.77778px}.viewport{max-width:710px}}
+/*==============================================
+                 内部样式
+==================================================*/
+.box{max-width:100%; margin:0 auto;background-image:url("../images/1.jpg");background-repeat: no-repeat;background-color: #fff;background-size: 100% 100%;}
+.header-box{width:100%; background-color: rgba(0, 0, 0, 0.6);height:6.875rem;}
+.header-color{width:95%; margin:0 auto;}
+.logo img{width:5.375rem;height:5.375rem; border:2px solid #fff;margin-top:0.6rem;}
+.logo{width:24%;}
+.header-coltent{overflow: hidden;}
+.header-coltent li{float:left;}
+.rem img{width:5rem;height:5rem; padding-top:0.8rem;float:right;}
+.rem{width:30%;}
+.name{width:45.5%; margin-top:1.6rem;}
+.title{font-size:1.5rem;line-height:2rem; color:#fff;font-weight:bold;}
+.content{font-size:1rem;color:#fff;}

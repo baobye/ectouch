@@ -1,0 +1,26 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+	 <form action="{:url('sale/shop_config')}" method="post" id="formSub" enctype="multipart/form-data"  onsubmit="return submit_saleSet();">
+        <div class="set4_box"> <span class="set4_contentm">店铺名称:</span><span class="set4_content2">&nbsp;例：{:C('SHOP_NAME')}001微店</span> </div>
+        <div class="set4_box1">
+          <div class="set4_nav1"><input  type="text"  name="data[shop_name]" id="shop_name" placeholder="店名" value="{$drp_info.shop_name}"  class="set-4-input" /></div>
+        </div>
+        <br>
+        <div class="set4_box"> <b class="set4_contentm">真实姓名: </div></br>
+        <div class="set4_box2"><input  type="text"  name="data[real_name]" id="real_name" placeholder="姓名" value="{$drp_info.real_name}" class="set-4-input" /></div>
+
+        <div class="set4_box"> <b class="set4_contentm">手机号：</div></br>
+        <div class="set4_box2"><input  type="text"  name="data[shop_mobile]" id="shop_mobile" placeholder="手机号码" value="{$drp_info.shop_mobile}" class="set-4-input" /></div>
+
+        <div class="set4_box"> <b class="set4_contentm">QQ号：</div></br>
+    <div class="set4_box2"><input  type="text"  name="data[shop_qq]" id="shop_qq" placeholder="QQ号" value="{$drp_info.shop_qq}" class="set-4-input" /></div>
+
+        <div class="set4_box"> <b class="set4_contentm">店铺图片：</div></br>
+        <div class="set4_box2"><input type="file" name="shop_img" id="shop_img"></div>
+
+        <div class="t-a-center"><button type="submit" class="set-4-submit">{:L('now_edit')}</button></div>
+     </form>
+  </div>
+</div>
+</body>
+</html>

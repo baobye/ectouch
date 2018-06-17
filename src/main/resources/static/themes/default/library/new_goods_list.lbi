@@ -1,0 +1,41 @@
+<section class="product-sequence dis-box">
+	{if $order == 'ASC' && $sort == 'sort_order'}
+	<a class="box-flex a-change active" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'sort_order', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">综合<i class="iconfont icon-xiajiantou"></i></a>
+	{elseif $order == 'DESC' && $sort == 'sort_order'}
+	<a class="box-flex active" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'sort_order', 'order'=>'ASC', 'keywords'=>$this->_var['keywords']))}#goods_list">综合<i class="iconfont icon-xiajiantou"></i></a>
+	{else}
+	<a class="box-flex" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'sort_order', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">综合<i class="iconfont icon-xiajiantou"></i></a>
+	{/if}
+	<a class="box-flex {if $sort == 'last_update'}active{/if}" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'last_update', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">新品</a>
+	<a class="box-flex {if $sort == 'sales_volume'}active{/if}" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'sales_volume', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">销量</a>
+	{if $order == 'ASC' && $sort == 'shop_price'}
+	<a class="box-flex a-change active" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'shop_price', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">价格<i class="iconfont icon-xiajiantou"></i></a>
+	{elseif $order == 'DESC' && $sort == 'shop_price'}
+	<a class="box-flex active" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'shop_price', 'order'=>'ASC', 'keywords'=>$this->_var['keywords']))}#goods_list">价格<i class="iconfont icon-xiajiantou"></i></a>
+	{else}
+	<a class="box-flex" href="{:url('index', array('id'=>$this->_var['id'], 'display'=>$this->_var['display'], 'brand'=>$this->_var['brand'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>'shop_price', 'order'=>'DESC', 'keywords'=>$this->_var['keywords']))}#goods_list">价格<i class="iconfont icon-xiajiantou"></i></a>
+	{/if}
+	<a class="a-sequence j-a-sequence"><i class="iconfont icon-pailie" data="1"></i></a>
+</section>
+<section class="product-list j-product-list product-list-medium" data="1">
+<script id="j-product" type="text/html">
+	<ul id="j-product-box">
+		<%each list as vo%>
+		<li>
+			<div class="product-div">
+				<a class="product-div-link" href="<%vo.url%>"></a>
+				<img class="product-list-img" src="<%vo.goods_img%>" />
+				<div class="product-text">
+					<h4><%vo.goods_name%></h4>
+					<p class="dis-box p-t-remark"><span class="box-flex">库存：<%vo.goods_number%>{$category.measure_unit}</span><!--<span class="box-flex">销量：<%vo.goods_sales%>{$category.measure_unit}</span>--></p>
+					<p><span class="p-price t-first ">¥<%vo.shop_price%><small><del>¥<%vo.market_price%></del></small></span></p>
+					<a href="javascript:addCart(<%vo.goods_id%>)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+				</div>
+			</div>
+		</li>
+		<%/each%>
+	</ul>
+	</script>
+</section>
+
+

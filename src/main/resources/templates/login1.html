@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>浑河玫瑰</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+</head>
+
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>登录</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+            <ul class="ect-diaplay-box text-center">
+                <li class="ect-box-flex"><a href="/index.php?m=default&c=index&a=index&u=0"><i class="ect-icon ect-icon-home"></i>首页</a></li>
+                <li class="ect-box-flex"><a href="/index.php?m=default&c=category&a=top_all&u=0"><i class="ect-icon ect-icon-cate"></i>分类</a></li>
+                <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i>搜索</a></li>
+                <li class="ect-box-flex"><a href="/index.php?m=default&c=flow&a=cart&u=0"><i class="ect-icon ect-icon-flow"></i>购物车</a></li>
+                <li class="ect-box-flex"><a href="/index.php?m=default&c=user&a=index&u=0"><i class="ect-icon ect-icon-user"></i>个人中心</a></li>
+            </ul>
+        </nav>
+    </div>
+    <form name="formLogin" action="/login" method="post" class="">
+        <div class="flow-consignee ect-bg-colorf">
+            <section>
+                <ul>
+                    <li>
+                        <div class="input-text"><b>用户名：</b><span><input placeholder="手机" name="username" type="text"  class="inputBg" id="username" datatype="*" ></span></div>
+                    </li>
+
+                    <li>
+                        <div class="input-text"><b>密码：</b><span><input placeholder="密码"  name="password" type="password" class="inputBg" datatype="*6-16" /></span></div>
+                    </li>
+
+                    <li>
+                        <!-- <img alt="这是图片" src="/img/001.png"/> -->
+                        <div class="input-text" style="border:1px solid #a9ffaa;float:left;min-width:220px;_width:220px;padding:12px;white-space:nowrap"><b>验证码：</b><span><input placeholder="验证码" name="verifyCode" id="verifyCode" type="text" class="inputBg" datatype="*6-16" /></span></div>
+                        <img alt="验证码" onclick = "this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha" />
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <!--p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+            <input type="checkbox" value="1" name="remember" id="remember" class="l-checkbox" />
+            <label for="remember">记住本次登录。<i></i></label>
+
+        </p -->
+        <div class="ect-padding-lr ect-padding-tb">
+            <label><input type="checkbox" name="remember-me" value="true"/> 记住本次登录</label>
+            <input type="submit" class="btn btn-info ect-btn-info ect-bg" value="立即登陆" />
+        </div>
+    </form>
+    <p class="ect-padding-lr ect-margin-tb text-right ect-margin-bottom0" style="clear:both">
+        <a href="/index.php?m=default&c=user&a=get_password_phone&u=0">忘记密码</a>
+        <a href="/register">免费注册</a>
+    </p>
+    <!--div class="ect-padding-lr ect-margin-tb user-hezuo">
+        使用合作账号登录  	<p>
+        <a href="/index.php?m=default&c=user&a=third_login&type=qq&u=0"><img src="/themes/default/images/qq.png"></a>
+        <a href="/index.php?m=default&c=user&a=third_login&type=sina&u=0"><img src="/themes/default/images/weibo.png"></a>
+        <a href="/index.php?m=default&c=user&a=third_login&type=weixin&u=0"><img src="/themes/default/images/wechat.png"></a>
+    </p>
+    </div-->
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=0"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem --><body>
+<div id="box">
+   		  <div class="wdfd_content"><p class="wdfd_p">可提现金额（元）</p><h1 class="wdfd_h1">{$saleMoney_surplus}</h1>
+          <span class="wdyj_content">总佣金{$saleMoney}元</span>
+          </div>
+          <p class="time">可提现金额为交易成功后7天，且为可提现的金额</p>
+          
+             <div class="dpxq_border"></div>
+             <div class="dpgl_list3">
+                <div class="dpgl_list" id="dpg1_list1">
+                <i class="iconfont icon-jinbichongzhi"></i><a href="javascript:;" ><span class="dpgl_list2">未分成订单佣金</span><span class="wdyj_sum">{$sale_no_money_num}元
+                        <i class="iconfont icon-huise icon-jiantou2"> </i></span></a>
+                        
+                     <ul class="index_nav">     
+                        <li class="index_nav1"><span class="dpgl_list1">本店销售佣金</span><span class="wdyj_sum">{$sale_no_money}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+
+                        <li class="index_nav1"><span class="dpgl_list1">一级分店佣金</span><span class="wdyj_sum">{$sale_no_money1}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                         
+                        <li class="index_nav1"><span class="dpgl_list1">二级分店佣金</span><span class="wdyj_sum">{$sale_no_money2}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                    </ul> 
+                   
+                 </div>  
+                 <div class="dpxq_border"></div>
+                   <div class="dpgl_list" id="dpg1_list1">
+                   <i class="iconfont icon-jinbichongzhi"></i><a href="javascript:;" ><span class="dpgl_list2">已分成订单佣金</span><span class="wdyj_sum">{$sale_money_num}元<i class="iconfont icon-huise icon-jiantou2"></i></span></a>
+                     <ul class="index_nav">
+                        
+                         
+                        <li class="index_nav1"><span class="dpgl_list1">本店销售佣金</span><span class="wdyj_sum">{$sale_money}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                         
+                        <li class="index_nav1"><span class="dpgl_list1">一级分店佣金</span><span class="wdyj_sum">{$sale_money1}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                         
+                        <li class="index_nav1"><span class="dpgl_list1">二级分店佣金</span><span class="wdyj_sum">{$sale_money2}元&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                    </ul> 
+                 </div>
+              </div>
+               <div class="dpxq_border"></div>  
+             <div class="yhk_content2"><a href="{:url('sale/account_raply')}"><span class="yhk_content">申请提现</span></a></div>             
+          </div>
+             
+            
+    </div>
+</body>
+</html>

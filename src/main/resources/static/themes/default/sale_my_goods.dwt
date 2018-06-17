@@ -1,0 +1,30 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">   		  
+           <form action="{:url('sale/my_goods')}" method="post" id="my_goods">
+			<div class="dpgl_list">                                 
+				<span class="dpgl_list2">选择分销商品</span>
+			</div>           
+			<div class="set3_lista ect-radio">
+                <input  type="checkbox" id="checkAll" onClick="check_all()"/>
+                <label for="checkAll"  >全选<i></i></label>
+			</div>
+			
+			<div class="sp_box" style="margin-bottom: 7rem">
+			<!--{foreach from=$category item=li}-->
+				<div class="sp_box_div">
+					<div class="{if $li.is_select eq 1}sp_box2{else}sp_box1{/if} clear check" id="cate_{$li.cat_id}" onClick="select_cate('{$li.cat_id}')">
+						<input type="checkbox" name="cate[]" value="{$li.cat_id}" id="input_{$li.cat_id}" class="elecheck display-none" {if $li.is_select eq 1}checked="checked"{/if} />
+						<span class="sp_title">{$li.cat_name}</span>
+						<span>本店销售佣金：{$li.profit1}%</span>
+						<span>一级分店佣金：{$li.profit2}%</span>
+						<span>二级分店佣金：{$li.profit3}%</span>
+					</div> 
+				</div>
+			<!-- {/foreach} -->
+            </div>
+            <div class="set-div float">
+                <input type="button" value="{:L('submit')}" id="set_cate" class="set-div-button" onclick="set_my_goods()">
+            </div>
+			</form>
+</body>
+</html>

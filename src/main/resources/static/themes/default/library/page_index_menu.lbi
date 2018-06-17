@@ -1,0 +1,11 @@
+<ul>
+	<li class="fl index-footer-list"><a href="{:url('index/index')}"><i class="iconfont">&#xe621;</i><span>{$lang.home}</span></a></li>
+	<li class="fl index-footer-list"><a href="{:url('category/top_all')}"><i class="iconfont">&#xe627;</i><span>{$lang.category}</span></a></li>
+	<li class="fl index-footer-list"><a href="javascript:openSearch();"><i class="iconfont">&#xe617;</i><span>{$lang.search}</span></a></li>
+	<li class="fl index-footer-list"><a href="{:url('flow/cart')}"><i class="iconfont">&#xe626;</i><span>{$lang.shopping_cart}</span></a></li>
+	{if $is_drp}
+	<li class="fl index-footer-list"><a href="{:url('sale/index')}"><i class="iconfont">&#xe625;</i><span>微店管理</span></a></li>
+	{else}
+	<li class="fl index-footer-list"><a href="{:url('user/index')}"><i class="iconfont">&#xe625;</i><span>{$lang.user_center}</span></a></li>
+	{/if}	
+</ul>

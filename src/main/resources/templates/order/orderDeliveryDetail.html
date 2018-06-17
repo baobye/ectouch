@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>订单详情</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+</head>
+
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>订单详情</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <section class="user-order-detail" style="border-top:none;">
+        <div class="user-order">
+            <p>订单状态：<span>已确认 已付款 待发货</span></p>
+            <p>订单号：<span th:text="${orderInfo.orderCode}">2018052059818</span> <a href="/index.php?m=default&c=user&a=msg_list&order_id=2&u=2" type="button" class="btn btn-info" style="font-size:12px;padding:3px;">[发送/查看商家留言]</a></p>
+            <p>订单总金额：<span th:text="'￥'+${orderInfo.orderPriceTotal}+'元'">￥256.00元</span></p>
+            <p>下单时间：<span th:text="${orderInfo.insertDate}">2018-05-20 17:30:54</span></p>
+        </div>
+        <div class="ect-pro-list">
+            <ul>
+                <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank"><img src="/assets/images/no_picture.gif"></a>
+                    <dl>
+                        <dt>
+                            <h4 class="title"><a href="#" th:text="${orderMiddle.goodName}">洗衣机</a></h4>
+                        </dt>
+                        <dd class="dd-price"><b th:text="'本店售价：￥'+${orderMiddle.goodPrice}+'元 数量：'+${orderMiddle.num}">本店售价：￥123.00元 数量：2</b></dd>
+                        <!--dd class="dd-price"><b >小计：<span class="ect-colory">￥246.00元</span></b></dd-->
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+        <a class="btn btn-info ect-colorf ect-bg" th:href="@{'/order/delivery/'+${orderInfo.orderId}}" onclick="if (!confirm('你确认发货吗？')) return false;">确认发货</a>
+    </div>
+    <section class="order-detail-info ect-margin-tb" style="margin-bottom:0;">
+        <ul>
+            <li>收货人姓名：<b th:text="${address?.addName}">曹子龙</b></li>
+            <li>手机：<b th:text="${address?.phone}">18704071226</b></li>
+            <li>详细地址：<b th:text="${address?.address}">万景香樟树</b></li>
+
+            <li>最佳送货时间：<b></b></li>
+            <li class="text-right">
+                <p class="ect-margin-tb">
+                    商品总价：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥246.00元</b>
+                    - 折扣：<b class="ect-colory">￥0.00元 </b><br>
+                    + 配送费用:<b class="ect-colory">￥0.00元</b><br>
+                </p>
+                <p class="ect-margin-tb">
+                    - 余额付款: <b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥256.00元</b><br>
+                </p>
+                <!--p class="ect-margin-tb">应付款金额：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥0.00元</b><br> </p-->
+            </li>
+
+        </ul>
+    </section>
+    <section class="order-detail-info ect-margin-tb  ect-margin-bottom0">
+        <ul>
+            <li>所选支付方式：<b>余额支付</b></li>
+            <!--li>应付款金额：<b class="ect-colory">￥0.00元</b></li-->
+        </ul>
+    </section>
+    <section class="order-detail-info ect-margin-tb ect-margin-bottom0 user-bottom0">
+        <ul>
+            <li>运费金额：<b th:text="${orderInfo.logisticsFee}"></b></li>
+            <li>订单物流编号：<b th:text="${orderInfo.logisticsCode}"></b></li>
+            <li>支付方式：<b>余额支付</b></li>
+        </ul>
+    </section>
+    <!--footer class="logo"><a href="http://www.ectouch.cn" title="ECTouch官网" target="_blank"><img src="/themes/default/images/copyright.png" width="176" height="60"></a></footer-->
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>

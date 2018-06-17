@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>注册用户</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <link rel="stylesheet" href="./example.css"/>
+</head>
+
+<body>
+<div id="dialogs">
+    <!--BEGIN dialog2-->
+    <div class="js_dialog" id="iosDialog2" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__bd" id="iosText">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="iosHref" class="weui-dialog__btn weui-dialog__btn_primary">知道了</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>免费注册</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <div class="user-register">
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <form action="/register/saveUser" method="post" name="wapUser" id="wapUser" class="validforms">
+                    <input type="hidden" name="flag" id="flag" value="register" />
+                    <div class="flow-consignee ect-bg-colorf">
+                        <ul>
+                            <li>
+                                <div class="input-text"><b>上家手机：</b>
+                                    <span th:if="${user?.ztId > 0}">
+                                        <input placeholder="请输入上家手机" name="ztId" type="text" id="ztId" th:value="${user?.ztId}" readonly="readonly" datatype="*11-11" errormsg="上家手机号必须为11个字符" maxlength="11" />
+                                    </span>
+                                    <span th:if="${user?.ztId <= 0}">
+                                        <input placeholder="请输入上家手机" name="ztId" type="text" id="ztId" datatype="*11-11" errormsg="上家手机号必须为11个字符" maxlength="11"/>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>手机号：</b>
+                                    <span>
+                                        <input placeholder="请输入手机号" name="tel" type="text" id="tel" datatype="*11-11" errormsg="手机号必须为11个字符" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>本人姓名：</b>
+                                    <span>
+                                        <input placeholder="请输入本人姓名" name="name" type="text" id="name" datatype="*" errormsg="" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>微信号：</b>
+                                    <span>
+                                        <input placeholder="请输入本人微信号" name="wechat" type="text" id="wechat" datatype="*" errormsg="" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>身份证号：</b>
+                                    <span>
+                                        <input placeholder="请输入本人身份证号" name="idCard" type="text" id="idCard" datatype="*18-18" errormsg="身份证必须为18位字符" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>开户行：</b>
+                                    <span>
+                                        <input placeholder="请输入本人开户银行" name="bankName" type="text" id="bankName" datatype="*" errormsg="" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>银行卡号：</b>
+                                    <span>
+                                        <input placeholder="请输入本人银行卡号" name="bankCode" type="text" id="bankCode" datatype="*" errormsg="" />
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>密码：</b><span>
+                                    <input  placeholder="请输入登录密码" class="inputBg" name="password" id="password1" type="password" datatype="*6-16">
+                                    <input placeholder="请输入登录密码" class="inputBg" id="password_text" type="text" style="display:none;">
+                                    </span><i class="glyphicon glyphicon-eye-open" onClick="clickText();"></i>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="input-text"><b>确认密码：</b><span>
+                                    <input placeholder="确认密码" name="repassword" type="password" datatype="*" recheck="password">
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+                        <input id="agreement" name="agreement" type="checkbox" value="1" checked="checked" />
+                        <label for="agreement"> 我已看过并接受《<a href="#" style="color:blue" target="_blank">用户协议</a>》<i></i></label>
+                    </p>
+                    <div class="ect-padding-lr ect-padding-tb">
+                        <input name="act" type="hidden" value="act_register" />
+                        <input name="enabled_sms" type="hidden" value="0" />
+                        <input type="hidden" name="back_act" value="/index.php?m=default&c=index&a=index&u=0" />
+                        <button href="flow_consignee.html" name="Submit" type="button" class="btn btn-info ect-btn-info ect-colorf ect-bg" id="js_tooltips">下一步</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="search" style="display:none;">
+        <div class="ect-bg">
+            <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+        </div>
+        <div class="ect-padding-lr">
+            <form action="/index.php?m=default&c=category&a=index&u=0"  method="post" id="searchForm" name="searchForm">
+                <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                    <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+    <style>
+        #scrollUp {
+            border-radius:100%;
+            background-color: #777;
+            color: #eee;
+            font-size: 40px;
+            line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+            height: 46px;
+            border: none;
+            opacity: 0.6;
+        }
+    </style>
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+    <script type="text/javascript" src="/assets/js/common.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+    <script type="text/javascript" src="/assets/js/utils.js" ></script>
+    <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+    <script src="/themes/default/js/ectouch.js"></script>
+    <script src="/themes/default/js/simple-inheritance.min.js"></script>
+    <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+    <script type="text/javascript" src="/assets/js/validform.js" ></script>
+
+    <script type="text/javascript">
+
+        $(function() {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+            $('#js_tooltips').on('click', function() {
+                $.ajax({
+                    type: "POST",
+                    url: '/register/saveUser',
+                    data: $('#wapUser').serialize(),
+                    success: function (r) {
+                        if (r.error == 0) {
+                            $("#iosText").text(r.message);
+                            $('#iosDialog2').fadeIn(200);
+                        } else {
+                            $("#iosText").text(r.message);
+                            $('#iosDialog2').fadeIn(200);
+                            $('#iosHref').attr("href","/");
+                        }
+                    }
+                });
+            });
+        });
+        /*点击更换密码框为文本框*/
+        function clickText(){
+            if($("#password_text").is(":hidden")&&$("#password1").is(":visible")&&!$(".input-text .glyphicon-eye-open").hasClass("glyphicon-eye-close")){
+                var pwd = $("#password1").val();
+                $("#password1").hide();
+                $("#password_text").val(pwd).show();
+                $(".input-text .glyphicon-eye-open").addClass("glyphicon-eye-close");
+            }else{
+                var pwd_text = $("#password_text").val();
+                $("#password_text").hide();
+                $("#password1").val(pwd_text).show();;;
+                $(".input-text .glyphicon-eye-open").removeClass("glyphicon-eye-close");
+            }
+        }
+    </script>
+</body>
+</html>

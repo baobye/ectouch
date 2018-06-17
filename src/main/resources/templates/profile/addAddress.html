@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>新增地址</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script src="/themes/default/js/ectouch.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+    <script type="text/javascript" src="/assets/js/common.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+    <script type="text/javascript" src="/assets/js/utils.js" ></script>
+    <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+    <script src="/themes/default/js/ectouch.js"></script>
+    <script src="/themes/default/js/simple-inheritance.min.js"></script>
+    <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+    <script type="text/javascript" src="/assets/js/validform.js" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            var redioCount = 0;
+            if($("#ismr").attr("checked")=="checked")
+                redioCount=1;
+            $("input[type='radio']").click(function(){
+                if(redioCount == 1){
+                    if($("#ismr").attr("value") == 0;
+                    $(this).removeAttr("checked");
+                    redioCount=0;
+                }else {
+                    $(this).attr("checked","checked");
+                    if($("#ismr").attr("value") == 1;
+                    redioCount=1;
+                }
+            });
+
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>新增收货地址</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <form action="/profile/addAddress"  th:action="@{'/profile/addAddress/'+${type}}" method="post" name="theForm" onsubmit="return checkConsignee(this)">
+        <div class="ect-bg-colorf flow-consignee">
+            <ul class="o-info">
+                <li>
+                    <div class="input-text"><b class="pull-left">收货人姓名：</b>
+                        <span>
+                            <input name="addName" placeholder="收货人姓名必填" type="text" class="inputBg_touch" value="" />
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">手机：</b>
+                        <span>
+                            <input placeholder="手机必填" name="phone" type="text" class="inputBg_touch" value="" />
+                        </span>
+                    </div>
+                </li>
+
+                <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" style="">
+                    <ul class="ect-radio">
+                        <li>
+                            <input name="defaultAdd" type="radio" id="ismr" value="1" iscod="1" onclick="" style="vertical-align:middle">
+                            <label for="ismr">默认地址 [<span id="ECS_CODFEE">是否默认地址</span>]<i></i></label>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <li style="display:none">
+                    <div class="input-text"><b class="pull-left">城市/地区：</b><span>
+                        <select name="country" id="selCountries_" onchange="region.changed(this, 1, 'selProvinces_')">
+                            <option value="0">请选择</option>
+                            <option value="1" selected>中国</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">省/直辖市：</b><span>
+                        <select name="provinceId" id="selProvinces_" onchange="region.changed(this, 2, 'selCities_')">
+                            <option value="0">请选择</option>
+                            <option value="2" >北京</option>
+                            <option value="3" >安徽</option>
+                            <option value="4" >福建</option>
+                            <option value="5" >甘肃</option>
+                            <option value="6" >广东</option>
+                            <option value="7" >广西</option>
+                            <option value="8" >贵州</option>
+                            <option value="9" >海南</option>
+                            <option value="10" >河北</option>
+                            <option value="11" >河南</option>
+                            <option value="12" >黑龙江</option>
+                            <option value="13" >湖北</option>
+                            <option value="14" >湖南</option>
+                            <option value="15" >吉林</option>
+                            <option value="16" >江苏</option>
+                            <option value="17" >江西</option>
+                            <option value="18" >辽宁</option>
+                            <option value="19" >内蒙古</option>
+                            <option value="20" >宁夏</option>
+                            <option value="21" >青海</option>
+                            <option value="22" >山东</option>
+                            <option value="23" >山西</option>
+                            <option value="24" >陕西</option>
+                            <option value="25" >上海</option>
+                            <option value="26" >四川</option>
+                            <option value="27" >天津</option>
+                            <option value="28" >西藏</option>
+                            <option value="29" >新疆</option>
+                            <option value="30" >云南</option>
+                            <option value="31" >浙江</option>
+                            <option value="32" >重庆</option>
+                            <option value="33" >香港</option>
+                            <option value="34" >澳门</option>
+                            <option value="35" >台湾</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-text"><b class="pull-left">城市：</b><span>
+                        <select name="cityId" id="selCities_" onchange="region.changed(this, 3, 'selDistricts_')">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+                </li>
+                <li id="selDistricts__box" style="display:none">
+                    <div class="input-text"><b class="pull-left">区/县：</b><span>
+                        <select name="areaId" id="selDistricts_">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="input-text"><b class="pull-left">详细地址</b>
+                    <textarea name="address" placeholder="详细地址必填" type="text"></textarea>
+                </li>
+            </ul>
+        </div>
+        <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+            <input type="submit" name="submit"  class="btn btn-info ect-bg-colory" th:value="${button}"  value="新增收货地址"/>
+            <input name="address_id" type="hidden" value="" />
+        </div>
+    </form>
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=0"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+
+<script type="text/javascript" src="/assets/script/region.js"></script>
+<script type="text/javascript" src="/assets/js/shopping_flow.js"></script>
+<script type="text/javascript">
+    region.isAdmin = false;
+    var consignee_not_null = "收货人姓名不能为空！";
+    var country_not_null = "请您选择收货人所在国家！";
+    var province_not_null = "请您选择收货人所在省份！";
+    var city_not_null = "请您选择收货人所在城市！";
+    var district_not_null = "请您选择收货人所在区域！";
+    var invalid_email = "您输入的邮件地址不是一个合法的邮件地址。";
+    var address_not_null = "收货人的详细地址不能为空！";
+    var tele_not_null = "电话不能为空！";
+    var shipping_not_null = "请您选择配送方式！";
+    var payment_not_null = "请您选择支付方式！";
+    var goodsattr_style = "1";
+    var tele_invaild = "电话号码不有效的号码";
+    var zip_not_num = "邮政编码只能填写数字";
+    var mobile_invaild = "手机号码不是合法号码";
+    var mobile_not_null = "手机号码不能为空";
+
+    onload = function() {
+        if (!document.all)
+        {
+            document.forms['theForm'].reset();
+        }
+    }
+
+</script>
+</body></html>

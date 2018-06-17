@@ -1,0 +1,31 @@
+<!-- #BeginLibraryItem "/library/sale_header.lbi" --><!-- #EndLibraryItem -->
+<div id="box">
+   		  <div class="wdfd_nav">
+              <ul>
+                    <li class="wdfd_nav1"><a href="{:url('sale/my_shop_list',array('key'=>'1'))}">我的分店</a></li>
+                    <li class="wdfd_nav2"><a href="{:url('sale/my_shop_list',array('key'=>'2'))}">一级分店</a></li>
+                    <li class="wdfd_nav3"><a href="{:url('sale/my_shop_list',array('key'=>'3'))}">二级分店</a></li>
+              </ul>
+          </div>
+          <div class="wdfd_content"><p class="wdfd_p">总销售额（元）</p><h1 class="wdfd_h1">{$money}</h1></div>
+          <div class="wdfd_nav4">
+             <ul>
+                <li class="wdfd_nav5">我的分店数</li >
+                <li class="wdfd_nav6">累计会员数</li >
+                <li class="wdfd_nav7">累计订单数</li >
+                </ul>
+          </div>
+          <div class="wdfd_content1">
+                <ul>
+                    <li class="wdfd_sum1">{$shop_count}</h3></li>
+                    <li class="wdfd_sum2">{$user_count}</h3></li>
+                    <li class="wdfd_sum3">{$order_count}</h3></li>
+               </ul> 
+          </div>
+          <div class="wdfd_content10">
+          <div class="wdfd_content4"><a href="{:url('sale/my_shop_list',array('key'=>'1'))}"><span class="wdfd_content5">查看我的分店</span></a></div>
+          <div class="wdfd_content7"><a href="{:url('sale/my_user_list',array('key'=>'1'))}"><span class="wdfd_content6">查看本店会员</span></a></div>
+          </div>   
+    </div>
+</body>
+</html>

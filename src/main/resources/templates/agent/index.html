@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我的代理</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+</head>
+
+<body>
+<div class="con" >
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write">
+            <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a>
+            <span>我的代理</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune">
+            </a>
+        </header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html"></nav>
+    </div>
+    <!--
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
+        <tr align="center" class="first-tr">
+            <td>等级</td>
+            <td>人数</td>
+            <td>积分分成百分比</td>
+            <td>现金分成百分比</td>
+        </tr>
+        <tr align="center">
+            <td>1</td>
+            <td>0</td>
+            <td>60%</td>
+            <td>60%</td>
+        </tr>
+        <tr align="center">
+            <td>2</td>
+            <td>0</td>
+            <td>30%</td>
+            <td>30%</td>
+        </tr>
+        <tr align="center">
+            <td>3</td>
+            <td>0</td>
+            <td>7%</td>
+            <td>7%</td>
+        </tr>
+        <tr align="center">
+            <td>4</td>
+            <td>0</td>
+            <td>3%</td>
+            <td>3%</td>
+        </tr>
+    </table> -->
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
+        <tr align="center" class="first-tr">
+            <td bgcolor="#ffffff">手机号</td>
+            <td bgcolor="#ffffff">姓名</td>
+            <td bgcolor="#ffffff">注册日期</td>
+            <td bgcolor="#ffffff">微信号</td>
+            <td bgcolor="#ffffff">查看下级</td>
+        </tr>
+
+        <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
+        <tr  align="center" th:if="${list!=null}" th:each="register,registerStat:${list}" >
+            <td bgcolor="#ffffff" th:text="${register.tel}">手机号</td>
+            <td bgcolor="#ffffff" th:text="${register.name}">姓名</td>
+            <td bgcolor="#ffffff" th:text="${register.insertDate}">注册日期</td>
+            <td bgcolor="#ffffff" th:text="${register.wechat}">微信号</td>
+            <td bgcolor="#ffffff">
+                <a href="/register/activate" th:href="@{'/agent/index/'+${register.userId}}" onclick="" class="btn btn-default">查看下级</a>
+                <a href="/register/activate" th:if="${award != null}" th:href="@{'/agent/awardList/'+${register.userId}}" onclick="if (!confirm('您确定要发奖吗？')) return false;" class="btn btn-default">发奖</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
+        </span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>

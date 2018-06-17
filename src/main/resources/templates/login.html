@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>WeUI</title>
+		<link rel="stylesheet" href="css/weui.css" />
+		<link rel="stylesheet" href="css/example.css" />
+	</head>
+<STYLE TYPE="text/css">
+<!--
+BODY {background-image: url(/images/logo.png);
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;搜索}
+-->
+</STYLE>
+	<body ontouchstart>
+		<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+		<!--<div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+    </div>-->
+		
+		<div class="container" id="container"></div>
+		<form name="formLogin" action="/login" method="post" class="">
+			<div class="page__bd">
+				<div class="page__hd" >
+					<h1 class="page__title" style="text-align: left;">🌹瑰ME...</h1>
+					<p class="page__desc" style="text-align: center;">----------<a class="link" href="#gallery">您身边的美容专家</a></p>
+				</div>
+				<div class="weui-cells weui-cells_form">
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label" >账号:</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" placeholder="请输入账号"   name="username" />
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label" >密码:</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="password" placeholder="请输入密码" name="password" />
+						</div>
+						<div class="weui-cell__ft">
+							<i class="weui-icon-warn"></i>
+						</div>
+					</div>
+					 <div class="weui-cell weui-cell_vcode">
+					<div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" type="text" placeholder="请输入验证码" name="verifyCode" id="verifyCode" />
+					</div>
+					<div class="weui-cell__ft">
+						<img class="weui-vcode-img" onclick = "this.src='/defaultKaptcha?d='+new Date()*1" src="/defaultKaptcha" />
+					</div>
+				</div>
+
+				</div>
+
+				<label for="weuiAgree" class="weui-agree">
+				<input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"/>
+				<span class="weui-agree__text">
+					<阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+                    <!--label><input type="checkbox" name="remember-me" value="true"/> 记住本次登录</label-->
+				</span>
+			</label>
+				<div style="display: none">
+					<label><input type="checkbox" name="remember-me" value="true" checked="checked"/> 记住本次登录</label>
+				</div>
+				<div class="weui-btn-area">
+
+					<a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">登陆</a>
+					<a class="weui-btn weui-btn_primary" href="/register" id="showTooltips">注册</a>
+				</div>
+			</div>
+		</form>
+		<!--<div class="page__ft">
+			<a href="javascript:home()"><img src="img/icon_footer_link.png" /></a>
+		</div>-->
+		<!--div class="weui-footer weui-footer_fixed-bottom">
+            <p class="weui-footer__links">
+                <a href="javascript:home();" class="weui-footer__link">HHMG</a>
+            </p>
+            <p class="weui-footer__text">Copyright &copy; 2018-2028 weui.io</p>
+        </div-->
+		<script src="js/zepto.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var $tooltips = $('.js_tooltips');
+				$('#showTooltips').on('click', function() {
+					if($tooltips.css('display') != 'none') return;
+					document.forms[0].submit();
+					// toptips的fixed, 如果有`animation`, `position: fixed`不生效
+					/*
+					$('.page.cell').removeClass('slideIn');
+					$tooltips.css('display', 'block');
+					setTimeout(function() {
+						$tooltips.css('display', 'none');
+					}, 2000);
+					*/
+				});
+			});
+		</script>
+	</body>
+
+</html>

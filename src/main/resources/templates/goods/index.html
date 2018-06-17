@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
+    <title>商品列表</title>
+    <link rel="stylesheet" href="/themes/default/statics/fonts/iconfont.css">
+    <link rel="stylesheet" href="/themes/default/statics/css/swiper-3.2.5.min.css" />
+    <link rel="stylesheet" href="/themes/default/statics/css/jquery-ui-1.10.1.custom.min.css" />
+    <link rel="stylesheet" href="/themes/default/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+    <script src="/themes/default/js/ectouch.js"></script>
+</head>
+<body class="">
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>商品列表</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <div class="category">
+        <section class="product-list j-product-list product-list-medium" data="1">
+            <!-- ul id="j-product-box">
+
+                <li>
+                    <div class="product-div">
+                        <a class="product-div-link" href="/ectouch/index.php?m=default&amp;c=goods&amp;a=index&amp;id=1&amp;u=2"></a>
+                        <img class="product-list-img" src="http://127.0.0.1/ectouch/data/assets/images/201805/goods_img/1_G_1525583545933.jpg">
+                        <div class="product-text">
+                            <h4>电视</h4>
+                            <p class="dis-box p-t-remark"><span class="box-flex">库存：10000</span></p>
+                            <p><span class="p-price t-first ">¥11111<small><del>¥13333.19</del></small></span></p>
+                            <a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="product-div">
+                        <a class="product-div-link" href="/ectouch/index.php?m=default&amp;c=goods&amp;a=index&amp;id=2&amp;u=2"></a>
+                        <img class="product-list-img" src="/assets/images/no_picture.gif">
+                        <div class="product-text">
+                            <h4>洗衣机</h4>
+                            <p class="dis-box p-t-remark"><span class="box-flex">库存：12222</span></p>
+                            <p><span class="p-price t-first ">¥123<small><del>¥147.60</del></small></span></p>
+                            <a href="javascript:addCart(2)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+                        </div>
+                    </div>
+                </li>
+
+            </ul -->
+
+
+            <ul>
+                <li id="j-product-box" th:each="good,goodstat : ${list}">
+                    <div class="product-div">
+                        <a class="product-div-link" href="/goods/detail/12" th:href="@{'/goods/detail/'+${good?.goodId}}"></a>
+                        <img class="product-list-img" src="/assets/images/no_picture.gif">
+                        <div class="product-text">
+                            <h4 th:text="'商品名：'+${good.goodName}">电视</h4>
+                            <p>
+                                <span style="display:inline-block" class="p-price t-first " th:text="'花冠：'+${good?.aPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                                <span style="display:inline-block" class="p-price t-two " th:text="'花朵：'+${good?.bPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                                <span style="display:inline-block" class="p-price t-first " th:text="'花瓣：'+${good?.bPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                                <span style="display:inline-block" class="p-price t-two " th:text="'花蕾：'+${good?.bPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                                <span style="display:inline-block" class="p-price t-first " th:text="'花芽：'+${good?.bPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                                <span style="display:inline-block" class="p-price t-two " th:text="'花粉：'+${good?.bPrice}">¥11111<small><del>¥13333.19</del></small></span>
+                            </p>
+                            <a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+
+    </div>
+</div>
+<div id="j-filter-div" class="j-filter-div filter-div ts-5 c-filter-div">
+    <div class="mask-filter-div"></div>
+</div>
+<script type="text/javascript">
+    function formSubmit()
+    {
+        var brand = $("#brand-select .active input").val();
+        $(".brand_list_id").val(brand);
+        $('#filter').submit()
+    }
+
+</script>
+<script type="text/javascript">
+    function clear_filter(){
+        $(".touchweb-com_listType .range").text("全部");
+        $(".touchweb-com_listType input").each(function() {
+            if($(this).attr('class') != 'cat'){
+                $(this).val("");
+            }
+        });
+    }
+</script>		<div class="search-div j-search-div ts-3">
+    <section class="search">
+        <form action="/index.php?m=default&c=category&a=index&u=2&id=1" method="post">
+            <div class="text-all dis-box j-text-all">
+                <div class="box-flex input-text">
+                    <input class="j-input-text" type="text" name="keywords" placeholder="请输入搜索关键词！" />
+                    <i class="iconfont icon-guanbi is-null j-is-null"></i>
+                </div>
+                <button type="submit" class="btn-submit">搜索</button>
+            </div>
+        </form>
+    </section>
+    <section class="search-con">
+        <div class="swiper-scroll history-search">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <p>
+                        <label class="fl">热门搜索</label>
+                    </p>
+                    <ul class="hot-search a-text-more">
+                    </ul>
+                    <p class="hos-search">
+                        <label class="fl">最近搜索</label>
+                        <span class="fr" onclick="javascript:clearHistroy();"><i class="iconfont icon-xiao10"></i></span>
+                    </p>
+
+                    <ul class="hot-search a-text-more a-text-one" id="search_histroy">
+                    </ul>
+                </div>
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript">
+    //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    function clearHistroy(){
+        setCookie('ECS[keywords]', '', -1);
+        document.getElementById("search_histroy").style.visibility = "hidden";
+    }
+</script>
+</body>
+
+</html>

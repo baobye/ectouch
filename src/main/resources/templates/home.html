@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="Generator" content="ECTouch 2.2.30" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>会员中心</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/themes/default/css/member.css">
+    <link rel="stylesheet" type="text/css" href="/themes/default/css/search_index.css"/>
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/themes/default/fonts/iconfont.css">
+</head>
+<body>
+<div class="con" style="margin-bottom: 4rem;">
+    <div class="member-main">
+        <div class="member-photo">
+            <!--div class="member-photo-left fl" onclick="window.location = '#'">
+                <i class="iconfont">&#xe62e;</i>
+                <p> 0</p><span>收藏</span>
+            </div-->
+            <!--div class="member-photo-right fr" onclick="window.location = '#'">
+                <i class="iconfont">&#xe62d;</i>
+                <p> 0</p><span>消息</span>
+            </div-->
+            <div class="member-photo-img">
+                <a href="#">
+                    <img src="/assets/images/get_avatar.png" />
+                </a>
+            </div>
+            <div class="member-photo-name">
+                <p th:text="${wapUser.name}">baobye</p>
+                <span th:if="${wapUser.level eq 0}">您的等级是 公司 </span>
+                <span th:if="${wapUser.level eq 1}">您的等级是 花冠 </span>
+                <span th:if="${wapUser.level eq 2}">您的等级是 花朵 </span>
+                <span th:if="${wapUser.level eq 3}">您的等级是 花瓣 </span>
+                <span th:if="${wapUser.level eq 4}">您的等级是 花蕾 </span>
+                <span th:if="${wapUser.level eq 5}">您的等级是 花芽 </span>
+                <span th:if="${wapUser.level eq 6}">您的等级是 花粉 </span>
+            </div>
+            <div class="member-photo-address">
+                <a href="#"><span></span><i class="iconfont"></i></a>
+            </div>
+        </div>
+        <div class="member-order">
+            <div class="member-order-title" onclick="window.location = '/order/notShouHuo?page=1&size=5'">
+                <i class="iconfont fl icon-dingdan"> </i><span>我的订单</span><i class="iconfont fr icon-qianjin"></i><span class="tip">全部订单</span>
+            </div>
+            <ul class="member-order-list">
+
+                <li class="fl" id="goods">
+                    <span class="member-order-list-num" th:text="${totalCount}"> 34</span>
+                    <a href="/order/notShouHuo?page=1&size=5"><i class="iconfont icon-daishouhuosel"></i><span>待收货</span></a>
+                </li>
+                <!--li class="fl" id="comment">
+                    <span class="member-order-list-num"> 0</span>
+                    <a href="/index.php?m=default&c=user&a=order_comment&u=0"><i class="iconfont">&#xe619; </i><span>待评价</span></a>
+                </li-->
+                <li class="fl" id="payment">
+                    <span class="member-order-list-num" th:text="${lowerOrderCount}"> 0</span>
+                    <a href="/order/lowerOrder"><i class="iconfont icon-fahuo-"></i><span>发货</span></a>
+                </li>
+                <li class="fl" id="repick">
+                    <span class="member-order-list-num">12</span>
+                    <a href="member-serve1.htm"><i class="iconfont icon-tuihuanhuo"></i><span>退货</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="member-purse">
+            <div class="member-purse-title" onclick="window.location = 'money/index?page=1&size=5';">
+                <i class="iconfont fl icon-ai-wallet"></i><span>我的钱包</span><i class="iconfont fr icon-qianjin"></i><span class="tip">资金管理</span>
+            </div>
+            <ul class="member-purse-list">
+                <li class="fl"><span th:text="${wapUser.dzb}"> 0.00</span>
+                    <p>余额</p>
+                </li>
+                <!--a href="/index.php?m=default&c=user&a=bonus&u=0">
+                    <li class="fl"><span> 0</span>
+                        <p>红包</p>
+                    </li>
+                </a -->
+                <li class="fl"><span th:text="${wapUser.jifen}"> 0</span>
+                    <p>积分</p>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix">
+        </div>
+        <div class="member-serve">
+            <ul>
+
+                <li onclick="window.location = '/agent/index/0'"><i class="iconfont fl icon-dailishang"></i><p class="fl">我的代理</p><i class="iconfont fr icon-qianjin"></i></li>
+
+                <li onclick="window.location = '/share/index'"><i class="iconfont fl icon-msnui-active"></i><p class="fl">会员激活</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = '/buyOut/index';"><i class="iconfont fl icon-xunjianchulirenyuan"></i><p class="fl">买断</p><i class="iconfont fr icon-qianjin"></i></li>
+
+                <!--
+                <li onclick="window.location = '/index.php?m=default&c=user&a=share&u=0'"><i class="iconfont fl member-serve-li-ti">&#xe61e;</i><p class="fl">我的分享</p><i class="iconfont fr icon-qianjin"></i></li>
+                -->
+                <li onclick="window.location = '/share/barcode'" style="border-bottom:none"><i class="iconfont icon-fenxiang fl "></i><p class="fl">分享二维码</p><i class="iconfont fr icon-qianjin"></i></li>
+
+                <li  style="border-bottom:none" class="qr-btn" node-type="qr-btn"><i class="iconfont fl icon-iconfonterweima"></i><p class="fl">扫描商品</p><input node-type="jsbridge" style="visibility: hidden;" type="file" name="myPhoto" value="扫描二维码" /></li>
+                <li onclick="window.location = '/share/loa'" style="border-bottom:none"><i class="iconfont fl icon-5"></i><p class="fl">授权证书</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = '/profile/index'" style="border-bottom:none"><i class="iconfont fl icon-zhanghuguanli"></i><p class="fl">账户管理</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = '/profile/addressList'" style="border-bottom:none"><i class="iconfont fl icon-shouhuodizhi"></i><p class="fl">收货地址</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = '/profile/password'" style="border-bottom:none"><i class="iconfont fl icon-xiugai07"></i><p class="fl">修改密码</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = '/login?logout=true'" style="border-bottom:none"><i class="iconfont fl icon-icon_logout"></i><p class="fl">注销登录</p><i class="iconfont fr icon-qianjin"></i></li>
+
+            </ul>
+        </div>
+    </div>
+    <footer class="member-footer">
+        <ul>
+            <li class="fl member-footer-list btn">
+                <a href="/homepage"><i class="iconfont icon-shouye"></i><span>首 页</span></a>
+            </li>
+
+            <li class="fl member-footer-list btn">
+                <a href="/storage/index"><i class="iconfont icon-cailiaokufang"></i><span>云库房</span></a>
+            </li>
+            <li class="fl member-footer-list btn">
+                <a href="/goods/index"><i class="iconfont icon-shangpinziliao"></i><span>商品</span></a>
+            </li>
+            <li class="fl member-footer-list btn">
+                <a href="/cart"><i class="iconfont icon-gouwucheman"></i><span>购物车</span></a>
+            </li>
+            <li class="fl member-footer-list btn">
+                <a href="/"><i class="iconfont icon-wo"></i><span>我</span></a>
+            </li>
+        </ul>
+    </footer>
+</div>
+<div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" class="herder-close" onClick="closeSearch();">×</a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="/index.php?m=default&c=category&a=index&u=0"  method="post" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+			<input name="keywords" type="search" placeholder="请输入搜索关键词！" autofocus="autofocus" id="keywordBox">
+			</span>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="iconfont">&#xe617;</i></button>
+            </div>
+        </form>
+    </div>
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
+<script src="/themes/default/js/ectouch.js"></script>
+<script src="/themes/default/js/simple-inheritance.min.js"></script>
+<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
+<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script src="/js/zepto.js"></script>
+<script src="/js/qrcode.lib.min.js"></script>
+<script src="/js/qrcode.js"></script>
+<script language="javascript">
+    //初始化扫描二维码按钮，传入自定义的 node-type 属性
+    $(function() {
+        Qrcode.init($('[node-type=qr-btn]'));
+    });
+    /*banner滚动图片*/
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        loop: true,
+        autoplay : 2000
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+</script>
+</body>
+</html>
