@@ -103,6 +103,12 @@ public class ProfileController {
         userMapper.save(user);
         return "redirect:/";
     }
+
+    /**
+     * 地址列表
+     * @param model
+     * @return
+     */
     @GetMapping("/profile/addressList")
     public String addressList(Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -123,6 +129,13 @@ public class ProfileController {
         model.addAttribute("list",l);
         return "profile/addressList";
     }
+
+    /**
+     * 修改地址
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/profile/update{id}")
     public String updateAdd(@PathVariable String id,Model model){
 

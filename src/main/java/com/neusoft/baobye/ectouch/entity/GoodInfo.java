@@ -1,7 +1,14 @@
 package com.neusoft.baobye.ectouch.entity;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class GoodInfo {
@@ -25,6 +32,15 @@ public class GoodInfo {
     private double dPrice;
     private double ePrice;
     private double fPrice;
+
+    /**
+     * 一对多 与  图片表的parentid做关联
+     */
+    @OneToMany(mappedBy = "parentid")
+    @Where(clause="type=1")
+    private Set<TbPictures> pictures = new HashSet<TbPictures>();
+
+
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
@@ -164,5 +180,13 @@ public class GoodInfo {
 
     public void setfPrice(double fPrice) {
         this.fPrice = fPrice;
+    }
+
+    public Set<TbPictures> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(Set<TbPictures> pictures) {
+        this.pictures = pictures;
     }
 }

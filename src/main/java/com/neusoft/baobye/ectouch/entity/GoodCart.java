@@ -1,8 +1,10 @@
 package com.neusoft.baobye.ectouch.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class GoodCart {
@@ -15,6 +17,8 @@ public class GoodCart {
     private String goodsName;
     private double goodsPrice;
     private int goodsNumber;
+
+    private String path;
 
     public Long getRecId() {
         return recId;
@@ -62,5 +66,17 @@ public class GoodCart {
 
     public void setGoodsNumber(int goodsNumber) {
         this.goodsNumber = goodsNumber;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

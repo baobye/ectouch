@@ -48,10 +48,11 @@ public class GoodsController {
 
     final IdGenerator idg = IdGenerator.INSTANCE;
     @RequestMapping("/goods/index")
-    public String index(Model model){
+    public String index(@Value("${hhmg.server}") String server,Model model){
         //查询所有商品
         List<GoodInfo> goodInfoList = goodInfoMapper.findAll();
         model.addAttribute("list",goodInfoList);
+        model.addAttribute("server",server);
         return "goods/index";
     }
 
@@ -62,7 +63,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/goods/detail/{id}")
-    public String detail(@PathVariable long id,Model model){
+    public String detail(@Value("${hhmg.server}") String server,@PathVariable long id,Model model){
         //购物车数量
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
@@ -74,6 +75,7 @@ public class GoodsController {
         GoodInfo goodInfo = goodInfoMapper.findByGoodId(id);
         model.addAttribute("goodInfo",goodInfo);
         model.addAttribute("user",user);
+        model.addAttribute("server",server);
         if(list != null && list.size() >0){
             double totalNumber = 0.0;
             if(list != null && list.size() >0){
@@ -113,12 +115,18 @@ public class GoodsController {
             //先判断这个商品购物车中有没有
 
             GoodCart goodCart = goodCartMapper.findByUserIdAndGoodsId(user.getUserId(),(long)goodId);
+            List<TbPictures> list = new ArrayList(goodInfo.getPictures());
+            String path = "";
+            if(list != null && list.size()>0){
+                path = list.get(0).getPath();
+            }
             if(goodCart == null){
                 GoodCart cart = new GoodCart();
                 cart.setGoodsId(goodId);
                 cart.setGoodsName(goodInfo.getGoodName());
                 cart.setGoodsNumber(Integer.parseInt((String)map.get("number")));
                 cart.setUserId(user.getUserId());
+                cart.setPath(path);
                 if(user.getStatus() == 2){
                     cart.setGoodsPrice(goodInfo.getaPrice());
                 }
@@ -138,12 +146,22 @@ public class GoodsController {
                 }
                 goodCartMapper.save(cart);
                 int number = Integer.parseInt((String)map.get("number"));
-                map.put("cart_number",number);
+                double totalNumber = 0;
             }else{
+
                 int number = goodCart.getGoodsNumber()+Integer.parseInt((String)map.get("number"));
                 goodCart.setGoodsNumber(number);
                 goodCartMapper.save(goodCart);
-                map.put("cart_number",number);
+            }
+            //这是现在是单个商品的个数  要返回所有商品的个数
+            double totalNumber = 0;
+            List<GoodCart> carts= goodCartMapper.findAllByUserId(user.getUserId());
+            if(carts != null && carts.size() >0){
+                for(GoodCart cart : carts){
+                    double sum = HighPreciseComputor.mul(cart.getGoodsNumber(),cart.getGoodsPrice());
+                    totalNumber =HighPreciseComputor.add(totalNumber,cart.getGoodsNumber());
+                }
+                map.put("cart_number",totalNumber);
             }
         }
         map.put("error",0);
@@ -177,7 +195,7 @@ public class GoodsController {
          */
         if(goodCartList != null && goodCartList.size() >0){
             double subtotal = 0.0;
-            double totalNumber = 0.0;
+            double totalNumber = 0;
 
 
             if(user.getStatus() == 2){//代表新用户购买。
@@ -361,7 +379,7 @@ public class GoodsController {
      */
     @RequestMapping("/goods/done")
     @Transactional
-    public String done(OrderInfo orderInfo, Model model,String listString,int level){
+    public String done(OrderInfo orderInfo, Model model,String listString,String level){
 
         //用户信息
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -406,7 +424,7 @@ public class GoodsController {
                 orderMiddle.setType(0);
                 orderMiddle.setOrderMiddleId(System.currentTimeMillis());
                 orderMiddle.setOrderId(orderInfo.getOrderId());
-                orderMiddle.setUserLevel(level);
+                orderMiddle.setUserLevel(Integer.parseInt(level));
                 orderMiddleMapper.save(orderMiddle);
 
             }
@@ -426,7 +444,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/cart")
-    public String cart(Model model){
+    public String cart(@Value("${hhmg.server}") String server,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
         WapUser user  = userMapper.findByUsername(name);
@@ -445,19 +463,26 @@ public class GoodsController {
             model.addAttribute("total_desc",subtotal);
 
             model.addAttribute("list",list);
+            model.addAttribute("server",server);
             return "goods/cartList";
         }
         return "goods/cart";
     }
 
+    /**
+     * 更新购物车个数
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/cart/ajaxUpdateCart")
     public Map ajaxUpdateCart(HttpServletRequest request){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
+        //购物车记录数
         List<GoodCart> list= goodCartMapper.findAllByUserId(user.getUserId());
         double subtotal = 0.0;
-        double totalNumber = 0.0;
+        double totalNumber = 0;
         String  number = (String) request.getParameter("goods_number");
         String  recId = (String) request.getParameter("rec_id");
         GoodCart cart = goodCartMapper.findByRecId(Long.parseLong(recId));
