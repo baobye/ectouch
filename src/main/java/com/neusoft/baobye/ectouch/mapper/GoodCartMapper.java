@@ -4,7 +4,6 @@ import com.neusoft.baobye.ectouch.entity.GoodCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GoodCartMapper extends JpaRepository<GoodCart,Long> {
 

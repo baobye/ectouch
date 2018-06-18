@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>库房管理</title>
+    <title>出库记录</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
     <link rel="stylesheet" href="/themes/default/css/style.css">
@@ -20,33 +20,33 @@
         </nav>
     </div>
     <ul class="nav nav-tabs account" role="tablist">
-        <li class="active"><a href="/money/index" >库房明细</a></li>
-        <li><a href="/money/record?page=1&size=5" >申请记录</a></li>
-        <li><a href="/storage/leave/type/2/assetsType/1" >出库记录</a></li>
+        <li><a href="/assets/index">库房明细</a></li>
+        <li><a href="/money/record?page=1&size=5" >出库</a></li>
+        <li class="active"><a href="/storage/leave/type/2/assetsType/1" >出库记录</a></li>
         <li><a href="/storage/enter/type/1/assetsType/1" >入库记录</a></li>
     </ul>
 
-    <div class="user-account-detail">
-        <ul class=" ect-bg-colorf">
-        </ul>
-        <p class="pull-right count" style="background-color: bisque;">您当前的可用资金为：<b class="ect-colory">￥0.00元</b></p>
-    </div>
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
+        <tr align="center" class="first-tr">
+            <td bgcolor="#ffffff">订单编号</td>
+            <td bgcolor="#ffffff">申请人</td>
+            <td bgcolor="#ffffff">申请日期</td>
+            <td bgcolor="#ffffff">申请状态</td>
+            <td bgcolor="#ffffff">申请类型</td>
+        </tr>
+        <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
+        <tr  align="center" th:if="${list!=null}" th:each="storage,storageStat:${list}" >
+            <td bgcolor="#ffffff" th:text="${storage.orderId}"></td>
+            <td bgcolor="#ffffff" th:text="${storage.applySysId}"></td>
+            <td bgcolor="#ffffff" th:text="${storage.applyDate}"></td>
+            <td bgcolor="#ffffff" th:if="${storage.status == 0}">未处理</td>
+            <td bgcolor="#ffffff" th:if="${storage.status == 1}">已通过</td>
+            <td bgcolor="#ffffff" th:if="${storage.status == 2}">驳回</td>
+            <td bgcolor="#ffffff">出库</td>
+        </tr>
+    </table>
 </div>
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
 
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -72,27 +72,6 @@
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
-<script language="javascript">
-    /*banner滚动图片*/
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 1,
-        loop: true,
-        autoplay : 2000
-    });
-    /*弹出评论层并隐藏其他层*/
-    function openSearch(){
-        if($(".con").is(":visible")){
-            $(".con").hide();
-            $(".search").show();
-        }
-    }
-    function closeSearch(){
-        if($(".con").is(":hidden")){
-            $(".con").show();
-            $(".search").hide();
-        }
-    }
-</script>
+
 </body>
 </html>

@@ -2,6 +2,10 @@ package com.neusoft.baobye.ectouch.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Assets {
@@ -42,6 +46,29 @@ public class Assets {
      * 生产日期
      */
     private String startDate;
+
+    /**
+     * 过期日期
+     */
+    private String endDate;
+
+    /**
+     * 报警日期
+     */
+    private String alarmDate;
+
+    /**
+     * 仓库具体信息对应的表ID  一般对应区域
+     */
+    private Long roomId;
+
+    /**
+     * 对应的出入库申请记录ID
+     */
+    private Long storageId;
+
+    @OneToMany(mappedBy = "goodId")
+    private Set<GoodInfo> goodInfoSet = new HashSet<GoodInfo>();
 
 
     public Long getAssetsId() {
@@ -114,5 +141,45 @@ public class Assets {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public Set<GoodInfo> getGoodInfoSet() {
+        return goodInfoSet;
+    }
+
+    public void setGoodInfoSet(Set<GoodInfo> goodInfoSet) {
+        this.goodInfoSet = goodInfoSet;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getAlarmDate() {
+        return alarmDate;
+    }
+
+    public void setAlarmDate(String alarmDate) {
+        this.alarmDate = alarmDate;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public Long getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(Long storageId) {
+        this.storageId = storageId;
     }
 }

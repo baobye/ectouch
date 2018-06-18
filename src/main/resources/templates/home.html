@@ -62,10 +62,10 @@
                     <span class="member-order-list-num" th:text="${lowerOrderCount}"> 0</span>
                     <a href="/order/lowerOrder"><i class="iconfont icon-fahuo-"></i><span>发货</span></a>
                 </li>
-                <li class="fl" id="repick">
+                <!--li class="fl" id="repick">
                     <span class="member-order-list-num">12</span>
                     <a href="member-serve1.htm"><i class="iconfont icon-tuihuanhuo"></i><span>退货</span></a>
-                </li>
+                </li-->
             </ul>
         </div>
         <div class="member-purse">
@@ -101,7 +101,7 @@
                 -->
                 <li onclick="window.location = '/share/barcode'" style="border-bottom:none"><i class="iconfont icon-fenxiang fl "></i><p class="fl">分享二维码</p><i class="iconfont fr icon-qianjin"></i></li>
 
-                <li  style="border-bottom:none" class="qr-btn" node-type="qr-btn"><i class="iconfont fl icon-iconfonterweima"></i><p class="fl">扫描商品</p><input node-type="jsbridge" style="visibility: hidden;" type="file" name="myPhoto" value="扫描二维码" /></li>
+                <li  style="border-bottom:none" class="qr-btn" node-type="qr-btn"><i class="iconfont fl icon-iconfonterweima"></i><p class="fl">扫描二维码(注册，商品)</p><input node-type="jsbridge" style="visibility: hidden;" type="file" name="myPhoto" value="扫描二维码" /></li>
                 <li onclick="window.location = '/share/loa'" style="border-bottom:none"><i class="iconfont fl icon-5"></i><p class="fl">授权证书</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/index'" style="border-bottom:none"><i class="iconfont fl icon-zhanghuguanli"></i><p class="fl">账户管理</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/addressList'" style="border-bottom:none"><i class="iconfont fl icon-shouhuodizhi"></i><p class="fl">收货地址</p><i class="iconfont fr icon-qianjin"></i></li>
@@ -118,7 +118,7 @@
             </li>
 
             <li class="fl member-footer-list btn">
-                <a href="/storage/index"><i class="iconfont icon-cailiaokufang"></i><span>云库房</span></a>
+                <a href="/assets/index"><i class="iconfont icon-cailiaokufang"></i><span>云库房</span></a>
             </li>
             <li class="fl member-footer-list btn">
                 <a href="/goods/index"><i class="iconfont icon-shangpinziliao"></i><span>商品</span></a>

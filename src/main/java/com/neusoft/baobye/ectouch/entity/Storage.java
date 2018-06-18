@@ -12,24 +12,54 @@ public class Storage {
     @Id
     private Long storageId;
 
+    /**
+     *  1  入库申请  2 出库申请
+     */
     private int type;
 
+    /**
+     * 原因 1正常出入库   2退货   3换货  4损耗 5其他
+     */
     private int reasonType;
 
+    /**
+     * 除了入库，全部与订单关联，必填
+     */
     private Long orderId;
 
+    /**
+     * 申请人
+     */
     private Long applySysId;
 
+    /**
+     * 申请日期
+     */
     private String applyDate;
 
+    /**
+     * 处理人
+     */
     private int handleSysId;
 
+    /**
+     * 处理日期
+     */
     private String handleDate;
 
+    /**
+     * 0实体库房 1云库房
+     */
     private int assetsType;
 
+    /**
+     * 申请状态  0未处理  1已通过  2驳回
+     */
     private int status;
 
+    /**
+     * 删除状态 0正常 1删除
+     */
     private int isDel;
 
     @OneToMany(mappedBy = "storageId")

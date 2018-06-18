@@ -10,53 +10,55 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script type="text/javascript" src="/themes/default/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript">
+        $(function () {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+        });
+        function deleteCart(id){
+            // if (confirm('您确实要把该商品移出购物车吗？')){
+            //     location.href='/cart/delete/'+id
+            // }
+            $('#deleteCard').attr('href','/register/activate/'+id);
+            var $iosDialog1 = $('#iosDialog1');
+            $iosDialog1.fadeIn(200);
+        }
+
+    </script>
 </head>
 
 <body>
+<!--BEGIN dialog1-->
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认激活？</strong></div>
+            <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
 <div class="con" >
     <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>我的分享</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>我的分享</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
 
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <!--
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr align="center" class="first-tr">
-            <td>等级</td>
-            <td>人数</td>
-            <td>积分分成百分比</td>
-            <td>现金分成百分比</td>
-        </tr>
-        <tr align="center">
-            <td>1</td>
-            <td>0</td>
-            <td>60%</td>
-            <td>60%</td>
-        </tr>
-        <tr align="center">
-            <td>2</td>
-            <td>0</td>
-            <td>30%</td>
-            <td>30%</td>
-        </tr>
-        <tr align="center">
-            <td>3</td>
-            <td>0</td>
-            <td>7%</td>
-            <td>7%</td>
-        </tr>
-        <tr align="center">
-            <td>4</td>
-            <td>0</td>
-            <td>3%</td>
-            <td>3%</td>
-        </tr>
-    </table> -->
     <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
         <tr align="center" class="first-tr">
             <td bgcolor="#ffffff">手机号</td>
-            <td bgcolor="#ffffff">姓名</td>
+            <td bgcolor="#ffffff">生产日期</td>
             <td bgcolor="#ffffff">注册日期</td>
             <td bgcolor="#ffffff">微信号</td>
             <td bgcolor="#ffffff">处理</td>
@@ -68,41 +70,12 @@
             <td bgcolor="#ffffff" th:text="${register.name}">姓名</td>
             <td bgcolor="#ffffff" th:text="${register.insertDate}">注册日期</td>
             <td bgcolor="#ffffff" th:text="${register.wechat}">微信号</td>
-            <td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${register.userId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
+            <td bgcolor="#ffffff"><a href="#"  th:onclick="'javascript:deleteCart(\''+${register.userId}+'\');'" class="btn btn-default">激活</a></td>
         </tr>
     </table>
-    <!--table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr>
-            <td style="text-align:center;"><img src="" th:src="${imgurl}"></td>
-        </tr>
-        <tr>
-            <td >
-                <div class="bdsharebuttonbox" data-tag="share_1" style="width:12em;margin:0 auto;">
-                    <a class="bds_qzone" data-cmd="qzone" href="#"></a>
-                    <a class="bds_tsina" data-cmd="tsina"></a>
-                    <a class="bds_bdhome" data-cmd="bdhome"></a>
-                    <a class="bds_renren" data-cmd="renren"></a>
-                </div>
-            </td>
-        </tr>
-    </table-->
 </div>
 
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
 
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -122,31 +95,9 @@
 <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js" ></script>
 <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
-<script src="/themes/default/js/ectouch.js"></script>
 <script src="/themes/default/js/simple-inheritance.min.js"></script>
 <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
-<script language="javascript">
-    /*banner滚动图片*/
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 1,
-        loop: true,
-        autoplay : 2000
-    });
-    /*弹出评论层并隐藏其他层*/
-    function openSearch(){
-        if($(".con").is(":visible")){
-            $(".con").hide();
-            $(".search").show();
-        }
-    }
-    function closeSearch(){
-        if($(".con").is(":hidden")){
-            $(".con").show();
-            $(".search").hide();
-        }
-    }
-</script>
+

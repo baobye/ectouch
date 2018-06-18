@@ -109,6 +109,13 @@ public class RegisterController {
         map.put("message","注册失败请重试");
         return map;
     }
+
+    /**
+     * 激活用户提交到公司
+     * @param model
+     * @param userId
+     * @return
+     */
     @RequestMapping("/register/activate/{userId}")
     @Transactional
     public String activate(Model model,@PathVariable long userId){
