@@ -51,6 +51,7 @@ public class BuyOutController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String userList =  map.get("userList");
         model.addAttribute("list","");
         System.out.println("响应结果：" + body);
         return "buyout/index";
