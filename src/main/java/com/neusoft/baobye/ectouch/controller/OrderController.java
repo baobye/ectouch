@@ -157,5 +157,23 @@ public class OrderController {
         model.addAttribute("pages",pageObject.getTotalPages());//总页数
         return "order/lowerOrder";
     }
-
+    /**
+     * 确认收货
+     * @param orderId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/receive/{orderId}")
+    public String receive(@Value("${hhmg.server}") String url, @PathVariable long orderId, Model model){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("ORDER_ID", ""+orderId);//订单编号
+        String body = null;
+        try {
+            body = HttpClientUtil.sendPostDataByMap(url+"/wapImpl/receive", map, "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("响应结果：" + body);
+        return "redirect:/";
+    }
 }

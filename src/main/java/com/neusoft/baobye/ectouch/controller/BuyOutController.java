@@ -26,6 +26,13 @@ public class BuyOutController {
     private WapUserMapper userMapper;
     @Autowired
     private ObjectMapper objectMapper;
+
+    /**
+     * 买断用户列表
+     * @param url
+     * @param model
+     * @return
+     */
     @RequestMapping("/index")
     public String index(@Value("${hhmg.server.buyOutList}") String url , Model model){
 

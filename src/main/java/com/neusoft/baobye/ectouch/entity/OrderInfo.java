@@ -13,6 +13,9 @@ public class OrderInfo {
 
     private Long userId;
 
+    /**
+     * 0 未付款 ，1已付款 ，2已发货  3已签收  4换货申请中， 5换货处理中 6 取消交易
+     */
     private int status;
 
     private double goodPriceTotal;
