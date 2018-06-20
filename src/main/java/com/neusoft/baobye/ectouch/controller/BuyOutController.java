@@ -79,6 +79,13 @@ public class BuyOutController {
     }
 
 
+    /**
+     * 买断
+     * @param userId
+     * @param url
+     * @param model
+     * @return
+     */
     @RequestMapping("/buyOut/{userId}")
     public String buyOut(@PathVariable Long userId, @Value("${hhmg.server.buyOut}") String url , Model model){
 
