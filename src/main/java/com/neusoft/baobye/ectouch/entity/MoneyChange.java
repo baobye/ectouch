@@ -13,10 +13,10 @@ public class MoneyChange {
     private int reasonType;
     private Long userId;
     private Long toUserId;
-    private double oneMoney;
-    private double realMoney;
-    private double sumMoney;
-    private double sxf;
+    private Double oneMoney;
+    private Double realMoney;
+    private Double sumMoney;
+    private Double sxf;
     private String insertDate;
     private String upateDate;
     private int status;
