@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -75,5 +76,27 @@ public class BuyOutController {
         model.addAttribute("list",listWap);
         System.out.println("响应结果：" + body);
         return "buyout/index";
+    }
+
+
+    @RequestMapping("/buyOut/{userId}")
+    public String buyOut(@PathVariable Long userId, @Value("${hhmg.server.buyOut}") String url , Model model){
+
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        WapUser user = userMapper.findByUsername(name);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("OUT_USER_ID", ""+userId);//被买断人
+        map.put("MD_USER_ID", ""+user.getUserId());//买断人
+        String body = null;
+        List<WapUser> listWap = new ArrayList<WapUser>();
+        try {
+            body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("list",listWap);
+        System.out.println("响应结果：" + body);
+        return "redirect:/buyOut/index";
     }
 }

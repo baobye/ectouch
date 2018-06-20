@@ -10,10 +10,46 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript">
+        $(function () {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+        });
+        function deleteCart(id){
+            // if (confirm('您确实要把该商品移出购物车吗？')){
+            //     location.href='/cart/delete/'+id
+            // }
+            $('#deleteCard').attr('href','/buyOut/buyOut/'+id);
+            var $iosDialog1 = $('#iosDialog1');
+            $iosDialog1.fadeIn(200);
+        }
+
+    </script>
 </head>
 
 <body>
+
 <div class="con" >
+    <!--BEGIN dialog1-->
+    <div id="dialogs">
+        <div class="js_dialog" id="iosDialog1" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认买断？</strong></div>
+                <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END dialog1-->
     <div class="ect-bg">
         <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>买断列表</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
 
@@ -35,7 +71,7 @@
             <td bgcolor="#ffffff" th:text="${wap.name}">姓名</td>
             <td bgcolor="#ffffff" th:text="${wap.level}">注册日期</td>
             <td bgcolor="#ffffff" th:text="${wap.wechat}">微信号</td>
-            <td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${wap.userId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
+            <td bgcolor="#ffffff"><a href="#"  th:onclick="'javascript:deleteCart(\''+${wap.userId}+'\');'" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
         </tr>
     </table>
 </div>
@@ -68,8 +104,7 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+
 <script type="text/javascript" src="/assets/js/common.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js" ></script>
