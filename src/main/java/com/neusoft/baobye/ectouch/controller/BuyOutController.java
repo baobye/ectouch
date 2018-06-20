@@ -1,11 +1,9 @@
 package com.neusoft.baobye.ectouch.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neusoft.baobye.ectouch.entity.GoodCart;
-import com.neusoft.baobye.ectouch.entity.MoneyChange;
 import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
-import com.neusoft.baobye.ectouch.util.HighPreciseComputor;
 import com.neusoft.baobye.ectouch.util.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,18 +40,39 @@ public class BuyOutController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("USER_ID", ""+user.getUserId());//账号
         String body = null;
+        List<WapUser> listWap = new ArrayList<WapUser>();
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
+
             try {
-                map = objectMapper.readValue(body,Map.class);
+                Map rmap = objectMapper.readValue(body,Map.class);
+                List<Map> userList =  (List<Map>)rmap.get("userList");
+//                List<Map> beanList = objectMapper.readValue(userList, new TypeReference<List<Map>>() {});
+//                System.out.println(beanList.size());
+                if(userList != null){
+                    for(Map m : userList){
+                        WapUser wapUser = new WapUser();
+                        wapUser.setTel((String)m.get("TEL"));
+                        wapUser.setWechat((String)m.get("WECHAT"));
+                        wapUser.setUserId((Long)m.get("USER_ID"));
+                        wapUser.setLevel((Integer)m.get("LEVEL"));
+                        wapUser.setName((String)m.get("NAME"));
+                        wapUser.setCode((String)m.get("CODE"));
+                        wapUser.setUsername((String)m.get("USERNAME"));
+                        wapUser.setZtId((Long)m.get("ZT_ID"));
+                        wapUser.setZsId((Long)m.get("ZS_ID"));
+                        wapUser.setIdCard((String)m.get("ID_CARD"));
+                        listWap.add(wapUser);
+                    }
+                }
+                System.out.println(111);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String userList =  map.get("userList");
-        model.addAttribute("list","");
+        model.addAttribute("list",listWap);
         System.out.println("响应结果：" + body);
         return "buyout/index";
     }

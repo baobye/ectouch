@@ -24,18 +24,18 @@
         <tr align="center" class="first-tr">
             <td bgcolor="#ffffff">手机号</td>
             <td bgcolor="#ffffff">姓名</td>
-            <td bgcolor="#ffffff">注册日期</td>
+            <td bgcolor="#ffffff">等级</td>
             <td bgcolor="#ffffff">微信号</td>
             <td bgcolor="#ffffff">处理</td>
         </tr>
 
         <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
-        <tr  align="center" th:if="${list!=null}" th:each="register,registerStat:${list}" >
-            <td bgcolor="#ffffff" th:text="${register.tel}">手机号</td>
-            <td bgcolor="#ffffff" th:text="${register.name}">姓名</td>
-            <td bgcolor="#ffffff" th:text="${register.insertDate}">注册日期</td>
-            <td bgcolor="#ffffff" th:text="${register.wechat}">微信号</td>
-            <td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${register.userId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
+        <tr  align="center" th:if="${list!=null}" th:each="wap,wapStat:${list}" >
+            <td bgcolor="#ffffff" th:text="${wap.tel}">手机号</td>
+            <td bgcolor="#ffffff" th:text="${wap.name}">姓名</td>
+            <td bgcolor="#ffffff" th:text="${wap.level}">注册日期</td>
+            <td bgcolor="#ffffff" th:text="${wap.wechat}">微信号</td>
+            <td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${wap.userId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
         </tr>
     </table>
 </div>
