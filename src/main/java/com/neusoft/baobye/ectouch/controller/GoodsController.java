@@ -47,6 +47,13 @@ public class GoodsController {
     private OrderMiddleMapper orderMiddleMapper;
 
     final IdGenerator idg = IdGenerator.INSTANCE;
+
+    /**
+     * 所有商品
+     * @param server
+     * @param model
+     * @return
+     */
     @RequestMapping("/goods/index")
     public String index(@Value("${hhmg.server}") String server,Model model){
         //查询所有商品
@@ -63,7 +70,7 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("/goods/detail/{id}")
-    public String detail(@Value("${hhmg.server}") String server,@PathVariable long id,Model model){
+    public String detail(@Value("${hhmg.server}") String server,@PathVariable Long id,Model model){
         //购物车数量
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);

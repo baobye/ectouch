@@ -18,7 +18,7 @@
 <body class="">
 <div class="con">
     <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>商品列表</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>商品列表</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
@@ -29,7 +29,7 @@
                     <div class="product-div">
                         <a class="product-div-link" href="/goods/detail/12" th:href="@{'/goods/detail/'+${good?.goodId}}"></a>
                         <img class="product-list-img" th:if="${# lists.isEmpty(good.pictures)}" src="/assets/images/no_picture.gif">
-                        <img class="product-list-img" th:if="${not # lists.isEmpty(good.pictures)}"  th:src="@{${server}+'/uploadFiles/uploadImgs/'+${good.pictures[0].path}}" src="/assets/images/no_picture.gif">
+                        <img class="product-list-img" th:if="${not # lists.isEmpty(good.pictures)}"  th:src="@{${server}+'/uploadFiles/uploadImgs/'+${good?.pictures[0]?.path}}" src="/assets/images/no_picture.gif">
                         <div class="product-text">
                             <h4 th:text="'商品名：'+${good.goodName}">电视</h4>
                             <p>
