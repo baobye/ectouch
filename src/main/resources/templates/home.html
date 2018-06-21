@@ -12,8 +12,39 @@
     <link rel="stylesheet" type="text/css" href="/themes/default/css/search_index.css"/>
     <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/themes/default/fonts/iconfont.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript">
+        $(function () {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+        });
+        function deleteCart(){
+            $('#deleteCard').attr('href','/login?logout=true');
+            var $iosDialog1 = $('#iosDialog1');
+            $iosDialog1.fadeIn(200);
+        }
+
+    </script>
 </head>
 <body>
+<!--BEGIN dialog1-->
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认登出？</strong></div>
+            <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
 <div class="con" style="margin-bottom: 4rem;">
     <div class="member-main">
         <div class="member-photo">
@@ -109,7 +140,7 @@
                 <li onclick="window.location = '/profile/index'" style="border-bottom:none"><i class="iconfont fl icon-zhanghuguanli"></i><p class="fl">账户管理</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/addressList'" style="border-bottom:none"><i class="iconfont fl icon-shouhuodizhi"></i><p class="fl">收货地址</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/password'" style="border-bottom:none"><i class="iconfont fl icon-xiugai07"></i><p class="fl">修改密码</p><i class="iconfont fr icon-qianjin"></i></li>
-                <li onclick="window.location = '/login?logout=true'" style="border-bottom:none"><i class="iconfont fl icon-icon_logout"></i><p class="fl">注销登录</p><i class="iconfont fr icon-qianjin"></i></li>
+                <li onclick="window.location = ''" th:onclick="'javascript:deleteCart();'" style="border-bottom:none"><i class="iconfont fl icon-icon_logout"></i><p class="fl">注销登录</p><i class="iconfont fr icon-qianjin"></i></li>
 
             </ul>
         </div>
@@ -162,7 +193,7 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+
 <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
 <script type="text/javascript" src="/assets/js/common.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
