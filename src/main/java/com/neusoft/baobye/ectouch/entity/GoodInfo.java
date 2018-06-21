@@ -18,20 +18,20 @@ public class GoodInfo {
     private String goodName;
     private String tCode;
     private Long sumSales;
-    private int fTypeId;
-    private int sTypeId;
+    private Integer fTypeId;
+    private Integer sTypeId;
     private String insertDate;
     private String updateDate;
     private String operId;
     private String unit;
-    private int isDel;
+    private Integer isDel;
 //    花冠A 花朵B 花瓣C 花蕾D 花芽5 花粉6
-    private double aPrice;
-    private double bPrice;
-    private double cPrice;
-    private double dPrice;
-    private double ePrice;
-    private double fPrice;
+    private Double aPrice;
+    private Double bPrice;
+    private Double cPrice;
+    private Double dPrice;
+    private Double ePrice;
+    private Double fPrice;
 
     /**
      * 一对多 与  图片表的parentid做关联
@@ -78,19 +78,19 @@ public class GoodInfo {
         this.sumSales = sumSales;
     }
 
-    public int getfTypeId() {
+    public Integer getfTypeId() {
         return fTypeId;
     }
 
-    public void setfTypeId(int fTypeId) {
+    public void setfTypeId(Integer fTypeId) {
         this.fTypeId = fTypeId;
     }
 
-    public int getsTypeId() {
+    public Integer getsTypeId() {
         return sTypeId;
     }
 
-    public void setsTypeId(int sTypeId) {
+    public void setsTypeId(Integer sTypeId) {
         this.sTypeId = sTypeId;
     }
 
@@ -126,59 +126,59 @@ public class GoodInfo {
         this.unit = unit;
     }
 
-    public int getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(int isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 
-    public double getaPrice() {
+    public Double getaPrice() {
         return aPrice;
     }
 
-    public void setaPrice(double aPrice) {
+    public void setaPrice(Double aPrice) {
         this.aPrice = aPrice;
     }
 
-    public double getbPrice() {
+    public Double getbPrice() {
         return bPrice;
     }
 
-    public void setbPrice(double bPrice) {
+    public void setbPrice(Double bPrice) {
         this.bPrice = bPrice;
     }
 
-    public double getcPrice() {
+    public Double getcPrice() {
         return cPrice;
     }
 
-    public void setcPrice(double cPrice) {
+    public void setcPrice(Double cPrice) {
         this.cPrice = cPrice;
     }
 
-    public double getdPrice() {
+    public Double getdPrice() {
         return dPrice;
     }
 
-    public void setdPrice(double dPrice) {
+    public void setdPrice(Double dPrice) {
         this.dPrice = dPrice;
     }
 
-    public double getePrice() {
+    public Double getePrice() {
         return ePrice;
     }
 
-    public void setePrice(double ePrice) {
+    public void setePrice(Double ePrice) {
         this.ePrice = ePrice;
     }
 
-    public double getfPrice() {
+    public Double getfPrice() {
         return fPrice;
     }
 
-    public void setfPrice(double fPrice) {
+    public void setfPrice(Double fPrice) {
         this.fPrice = fPrice;
     }
 

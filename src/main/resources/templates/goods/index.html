@@ -9,13 +9,175 @@
     <title>商品列表</title>
     <link rel="stylesheet" href="/themes/default/statics/fonts/iconfont.css">
     <link rel="stylesheet" href="/themes/default/statics/css/swiper-3.2.5.min.css" />
-    <link rel="stylesheet" href="/themes/default/statics/css/jquery-ui-1.10.1.custom.min.css" />
     <link rel="stylesheet" href="/themes/default/statics/css/ectouch.css" />
-    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-    <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
-    <script src="/themes/default/js/ectouch.js"></script>
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-text-size-adjust:none;
+        }
+        html{
+            font-size:10px;
+        }
+        body{
+            background-color: #f5f5f5;
+            font-size: 1.2em;
+        }
+        .header{
+            height: 44px;
+            line-height: 44px;
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+        }
+        .header h1{
+            text-align: center;
+            font-size: 2rem;
+            font-weight: normal;
+        }
+        .content{
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .content .item{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align:center;
+            -webkit-box-align:center;
+            box-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+            padding:3.125%;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+        }
+        .content .item img{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border:1px solid #ddd;
+        }
+        .content .item h3{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .content .item .date{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+        .opacity{
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+        @-webkit-keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dropload.css">
 </head>
 <body class="">
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<script src="/js/zepto.min.js"></script>
+<script src="/js/dropload.min.js"></script>
+<script th:inline="javascript">
+    var server = [[${server}]];
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+
+        // dropload
+        $('.con').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '/goods/indexAjax?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<arrLen; i++){
+                                result += '<li id="j-product-box" >'
+                                    +'<div class="product-div">'
+                                    +'<a class="product-div-link" href="/goods/detail/'+data[i].goodId+'" ></a>'
+                                    +' <img class="product-list-img"  src="'+server+'/uploadFiles/uploadImgs/'+data[i].pictures[0].path+'">'
+                                    +'<div class="product-text">'
+                                    +'<h4 th:text="商品名：'+data[i].goodName+'">电视</h4>'
+                                    +'<p>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >¥花冠'+data[i].aPrice+'<small><del>¥13333.19</del></small></span>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >花朵'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >花瓣'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >花蕾'+data[i].dPrice+'<small><del>¥13333.19</del></small></span>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >花芽'+data[i].ePrice+'<small><del>¥13333.19</del></small></span>'
+                                    +'<span style="display:inline-block" class="p-price t-first " >花粉'+data[i].fPrice+'<small><del>¥13333.19</del></small></span>'
+                                +'</p>'
+                                +'<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                +'</div>'
+                                +'</div>'
+                                +'</li>';
+                            }
+                            // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            // 插入数据到页面，放到最后面
+                            $('#lists').append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+                page++;
+            }
+        });
+    });
+</script>
 <div class="con">
     <div class="ect-bg">
         <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>商品列表</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
@@ -24,8 +186,8 @@
     </div>
     <div class="category">
         <section class="product-list j-product-list product-list-medium" data="1">
-            <ul>
-                <li id="j-product-box" th:each="good,goodstat : ${list}">
+            <ul id="lists">
+                <!--li id="j-product-box" th:each="good,goodstat : ${list}">
                     <div class="product-div">
                         <a class="product-div-link" href="/goods/detail/12" th:href="@{'/goods/detail/'+${good?.goodId}}"></a>
                         <img class="product-list-img" th:if="${# lists.isEmpty(good.pictures)}" src="/assets/images/no_picture.gif">
@@ -43,7 +205,7 @@
                             <a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>
                         </div>
                     </div>
-                </li>
+                </li-->
             </ul>
         </section>
 
@@ -54,19 +216,6 @@
     <div class="mask-filter-div"></div>
 </div>
 
-<script type="text/javascript">
-    //设置cookie
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        var expires = "expires="+d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
-    function clearHistroy(){
-        setCookie('ECS[keywords]', '', -1);
-        document.getElementById("search_histroy").style.visibility = "hidden";
-    }
-</script>
 </body>
 
 </html>

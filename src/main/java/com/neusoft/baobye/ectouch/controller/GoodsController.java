@@ -10,6 +10,9 @@ import com.neusoft.baobye.ectouch.util.IdGenerator;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,11 +59,21 @@ public class GoodsController {
      */
     @RequestMapping("/goods/index")
     public String index(@Value("${hhmg.server}") String server,Model model){
-        //查询所有商品
-        List<GoodInfo> goodInfoList = goodInfoMapper.findAll();
-        model.addAttribute("list",goodInfoList);
+
         model.addAttribute("server",server);
         return "goods/index";
+    }
+    @RequestMapping("/goods/indexAjax")
+    @ResponseBody
+    public List<GoodInfo> indexAjax(HttpServletRequest request){
+
+        int page = Integer.parseInt(request.getParameter("page"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        //查询所有商品
+        Page<GoodInfo> pageObject = goodInfoMapper.findAll(pageable);
+        return pageObject.getContent();
     }
 
     /**
