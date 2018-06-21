@@ -14,6 +14,8 @@
     <script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="/css/weui.min.css">
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
     <script type="text/javascript">
         $(function () {
             $('#dialogs').on('click', '.weui-dialog__btn', function(){
@@ -56,7 +58,36 @@
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
+    <div class="page">
+        <div class="page__bd">
+            <div class="weui-form-preview" th:each="wap,wapStat:${list}" >
+                <div class="weui-form-preview__hd">
+                    <label class="weui-form-preview__label">手机号</label>
+                    <em class="weui-form-preview__value" th:text="${wap.tel}">¥2400.00</em>
+                </div>
+                <div class="weui-form-preview__bd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">姓名</label>
+                        <span class="weui-form-preview__value" th:text="${wap.name}">电动打蛋机</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">等级</label>
+                        <span class="weui-form-preview__value" th:text="${wap.level}">名字名字名字</span>
+                    </div>
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">微信号</label>
+                        <span class="weui-form-preview__value" th:text="${wap.wechat}">很长很长的名字很长很长的名字很长很长的名字很长很长的名字很长很长的名字</span>
+                    </div>
+                </div>
+                <div class="weui-form-preview__ft">
+                    <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" th:onclick="'javascript:deleteCart(\''+${wap.userId}+'\');'" href="javascript:">激活</button>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <!--table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
         <tr align="center" class="first-tr">
             <td bgcolor="#ffffff">手机号</td>
             <td bgcolor="#ffffff">姓名</td>
@@ -73,7 +104,7 @@
             <td bgcolor="#ffffff" th:text="${wap.wechat}">微信号</td>
             <td bgcolor="#ffffff"><a href="#"  th:onclick="'javascript:deleteCart(\''+${wap.userId}+'\');'" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td>
         </tr>
-    </table>
+    </table-->
 </div>
 
 <div class="search" style="display:none;">
