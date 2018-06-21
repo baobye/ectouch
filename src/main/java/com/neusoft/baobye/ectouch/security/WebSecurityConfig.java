@@ -44,6 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+//        login-page指定的用户自定义的登录页面
+//        default-target-url登录成功以后默认跳转到的页面
+//        authentication-failure-url登录失败以后跳转到的页面
+//        username-parameter指定登录表单中用户名的input中name，如果这里不配置，则默认为username
+//        password-parameter指定登录表单中密码的input中name，如果这里不配置，则默认为password
+//        logout-success-url成功退出以后跳转到的地址
         http.authorizeRequests()
                 // 如果有匿名的url，填在下面
                 .antMatchers("/register/**","/defaultKaptcha/**").permitAll()

@@ -410,7 +410,7 @@ public class GoodsController {
 //
 //        0 未付款 ，1已付款 ，2已发货  3已签收  4换货申请中， 5换货处理中 6 取消交易
         orderInfo.setStatus(1);//
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:SS");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         orderInfo.setInsertDate(dateFormat.format(new Date()));
         orderInfo.setPayDate(dateFormat.format(new Date()));
         orderInfoMapper.save(orderInfo);

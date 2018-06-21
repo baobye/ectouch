@@ -77,6 +77,7 @@ public class LoginController {
          if(logout == true){
              model.addAttribute("logout",logout);
              if (authentication != null){
+                 new SecurityContextLogoutHandler().isInvalidateHttpSession();
                  new SecurityContextLogoutHandler().logout(request, response, authentication);
              }
              return "login";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
@@ -118,6 +119,16 @@ public class LoginController {
             e.printStackTrace();
         }
         return "error";
+    }
+
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
     }
 
 
