@@ -155,7 +155,7 @@
     <orderEntry type="module-library">
       <library name="Maven: sun.jdk:jconsole:jdk">
         <CLASSES>
-          <root url="jar://D:/Program Files/Java/jdk1.8.0_131/lib/jconsole.jar!/" />
+          <root url="jar://D:/Program Files/Java/jdk1.8.0_171/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
