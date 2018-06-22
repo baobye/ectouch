@@ -90,7 +90,6 @@
         }
     </style>
     <link rel="stylesheet" href="/css/dropload.css">
-
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="/css/weui.min.css">
     <script type="text/javascript">
@@ -103,19 +102,37 @@
             // if (confirm('您确实要把该商品移出购物车吗？')){
             //     location.href='/cart/delete/'+id
             // }
-            $('#deleteCard').attr('href','/buyOut/buyOut/'+id);
+            $('#deleteCard').attr('href','/agent/awardList/'+id);
             var $iosDialog1 = $('#iosDialog1');
             $iosDialog1.fadeIn(200);
         }
-
+        function  chakanxiaji(id) {
+            window.location.href = '/agent/index/'+id;
+        }
     </script>
 </head>
 
 <body>
+<!--BEGIN dialog1-->
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认发奖？</strong></div>
+            <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
 <!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
 <!--script src="/js/zepto.min.js"></script-->
 <script src="/js/dropload.min.js"></script>
 <script th:inline="javascript">
+    var userId = [[${userId}]];
     $(function(){
         // 页数
         var page = 0;
@@ -130,7 +147,7 @@
                 var result = '';
                 $.ajax({
                     type: 'GET',
-                    url: '/agent/indexAjax?page='+page+'&size='+size,
+                    url: '/agent/indexAjax/'+userId+'?page='+page+'&size='+size,
                     dataType: 'json',
                     success: function(data){
                         var arrLen = data.length;
@@ -155,9 +172,12 @@
                                     '                                            <span class="weui-form-preview__value" >'+data[i].wechat+'</span>\n' +
                                     '                                            </div>\n' +
                                     '                                            </div>\n' +
-                                    '                                            <div class="weui-form-preview__ft">\n' +
-                                    ' <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">发奖</a>'+
-                                    '                                            <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" th:onclick="\'javascript:deleteCart('+data[i].userId+');\'" href="javascript:">查看下级</button>\n' +
+                                    '                                            <div class="weui-form-preview__ft">\n' ;
+                                if(userId == data[i].zsId){
+                                    result += ' <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:" onclick="deleteCart('+data[i].userId+')">发奖</a>';
+                                }
+                                result +=
+                                    '                                            <button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary"  onclick="chakanxiaji('+data[i].userId+')">查看下级</button>\n' +
                                     '                                            </div>\n' +
                                     '                                            </div>\n' +
                                     '                                    <br>'
@@ -175,10 +195,10 @@
                             $('#lists').append(result);
                             // 每次数据插入，必须重置
                             me.resetload();
-                        },1000);
+                        },200);
                     },
                     error: function(xhr, type){
-                        alert('Ajax error!');
+                        //alert('Ajax error!');
                         // 即使加载出错，也得重置
                         me.resetload();
                     }

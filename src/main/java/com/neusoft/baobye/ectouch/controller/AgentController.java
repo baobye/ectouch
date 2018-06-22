@@ -39,29 +39,33 @@ public class AgentController {
      * 我的代理首页
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping("/index/{userId}")
     @Transactional
-    public String index(){
+    public String index(@PathVariable  Long userId,Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        WapUser user  = userMapper.findByUsername(name);
+        model.addAttribute("userId",user.getUserId());
+        if(user.getUserId() != userId && userId != null && userId != 0){
+            model.addAttribute("userId",userId);
+        }
         return "agent/index";
     }
 
-    @RequestMapping("/indexAjax")
+    /**
+     * 利用传过来的userId加载数据
+     * @param userId
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/indexAjax/{userId}")
     @ResponseBody
-    public List indexAjax(HttpServletRequest request,Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-//        if(userId == null || userId == 0){
-//            String name = SecurityContextHolder.getContext().getAuthentication().getName();
-//            WapUser user  = userMapper.findByUsername(name);
-//            userId = user.getUserId();
-//            //发奖
-//            model.addAttribute("award","award");
-//        }
+    public List indexAjax(@PathVariable Long userId,HttpServletRequest request,Model model){
         int page = Integer.parseInt(request.getParameter("page"));
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<WapUser> list = userMapper.findByZsId(user.getUserId(),pageable);
+        Page<WapUser> list = userMapper.findByZsId(userId,pageable);
         return list.getContent();
     }
 

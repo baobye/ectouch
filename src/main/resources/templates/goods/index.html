@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
     <!-- UC强制全屏 -->
     <meta name="full-screen" content="yes">
     <!-- QQ强制全屏 -->
@@ -160,7 +162,7 @@
                             $('#lists').append(result);
                             // 每次数据插入，必须重置
                             me.resetload();
-                        },1000);
+                        },500);
                     },
                     error: function(xhr, type){
                         alert('Ajax error!');

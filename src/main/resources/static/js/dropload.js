@@ -40,11 +40,15 @@
                 domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
                 domUpdate  : '<div class="dropload-update">↑释放更新</div>',
                 domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
+             //   domLoad    :'<div class="page"><div id="loadingToast"><div class="weui-mask_transparent"></div><div class="weui-toast"><i class="weui-loading weui-icon_toast"></i><p class="weui-toast__content">数据加载中</p></div></div></div>'
+
             },
             domDown : {                                                          // 下方DOM
                 domClass   : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
                 domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+               // domLoad    :'<div class="page"><div id="loadingToast"><div class="weui-mask_transparent"></div><div class="weui-toast"><i class="weui-loading weui-icon_toast"></i><p class="weui-toast__content">数据加载中</p></div></div></div>',
+
                 domNoData  : '<div class="dropload-noData">暂无数据</div>'
             },
             autoLoad : true,                                                     // 自动加载
