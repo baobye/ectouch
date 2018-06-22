@@ -7,9 +7,17 @@
     <meta name="format-detection" content="telephone=no" />
     <meta charset="utf-8">
     <title>商品列表</title>
+
     <link rel="stylesheet" href="/themes/default/statics/fonts/iconfont.css">
     <link rel="stylesheet" href="/themes/default/statics/css/swiper-3.2.5.min.css" />
+    <link rel="stylesheet" href="/themes/default/statics/css/jquery-ui-1.10.1.custom.min.css" />
     <link rel="stylesheet" href="/themes/default/statics/css/ectouch.css" />
+
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <!--script type="text/javascript" src="/themes/default/js/ectouch.js"></script -->
     <!-- UC强制全屏 -->
     <meta name="full-screen" content="yes">
     <!-- QQ强制全屏 -->
@@ -109,7 +117,7 @@
 </head>
 <body class="">
 <!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
-<script src="/js/zepto.min.js"></script>
+<!--script src="/js/zepto.min.js"></script-->
 <script src="/js/dropload.min.js"></script>
 <script th:inline="javascript">
     var server = [[${server}]];
@@ -133,10 +141,16 @@
                         var arrLen = data.length;
                         if(arrLen > 0){
                             for(var i=0; i<arrLen; i++){
+                                var path = data[i].pictures[0];
+                                if(path == null ||path.path == ""){
+                                    path = "/assets/images/no_picture.gif";
+                                }else{
+                                    path = server+'/uploadFiles/uploadImgs/'+path.path;
+                                }
                                 result += '<li id="j-product-box" >'
                                     +'<div class="product-div">'
                                     +'<a class="product-div-link" href="/goods/detail/'+data[i].goodId+'" ></a>'
-                                    +' <img class="product-list-img"  src="'+server+'/uploadFiles/uploadImgs/'+data[i].pictures[0].path+'">'
+                                    +' <img class="product-list-img"  src="'+path+'">'
                                     +'<div class="product-text">'
                                     +'<h4 th:text="商品名：'+data[i].goodName+'">电视</h4>'
                                     +'<p>'
