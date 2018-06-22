@@ -10,9 +10,204 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-text-size-adjust:none;
+        }
+        .content{
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .content .item{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align:center;
+            -webkit-box-align:center;
+            box-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+            padding:3.125%;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+        }
+        .content .item img{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border:1px solid #ddd;
+        }
+        .content .item h3{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .content .item .date{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+        .opacity{
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+        @-webkit-keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dropload.css">
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript">
+        $(function () {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+        });
+        function deleteCart(id){
+            // if (confirm('您确实要把该商品移出购物车吗？')){
+            //     location.href='/cart/delete/'+id
+            // }
+            $('#deleteCard').attr('href','/agent/awardList/'+id);
+            var $iosDialog1 = $('#iosDialog1');
+            $iosDialog1.fadeIn(200);
+        }
+        function  chakanxiaji(id) {
+            window.location.href = '/agent/index/'+id;
+        }
+    </script>
 </head>
 
 <body>
+<!--BEGIN dialog1-->
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认发奖？</strong></div>
+            <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<!--script src="/js/zepto.min.js"></script-->
+<script src="/js/dropload.min.js"></script>
+<script th:inline="javascript">
+    var userId = [[${userId}]];
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+
+        // dropload
+        $('.con').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '/agent/indexAjax/'+userId+'?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<arrLen; i++){
+                                result += '<div class="weui-form-preview">'
+                                         +'  <div class="weui-form-preview__hd">'
+                                         +'   <label class="weui-form-preview__label">手机号</label>'
+                                         +'   <em class="weui-form-preview__value">'+data[i].tel+'</em>'
+                                         +'</div>'
+                                         +'<div class="weui-form-preview__bd">'
+                                         +'   <div class="weui-form-preview__item">'
+                                         +'   <label class="weui-form-preview__label">姓名</label>'
+                                         +'  <span class="weui-form-preview__value">'+data[i].name+'</span>'
+                                          +' </div>\n' +
+                                    '                                            <div class="weui-form-preview__item">\n' +
+                                    '                                            <label class="weui-form-preview__label">注册日期</label>\n' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].insertDate+'</span>\n' +
+                                    '                                            </div>\n' +
+                                    '                                            <div class="weui-form-preview__item">\n' +
+                                    '                                            <label class="weui-form-preview__label">微信号</label>\n' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].wechat+'</span>\n' +
+                                    '                                            </div>\n' +
+                                    '                                            </div>\n' +
+                                    '                                            <div class="weui-form-preview__ft">\n' ;
+                                if(userId == data[i].zsId){
+                                    result += ' <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:" onclick="deleteCart('+data[i].userId+')">发奖</a>';
+                                }
+                                result +=
+                                    '                                            <button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary"  onclick="chakanxiaji('+data[i].userId+')">查看下级</button>\n' +
+                                    '                                            </div>\n' +
+                                    '                                            </div>\n' +
+                                    '                                    <br>'
+                            }
+                            // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            // 插入数据到页面，放到最后面
+                            $('#lists').append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },200);
+                    },
+                    error: function(xhr, type){
+                        //alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+                page++;
+            }
+        });
+    });
+</script>
 <div class="con" >
     <div class="ect-bg">
         <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write">
@@ -22,40 +217,15 @@
         </header>
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html"></nav>
     </div>
-    <!--
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr align="center" class="first-tr">
-            <td>等级</td>
-            <td>人数</td>
-            <td>积分分成百分比</td>
-            <td>现金分成百分比</td>
-        </tr>
-        <tr align="center">
-            <td>1</td>
-            <td>0</td>
-            <td>60%</td>
-            <td>60%</td>
-        </tr>
-        <tr align="center">
-            <td>2</td>
-            <td>0</td>
-            <td>30%</td>
-            <td>30%</td>
-        </tr>
-        <tr align="center">
-            <td>3</td>
-            <td>0</td>
-            <td>7%</td>
-            <td>7%</td>
-        </tr>
-        <tr align="center">
-            <td>4</td>
-            <td>0</td>
-            <td>3%</td>
-            <td>3%</td>
-        </tr>
-    </table> -->
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
+
+    <div class="page">
+        <div class="page__bd" id="lists">
+        </div>
+    </div>
+
+
+
+    <!--table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
         <tr align="center" class="first-tr">
             <td bgcolor="#ffffff">手机号</td>
             <td bgcolor="#ffffff">姓名</td>
@@ -75,24 +245,9 @@
                 <a href="/register/activate" th:if="${award != null}" th:href="@{'/agent/awardList/'+${register.userId}}" onclick="if (!confirm('您确定要发奖吗？')) return false;" class="btn btn-default">发奖</a>
             </td>
         </tr>
-    </table>
+    </table-->
 </div>
 
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
-
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -106,10 +261,7 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
 <script type="text/javascript" src="/assets/js/common.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js" ></script>
 <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
 <script src="/themes/default/js/ectouch.js"></script>
@@ -118,25 +270,6 @@
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
-<script language="javascript">
-    /*banner滚动图片*/
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 1,
-        loop: true,
-        autoplay : 2000
-    });
-    /*弹出评论层并隐藏其他层*/
-    function openSearch(){
-        if($(".con").is(":visible")){
-            $(".con").hide();
-            $(".search").show();
-        }
-    }
-    function closeSearch(){
-        if($(".con").is(":hidden")){
-            $(".con").show();
-            $(".search").hide();
-        }
-    }
-</script>
+
+</body>
+</html>

@@ -5,14 +5,20 @@ import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.mapper.PriceTotalMapper;
 import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import com.neusoft.baobye.ectouch.util.HttpClientUtil;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -35,17 +41,32 @@ public class AgentController {
      */
     @RequestMapping("/index/{userId}")
     @Transactional
-    public String index(@PathVariable Long userId, Model model){
-        if(userId == null || userId == 0){
-            String name = SecurityContextHolder.getContext().getAuthentication().getName();
-            WapUser user  = userMapper.findByUsername(name);
-            userId = user.getUserId();
-            //发奖
-            model.addAttribute("award","award");
+    public String index(@PathVariable  Long userId,Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        WapUser user  = userMapper.findByUsername(name);
+        model.addAttribute("userId",user.getUserId());
+        if(user.getUserId() != userId && userId != null && userId != 0){
+            model.addAttribute("userId",userId);
         }
-        List<WapUser> list = userMapper.findByZsId(userId);
-        model.addAttribute("list",list);
         return "agent/index";
+    }
+
+    /**
+     * 利用传过来的userId加载数据
+     * @param userId
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/indexAjax/{userId}")
+    @ResponseBody
+    public List indexAjax(@PathVariable Long userId,HttpServletRequest request,Model model){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        Page<WapUser> list = userMapper.findByZsId(userId,pageable);
+        return list.getContent();
     }
 
     /**

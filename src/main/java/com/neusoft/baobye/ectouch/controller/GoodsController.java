@@ -66,7 +66,6 @@ public class GoodsController {
     @RequestMapping("/goods/indexAjax")
     @ResponseBody
     public List<GoodInfo> indexAjax(HttpServletRequest request){
-
         int page = Integer.parseInt(request.getParameter("page"));
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
