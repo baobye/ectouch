@@ -314,4 +314,8 @@
             'transition':'all '+num+'ms'
         });
     }
+
+    function loadDownFn() {
+
+    }
 })(window.Zepto || window.jQuery);

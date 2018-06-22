@@ -4,14 +4,92 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>我的分享</title>
+    <title>会员激活</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
-    <script type="text/javascript" src="/themes/default/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-text-size-adjust:none;
+        }
+        .content{
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .content .item{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align:center;
+            -webkit-box-align:center;
+            box-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+            padding:3.125%;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+        }
+        .content .item img{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border:1px solid #ddd;
+        }
+        .content .item h3{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .content .item .date{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+        .opacity{
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+        @-webkit-keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dropload.css">
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="/css/weui.min.css">
     <script type="text/javascript">
@@ -48,30 +126,99 @@
     </div>
 </div>
 <!--END dialog1-->
+
+<script src="/js/dropload.min.js"></script>
+<script th:inline="javascript">
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+
+        // dropload
+        $('.con').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '/share/indexAjax?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<arrLen; i++){
+                                result += '<div class="weui-form-preview">'
+                                    +'  <div class="weui-form-preview__hd">'
+                                    +'   <label class="weui-form-preview__label">手机号</label>'
+                                    +'   <em class="weui-form-preview__value">'+data[i].tel+'</em>'
+                                    +'</div>'
+                                    +'<div class="weui-form-preview__bd">'
+                                    +'   <div class="weui-form-preview__item">'
+                                    +'   <label class="weui-form-preview__label">姓名</label>'
+                                    +'  <span class="weui-form-preview__value">'+data[i].name+'</span>'
+                                    +' </div>' +
+                                    '                                            <div class="weui-form-preview__item">' +
+                                    '                                            <label class="weui-form-preview__label">注册日期</label>' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].insertDate+'</span>' +
+                                    '                                            </div>' +
+                                    '                                            <div class="weui-form-preview__item">' +
+                                    '                                            <label class="weui-form-preview__label">微信号</label>' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].wechat+'</span>' +
+                                    '                                            </div>' +
+                                    '                                            </div>' +
+                                    '                                            <div class="weui-form-preview__ft">'+
+                                    '                                            <button type="button" class="weui-form-preview__btn weui-form-preview__btn_primary"  onclick="deleteCart('+data[i].userId+')">激活</button>' +
+                                    '                                            </div>' +
+                                    '                                            </div>' +
+                                    '                                    <br>'
+                            }
+                            // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        // 插入数据到页面，放到最后面
+                        $('#lists').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
+                    },
+                    error: function(xhr, type){
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+                page++;
+            }
+        });
+    });
+</script>
 <div class="con" >
     <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>我的分享</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>会员激活</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
 
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr align="center" class="first-tr">
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table" id="lists">
+        <!--tr align="center" class="first-tr">
             <td bgcolor="#ffffff">手机号</td>
             <td bgcolor="#ffffff">生产日期</td>
             <td bgcolor="#ffffff">注册日期</td>
             <td bgcolor="#ffffff">微信号</td>
             <td bgcolor="#ffffff">处理</td>
         </tr>
-
-        <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
         <tr  align="center" th:if="${list!=null}" th:each="register,registerStat:${list}" >
             <td bgcolor="#ffffff" th:text="${register.tel}">手机号</td>
             <td bgcolor="#ffffff" th:text="${register.name}">姓名</td>
             <td bgcolor="#ffffff" th:text="${register.insertDate}">注册日期</td>
             <td bgcolor="#ffffff" th:text="${register.wechat}">微信号</td>
             <td bgcolor="#ffffff"><a href="#"  th:onclick="'javascript:deleteCart(\''+${register.userId}+'\');'" class="btn btn-default">激活</a></td>
-        </tr>
+        </tr-->
     </table>
 </div>
 
@@ -89,15 +236,11 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
 <script type="text/javascript" src="/assets/js/common.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js" ></script>
 <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
 <script src="/themes/default/js/simple-inheritance.min.js"></script>
 <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
 

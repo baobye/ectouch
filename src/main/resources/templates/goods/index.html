@@ -101,7 +101,7 @@
 <body class="">
 <!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
 <!--script src="/js/zepto.min.js"></script-->
-<script src="/js/dropload.min.js"></script>
+<script src="/js/dropload.js"></script>
 <script th:inline="javascript">
     var server = [[${server}]];
     $(function(){
@@ -157,15 +157,12 @@
                             me.noData();
                         }
                         // 为了测试，延迟1秒加载
-                        setTimeout(function(){
-                            // 插入数据到页面，放到最后面
-                            $('#lists').append(result);
-                            // 每次数据插入，必须重置
-                            me.resetload();
-                        },500);
+                        // 插入数据到页面，放到最后面
+                        $('#lists').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
                     },
                     error: function(xhr, type){
-                        alert('Ajax error!');
                         // 即使加载出错，也得重置
                         me.resetload();
                     }

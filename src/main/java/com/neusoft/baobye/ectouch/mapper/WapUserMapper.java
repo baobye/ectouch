@@ -20,6 +20,6 @@ public interface WapUserMapper extends JpaRepository<WapUser,Long> {
      Page<WapUser> findByZsId(long zsId, Pageable pageable);
 
      //待激活的会员
-     List<WapUser> findByZtIdAndStatus(long ztId, int status);
+     Page<WapUser> findByZtIdAndStatus(long ztId, int status,Pageable pageable);
 
 }
