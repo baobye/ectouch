@@ -43,10 +43,10 @@
                         <ul>
                             <li>
                                 <div class="input-text"><b>上家手机：</b>
-                                    <span th:if="${user?.ztId > 0}">
-                                        <input placeholder="请输入上家手机" name="ztId" type="text" id="ztId" th:value="${user?.ztId}" readonly="readonly" datatype="*11-11" errormsg="上家手机号必须为11个字符" maxlength="11" />
+                                    <span th:if="${user?.tel != null && user?.tel != ''}">
+                                        <input placeholder="请输入上家手机" name="ztId" type="text" id="ztId" th:value="${user?.tel}" readonly="readonly" datatype="*11-11" errormsg="上家手机号必须为11个字符" maxlength="11" />
                                     </span>
-                                    <span th:if="${user?.ztId <= 0}">
+                                    <span th:if="${user?.tel == null || user?.tel == ''}">
                                         <input placeholder="请输入上家手机" name="ztId" type="text" id="ztId" datatype="*11-11" errormsg="上家手机号必须为11个字符" maxlength="11"/>
                                     </span>
                                 </div>
