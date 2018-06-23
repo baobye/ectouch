@@ -11,7 +11,7 @@ public interface WapUserAddressMapper extends JpaRepository<WapUserAddress,Long>
     List<WapUserAddress> findByUserId(long userId);
 
     List<WapUserAddress> findByUserIdAndDefaultAdd(long userId ,int defaultAdd);
-    WapUserAddress findByAddId(long addId);
+    WapUserAddress findByAddId(Long addId);
     @Modifying
     public void deleteWapUserAddressByAddId(long addId);
 }

@@ -95,8 +95,9 @@ public class ShareController {
     public String loa(@Value("${hhmg.server}") String url,@Value("${hhmg.server.tempPath}") String tempPath, @Value("${hhmg.server.LOAImgPath}") String LOAImgPath,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user = userMapper.findByUsername(name);
-        String imgName = PicUtil.makeLOA(tempPath,LOAImgPath,user);
-        model.addAttribute("imgUrl",url+"/"+"uploadFiles/twoDimensionCode/"+imgName);
+//        String imgName = PicUtil.makeLOA(tempPath,LOAImgPath,user);
+//        model.addAttribute("imgUrl",url+"/"+"uploadFiles/twoDimensionCode/"+imgName);
+        model.addAttribute("imgUrl",url+"/"+"uploadFiles/sqzs/"+user.getUserId()+".png");
         return "share/loa";
     }
 }

@@ -23,6 +23,9 @@ public class MoneyChange {
     private String memo;
     private int isDel;
 
+    public MoneyChange() {
+    }
+
     public Long getMoneyId() {
         return moneyId;
     }

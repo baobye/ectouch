@@ -80,7 +80,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping("/orderDetail/{orderId}")
-    public String orderDetail(@PathVariable long orderId, Model model){
+    public String orderDetail(@PathVariable Long orderId, Model model){
         OrderInfo orderInfo = orderInfoMapper.findByOrderId(orderId);
         WapUserAddress address = wapUserAddressMapper.findByAddId(orderInfo.getAddId());
         model.addAttribute("orderInfo",orderInfo);
@@ -115,7 +115,11 @@ public class OrderController {
      */
     @RequestMapping("/delivery/{orderId}")
     public String delivery(@Value("${hhmg.server.delivery}") String url, @PathVariable long orderId, Model model){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        logger.info("当前登陆用户：" + name);
+        WapUser user = userMapper.findByUsername(name);
         Map<String, String> map = new HashMap<String, String>();
+        map.put("SHIPPER", ""+user.getUserId());//发货人ID
         map.put("ORDER_ID", ""+orderId);//订单编号
         String body = null;
         try {
