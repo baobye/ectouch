@@ -15,12 +15,12 @@ public class Storage {
     /**
      *  1  入库申请  2 出库申请
      */
-    private int type;
+    private Integer type;
 
     /**
      * 原因 1正常出入库   2退货   3换货  4损耗 5其他
      */
-    private int reasonType;
+    private Integer reasonType;
 
     /**
      * 除了入库，全部与订单关联，必填
@@ -40,7 +40,7 @@ public class Storage {
     /**
      * 处理人
      */
-    private int handleSysId;
+    private Integer handleSysId;
 
     /**
      * 处理日期
@@ -50,17 +50,17 @@ public class Storage {
     /**
      * 0实体库房 1云库房
      */
-    private int assetsType;
+    private Integer assetsType;
 
     /**
      * 申请状态  0未处理  1已通过  2驳回
      */
-    private int status;
+    private Integer status;
 
     /**
      * 删除状态 0正常 1删除
      */
-    private int isDel;
+    private Integer isDel;
 
     @OneToMany(mappedBy = "storageId")
     private Set<StorageGoods> storageGoods = new HashSet<StorageGoods>();
@@ -73,19 +73,19 @@ public class Storage {
         this.storageId = storageId;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public int getReasonType() {
+    public Integer getReasonType() {
         return reasonType;
     }
 
-    public void setReasonType(int reasonType) {
+    public void setReasonType(Integer reasonType) {
         this.reasonType = reasonType;
     }
 
@@ -113,11 +113,11 @@ public class Storage {
         this.applyDate = applyDate;
     }
 
-    public int getHandleSysId() {
+    public Integer getHandleSysId() {
         return handleSysId;
     }
 
-    public void setHandleSysId(int handleSysId) {
+    public void setHandleSysId(Integer handleSysId) {
         this.handleSysId = handleSysId;
     }
 
@@ -129,27 +129,27 @@ public class Storage {
         this.handleDate = handleDate;
     }
 
-    public int getAssetsType() {
+    public Integer getAssetsType() {
         return assetsType;
     }
 
-    public void setAssetsType(int assetsType) {
+    public void setAssetsType(Integer assetsType) {
         this.assetsType = assetsType;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(int isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 
