@@ -1,5 +1,6 @@
 package com.neusoft.baobye.ectouch.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,6 +8,7 @@ import javax.persistence.Id;
 public class StorageGoods {
 
     @Id
+    @Column(name="STO_G_ID")
     private Long stoGId;
 
     private Long storageId;
