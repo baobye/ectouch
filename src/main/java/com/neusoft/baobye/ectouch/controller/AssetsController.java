@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/assets")
+@RequestMapping("/yunAssets")
 public class AssetsController {
     @Autowired
     private WapUserMapper userMapper;
@@ -28,9 +28,9 @@ public class AssetsController {
      */
     @GetMapping("/index")
     public String index(Model model){
-//        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-//        WapUser user  = userMapper.findByUsername(name);
-        List list = mapper.findByUserId(new Long("1529202711126"));
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        WapUser user  = userMapper.findByUsername(name);
+        List list = mapper.findByUserId(user.getUserId());
 
         model.addAttribute("list",list);
         return "assets/index";

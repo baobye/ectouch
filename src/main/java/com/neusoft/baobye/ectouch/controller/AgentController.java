@@ -96,9 +96,6 @@ public class AgentController {
      */
     @RequestMapping("/award/{totalId}/{userId}")
     public String award(@PathVariable("totalId") long totalId,@PathVariable("userId") long userId,@Value("${hhmg.server.award}") String url){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("TOTAL_ID", ""+totalId);//奖金id
         String body = null;
