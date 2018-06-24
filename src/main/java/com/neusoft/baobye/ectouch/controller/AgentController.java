@@ -5,7 +5,6 @@ import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.mapper.PriceTotalMapper;
 import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import com.neusoft.baobye.ectouch.util.HttpClientUtil;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;

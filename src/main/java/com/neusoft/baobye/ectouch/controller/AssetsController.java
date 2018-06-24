@@ -4,12 +4,17 @@ import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.mapper.AssetsMapper;
 import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -28,11 +33,24 @@ public class AssetsController {
      */
     @GetMapping("/index")
     public String index(Model model){
+        return "assets/index";
+    }
+
+    /**
+     * 库房明细
+     * @param request
+     * @return
+     */
+    @RequestMapping("/indexAjax")
+    @ResponseBody
+    public List indexAjax(HttpServletRequest request){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
-        List list = mapper.findByUserId(user.getUserId());
-
-        model.addAttribute("list",list);
-        return "assets/index";
+        int page = Integer.parseInt(request.getParameter("page"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        Page list = mapper.findByUserId(user.getUserId(),pageable);
+        return list.getContent();
     }
 }
