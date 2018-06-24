@@ -7,8 +7,10 @@
 		<title>WeUI</title>
 		<link rel="stylesheet" href="css/weui.css" />
 		<link rel="stylesheet" href="css/example.css" />
-		<link rel="shortcut icon" href="/static/favicon.ico"/>
-		<link rel="bookmark" href="/static/favicon.ico"/>
+		<link rel="shortcut icon" href="/static/images/favicon.ico"/>
+		<link rel="bookmark" href="/images/favicon.ico"/>
+		<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
 	</head>
 <STYLE TYPE="text/css">
 <!--
@@ -86,9 +88,9 @@ background-attachment: fixed;搜索}
             </p>
             <p class="weui-footer__text">Copyright &copy; 2018-2028 weui.io</p>
         </div-->
-		<script src="js/zepto.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
+                $.cookie("remember-me", null, {expires: -1,path:'/'});
 				var $tooltips = $('.js_tooltips');
 				$('#showTooltips').on('click', function() {
 					if($tooltips.css('display') != 'none') return;

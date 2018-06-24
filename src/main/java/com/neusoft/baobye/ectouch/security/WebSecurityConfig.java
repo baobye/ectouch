@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 // 指定authenticationDetailsSource
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll()
+                .logout().logoutUrl("/logout").deleteCookies("remember-me").clearAuthentication(true).invalidateHttpSession(true).logoutSuccessUrl("/login?logout=true").permitAll()
                 .and()
                 .rememberMe()
                 .rememberMeParameter("remember-me").userDetailsService(userDetailsService)

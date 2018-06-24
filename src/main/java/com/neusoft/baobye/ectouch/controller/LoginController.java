@@ -19,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,6 +79,12 @@ public class LoginController {
          if(logout == true){
              model.addAttribute("logout",logout);
              if (authentication != null){
+                 Cookie[] cookies  = request.getCookies();
+                 for(Cookie cookie:cookies){
+                    if("remember-me".equals(cookie.getName())){
+                        cookie.setMaxAge(0);
+                    }
+                 }
                  new SecurityContextLogoutHandler().isInvalidateHttpSession();
                  request.getSession().invalidate();
                  new SecurityContextLogoutHandler().logout(request, response, authentication);
@@ -120,5 +128,18 @@ public class LoginController {
             e.printStackTrace();
         }
         return "error";
+    }
+    @RequestMapping("/logout")
+    public void logout(HttpServletRequest request,HttpServletResponse response){
+        //如果已经登陆跳转到个人首页
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try {
+            new SecurityContextLogoutHandler().isInvalidateHttpSession();
+            request.getSession().invalidate();
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            request.logout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
