@@ -77,18 +77,6 @@ public class LoginController {
              return "login";
          }
          if(logout == true){
-             model.addAttribute("logout",logout);
-             if (authentication != null){
-                 Cookie[] cookies  = request.getCookies();
-                 for(Cookie cookie:cookies){
-                    if("remember-me".equals(cookie.getName())){
-                        cookie.setMaxAge(0);
-                    }
-                 }
-                 new SecurityContextLogoutHandler().isInvalidateHttpSession();
-                 request.getSession().invalidate();
-                 new SecurityContextLogoutHandler().logout(request, response, authentication);
-             }
              return "login";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
          }
         if(authentication!=null&&
