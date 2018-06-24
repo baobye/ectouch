@@ -129,6 +129,12 @@ public class LoginController {
         }
         return "error";
     }
+
+    /**
+     * 登出功能
+     * @param request
+     * @param response
+     */
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request,HttpServletResponse response){
         //如果已经登陆跳转到个人首页
