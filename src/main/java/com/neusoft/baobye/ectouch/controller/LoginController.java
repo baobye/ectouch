@@ -78,6 +78,7 @@ public class LoginController {
              model.addAttribute("logout",logout);
              if (authentication != null){
                  new SecurityContextLogoutHandler().isInvalidateHttpSession();
+                 request.getSession().invalidate();
                  new SecurityContextLogoutHandler().logout(request, response, authentication);
              }
              return "login";//You can redirect wherever you want, but generally it's a good practice to show login screen again.

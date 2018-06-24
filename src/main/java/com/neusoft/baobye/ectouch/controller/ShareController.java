@@ -31,7 +31,7 @@ public class ShareController {
     private WapUserMapper userMapper;
 
     /**
-     * 我的分享
+     * 我的分享 显示列表页
      * @param
      * @param
      * @param
@@ -47,11 +47,12 @@ public class ShareController {
     public List<WapUser> shareAjax(HttpServletRequest request){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user = userMapper.findByUsername(name);
+        int status = Integer.parseInt(request.getParameter("status"));
         int page = Integer.parseInt(request.getParameter("page"));
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<WapUser> pageList = userMapper.findByZtIdAndStatus(user.getUserId(),1,pageable);
+        Page<WapUser> pageList = userMapper.findByZtIdAndStatus(user.getUserId(),status,pageable);
         return pageList.getContent();
     }
 
