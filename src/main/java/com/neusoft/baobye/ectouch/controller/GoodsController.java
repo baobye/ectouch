@@ -400,39 +400,41 @@ public class GoodsController {
     @Transactional
     public String done(OrderInfo orderInfo, Model model,String listString,String level){
 
-        //用户信息
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-        if(user.getDzb() < orderInfo.getOrderPriceTotal()){
-
-            return "error";
-        }
-        //1.扣电子币
-        user.setDzb(user.getDzb() - orderInfo.getOrderPriceTotal());
-        userMapper.save(user);
-
-
-
-        //订单号
-        String code = idg.nextId();
-        orderInfo.setUserId(user.getUserId());
-        orderInfo.setOrderId(System.currentTimeMillis());
-        orderInfo.setOrderCode(code);
-        //        状态 未付款,已付款,已发货,已签收,退货申请,退货中,已退货,取消交易
-//
-//        0 未付款 ，1已付款 ，2已发货  3已签收  4换货申请中， 5换货处理中 6 取消交易
-        orderInfo.setStatus(1);//
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-        orderInfo.setInsertDate(dateFormat.format(new Date()));
-        orderInfo.setPayDate(dateFormat.format(new Date()));
-        orderInfoMapper.save(orderInfo);
-
-        model.addAttribute("orderInfo",orderInfo);
-        //2.生成订单中间表
-
         try {
             List<GoodCart> goodCartList = objectMapper.readValue(listString,new TypeReference<List<GoodCart>>() { });
+            if(goodCartList ==null || goodCartList.size()<= 0){
+                return "error";
+            }
+            //用户信息
+            String name = SecurityContextHolder.getContext().getAuthentication().getName();
+            WapUser user  = userMapper.findByUsername(name);
+            if(user.getDzb() < orderInfo.getOrderPriceTotal()){
+                return "error";
+            }
+            //1.扣电子币
+            user.setDzb(user.getDzb() - orderInfo.getOrderPriceTotal());
+            userMapper.save(user);
+
+
+
+            //订单号
+            String code = idg.nextId();
+            orderInfo.setUserId(user.getUserId());
+            orderInfo.setOrderId(System.currentTimeMillis());
+            orderInfo.setOrderCode(code);
+            //        状态 未付款,已付款,已发货,已签收,退货申请,退货中,已退货,取消交易
+//
+//        0 未付款 ，1已付款 ，2已发货  3已签收  4换货申请中， 5换货处理中 6 取消交易
+            orderInfo.setStatus(1);//
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+            orderInfo.setInsertDate(dateFormat.format(new Date()));
+            orderInfo.setPayDate(dateFormat.format(new Date()));
+            orderInfoMapper.save(orderInfo);
+
+            model.addAttribute("orderInfo",orderInfo);
+            //2.生成订单中间表
             for (GoodCart goodCart:goodCartList){
+                GoodInfo goodInfo = goodInfoMapper.getOne(goodCart.getGoodsId());
                 OrderMiddle orderMiddle = new OrderMiddle();
                 orderMiddle.setGoodId(goodCart.getGoodsId());
                 orderMiddle.setGoodName(goodCart.getGoodsName());
@@ -443,9 +445,14 @@ public class GoodsController {
                 orderMiddle.setType(0);
                 orderMiddle.setOrderMiddleId(System.currentTimeMillis());
                 orderMiddle.setOrderId(orderInfo.getOrderId());
-                orderMiddle.setUserLevel(Integer.parseInt(level));
+                //商品条码
+                orderMiddle.settCode(goodInfo.gettCode());
+                double sum = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodCart.getGoodsPrice());
+                orderMiddle.setSubTotal(sum);
+                if(level != null && !"".equals(level)){
+                    orderMiddle.setUserLevel(Integer.parseInt(level));
+                }
                 orderMiddleMapper.save(orderMiddle);
-
             }
             //3.删除购物车
             goodCartMapper.deleteByUserId(user.getUserId());
