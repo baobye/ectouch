@@ -118,9 +118,11 @@
                 var result = '';
                 $.ajax({
                     type: 'GET',
-                    url: '/goods/indexAjax?page='+page+'&size='+size,
+                    // url: '/goods/indexAjax?page='+page+'&size='+size,
+                    url:'/goods/indexAjax?page='+page+'&size='+100,
                     dataType: 'json',
                     success: function(data){
+                        console.log(data);
                         var arrLen = data.length;
                         if(arrLen > 0){
                             for(var i=0; i<arrLen; i++){
@@ -137,12 +139,12 @@
                                     +'<div class="product-text">'
                                     +'<h4 th:text="商品名：'+data[i].goodName+'">电视</h4>'
                                     +'<p>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >¥花冠'+data[i].aPrice+'<small><del>¥13333.19</del></small></span>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >花朵'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >花瓣'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >花蕾'+data[i].dPrice+'<small><del>¥13333.19</del></small></span>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >花芽'+data[i].ePrice+'<small><del>¥13333.19</del></small></span>'
-                                    +'<span style="display:inline-block" class="p-price t-first " >花粉'+data[i].fPrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >¥花冠'+data[i].aPrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >花朵'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >花瓣'+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >花蕾'+data[i].dPrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >花芽'+data[i].ePrice+'<small><del>¥13333.19</del></small></span>'
+                                    // +'<span style="display:inline-block" class="p-price t-first " >花粉'+data[i].fPrice+'<small><del>¥13333.19</del></small></span>'
                                 +'</p>'
                                 +'<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
                                 +'</div>'
@@ -159,14 +161,14 @@
                         // 为了测试，延迟1秒加载
                         // 插入数据到页面，放到最后面
                         $('#lists').append(result);
-                        // 每次数据插入，必须重置
+                        // // 每次数据插入，必须重置
                         me.resetload();
-                        setTimeout(function(){
-                            // 插入数据到页面，放到最后面
-                            $('#lists').append(result);
-                            // 每次数据插入，必须重置
-                            me.resetload();
-                        },500);
+                        // setTimeout(function(){
+                        //     // 插入数据到页面，放到最后面
+                        //     $('#lists').append(result);
+                        //     // 每次数据插入，必须重置
+                        //     me.resetload();
+                        // },500);
                     },
                     error: function(xhr, type){
                         // 即使加载出错，也得重置
