@@ -131,6 +131,7 @@
                     url: '/money/recordAjax?page='+page+'&size='+size,
                     dataType: 'json',
                     success: function(data){
+                        console.log(data)
                         var arrLen = data.length;
                         if(arrLen > 0){
                             for(var i=0; i<arrLen; i++){
