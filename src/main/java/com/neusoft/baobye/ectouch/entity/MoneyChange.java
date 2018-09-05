@@ -8,9 +8,9 @@ public class MoneyChange {
     private static final Long serialVersionUID = 1L;
     @Id
     private Long moneyId;
-    private int type;
-    private int moneyType;
-    private int reasonType;
+    private Integer type;
+    private Integer moneyType;
+    private Integer reasonType;
     private Long userId;
     private Long toUserId;
     private Double oneMoney;
@@ -19,9 +19,9 @@ public class MoneyChange {
     private Double sxf;
     private String insertDate;
     private String upateDate;
-    private int status;
+    private Integer status;
     private String memo;
-    private int isDel;
+    private Integer isDel;
 
     public MoneyChange() {
     }
@@ -34,27 +34,27 @@ public class MoneyChange {
         this.moneyId = moneyId;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public int getMoneyType() {
+    public Integer getMoneyType() {
         return moneyType;
     }
 
-    public void setMoneyType(int moneyType) {
+    public void setMoneyType(Integer moneyType) {
         this.moneyType = moneyType;
     }
 
-    public int getReasonType() {
+    public Integer getReasonType() {
         return reasonType;
     }
 
-    public void setReasonType(int reasonType) {
+    public void setReasonType(Integer reasonType) {
         this.reasonType = reasonType;
     }
 
@@ -74,35 +74,35 @@ public class MoneyChange {
         this.toUserId = toUserId;
     }
 
-    public double getOneMoney() {
+    public Double getOneMoney() {
         return oneMoney;
     }
 
-    public void setOneMoney(double oneMoney) {
+    public void setOneMoney(Double oneMoney) {
         this.oneMoney = oneMoney;
     }
 
-    public double getRealMoney() {
+    public Double getRealMoney() {
         return realMoney;
     }
 
-    public void setRealMoney(double realMoney) {
+    public void setRealMoney(Double realMoney) {
         this.realMoney = realMoney;
     }
 
-    public double getSumMoney() {
+    public Double getSumMoney() {
         return sumMoney;
     }
 
-    public void setSumMoney(double sumMoney) {
+    public void setSumMoney(Double sumMoney) {
         this.sumMoney = sumMoney;
     }
 
-    public double getSxf() {
+    public Double getSxf() {
         return sxf;
     }
 
-    public void setSxf(double sxf) {
+    public void setSxf(Double sxf) {
         this.sxf = sxf;
     }
 
@@ -122,11 +122,11 @@ public class MoneyChange {
         this.upateDate = upateDate;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -138,11 +138,11 @@ public class MoneyChange {
         this.memo = memo;
     }
 
-    public int getIsDel() {
+    public Integer getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(int isDel) {
+    public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
 }
