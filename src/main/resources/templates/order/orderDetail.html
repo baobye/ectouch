@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script src="/themes/default/js/ectouch.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $('#dialogs').on('click', '.weui-dialog__btn', function(){
@@ -19,10 +22,7 @@
             });
         });
         function deleteCart(id){
-            // if (confirm('您确实要把该商品移出购物车吗？')){
-            //     location.href='/cart/delete/'+id
-            // }
-            $('#deleteCard').attr('href','/order/delivery/'+id);
+            $('#deleteCard').attr('href','/order/receive/'+id);
             var $iosDialog1 = $('#iosDialog1');
             $iosDialog1.fadeIn(200);
         }
@@ -74,7 +74,7 @@
         </div>
     </section>
     <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
-        <a class="btn btn-info ect-colorf ect-bg" href="#"  th:onclick="'javascript:deleteCart(\''+${orderMiddle?.orderCode}+'\');'" onclick="if (!confirm('你确认已经收到货物了吗？')) return false;">确认收货</a>
+        <a class="btn btn-info ect-colorf ect-bg" href="#"  th:onclick="'javascript:deleteCart(\''+${orderInfo?.orderId}+'\');'" >确认收货</a>
     </div>
     <section class="order-detail-info ect-margin-tb" style="margin-bottom:0;">
         <ul>
@@ -125,16 +125,4 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
-<script type="text/javascript" src="/assets/js/common.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
-<script type="text/javascript" src="/assets/js/utils.js" ></script>
-<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
-<script src="/themes/default/js/ectouch.js"></script>
-<script src="/themes/default/js/simple-inheritance.min.js"></script>
-<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
-<script type="text/javascript" src="/assets/js/validform.js" ></script>
 
