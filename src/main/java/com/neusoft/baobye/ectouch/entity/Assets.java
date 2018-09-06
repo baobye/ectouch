@@ -13,19 +13,16 @@ public class Assets {
     @Id
     private Long assetsId;
 
-    /**
-     * 0物理仓库 1云仓库
-     */
-    private int type;
-
     private Long userId;
 
     private Long goodId;
 
+    private int goodYunNum;
+
     /**
      * 商品数量
      */
-    private int goodNum;
+    private int goodStNum;
 
     /**
      * 冻结数量
@@ -79,14 +76,6 @@ public class Assets {
         this.assetsId = assetsId;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public Long getUserId() {
         return userId;
     }
@@ -101,14 +90,6 @@ public class Assets {
 
     public void setGoodId(Long goodId) {
         this.goodId = goodId;
-    }
-
-    public int getGoodNum() {
-        return goodNum;
-    }
-
-    public void setGoodNum(int goodNum) {
-        this.goodNum = goodNum;
     }
 
     public int getGoodNumDj() {
@@ -181,5 +162,21 @@ public class Assets {
 
     public void setStorageId(Long storageId) {
         this.storageId = storageId;
+    }
+
+    public int getGoodYunNum() {
+        return goodYunNum;
+    }
+
+    public void setGoodYunNum(int goodYunNum) {
+        this.goodYunNum = goodYunNum;
+    }
+
+    public int getGoodStNum() {
+        return goodStNum;
+    }
+
+    public void setGoodStNum(int goodStNum) {
+        this.goodStNum = goodStNum;
     }
 }
