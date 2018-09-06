@@ -23,6 +23,8 @@
         });
         function deleteCart(){
             $('#deleteCard').attr('href','/logout?logout=true');
+            sessionStorage.removeItem('userId');
+            sessionStorage.removeItem('level');
             var $iosDialog1 = $('#iosDialog1');
             $iosDialog1.fadeIn(200);
         }
@@ -46,6 +48,8 @@
 </div>
 <!--END dialog1-->
 <div class="con" style="margin-bottom: 4rem;">
+    <input type="hidden" name ="level" th:value="${wapUser.level}" id="level"/>
+    <input type="hidden" name ="userId" th:value="${wapUser.userId}" id="userId"/>
     <div class="member-main">
         <div class="member-photo">
             <!--div class="member-photo-left fl" onclick="window.location = '#'">
@@ -211,6 +215,8 @@
     //初始化扫描二维码按钮，传入自定义的 node-type 属性
     $(function() {
         Qrcode.init($('[node-type=qr-btn]'));
+        sessionStorage.setItem('userId', $('#userId').val());
+        sessionStorage.setItem('level', $('#level').val());
     });
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {

@@ -103,21 +103,43 @@
                 opacity: 1;
             }
         }
-        .product-text h4{
+
+        .product-text h4 {
             display: inline-block;
             overflow: hidden;
             vertical-align: text-top;
             width: 75%;
         }
-        .product-text p{
+
+        .product-text p {
             height: 3.8rem;
             line-height: 1.9rem;
             display: inline-block;
             font-size: 1.5rem;
         }
-        .product-text p span{
+
+        .product-text p span {
             font-size: 1.5rem !important;
             color: #333;
+        }
+
+        .weui-mask {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .weui-mask_transparent {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
         }
     </style>
     <link rel="stylesheet" href="/css/dropload.css">
@@ -134,116 +156,141 @@
         // 每页展示5个
         var size = 5;
 
+        var levles = 0;
+        var level = sessionStorage.getItem('level');;
+        if(level == 99){
+            $('#iosActionsheet').addClass('weui-actionsheet_toggle');
+            $('#iosMask').fadeIn(200);
+        }else{
+            getInitData()
+        }
         // dropload
-        $('.con').dropload({
-            scrollArea: window,
-            loadDownFn: function (me) {
-                // 拼接HTML
-                var result = '';
-                $.ajax({
-                    type: 'GET',
-                    // url: '/goods/indexAjax?page='+page+'&size='+size,
-                    url: '/goods/indexAjax?page=' + page + '&size=' + 100,
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        var arrLen = data.length;
-                        var level = sessionStorage.getItem('level');
-                        // var userId = sessionStorage.getItem('userId');
-                        var price = '';
-                        console.log('le', level);
-                        // console.log(userId);
-                        if (arrLen > 0) {
-                            for (var i = 0; i < arrLen; i++) {
-                                var path = data[i].pictures[0];
-                                if (path == null || path.path == "") {
-                                    path = "/assets/images/no_picture.gif";
-                                } else {
-                                    path = server + '/uploadFiles/uploadImgs/' + path.path;
-                                }
-                                result += '<li id="j-product-box" >'
-                                    + '<div class="product-div">'
-                                    + '<a class="product-div-link" href="/goods/detail/' + data[i].goodId + '" ></a>'
-                                    + ' <img class="product-list-img"  src="' + path + '" style="height: 150px">'
-                                    + '<div class="product-text">'
-                                    + '<h4>'+data[i].goodName+'</h4>'
-                                if(level == 1){
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].aPrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }else if(level == 2){
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].bPrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }else if(level == 3){
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].cPrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }else if(level == 4){
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].dPrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }else if(level == 4){
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].ePrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }else{
-                                    result += '<p if="price-s">'
-                                        +'<span style="display:inline-block" class="p-price t-first " >价格: '+data[i].fPrice+'<small><del>¥13333.19</del></small></span>'
-                                        + '</p>'
-                                        + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
-                                        + '</div>'
-                                        + '</div>'
-                                        + '</li>';
-                                }
+        function getInitData() {
+            $('.con').dropload({
+                scrollArea: window,
+                loadDownFn: function (me) {
+                    // 拼接HTML
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        // url: '/goods/indexAjax?page='+page+'&size='+size,
+                        url: '/goods/indexAjax?page=' + page + '&size=' + 100,
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            var arrLen = data.length;
+
+                            // function hideActionSheet() {
+                            //     $iosActionsheet.removeClass('weui-actionsheet_toggle');
+                            //     $iosMask.fadeOut(200);
+                            // }
+                            // $iosMask.on('click', hideActionSheet);
+                            var price = '';
+                            if (levles != 0 && levles != "") {
+                                level = levles
                             }
-                            // 如果没有数据
-                        } else {
-                            // 锁定
-                            me.lock();
-                            // 无数据
-                            me.noData();
+                            debugger
+                            if (arrLen > 0) {
+                                for (var i = 0; i < arrLen; i++) {
+                                    var path = data[i].pictures[0];
+                                    if (path == null || path.path == "") {
+                                        path = "/assets/images/no_picture.gif";
+                                    } else {
+                                        path = server + '/uploadFiles/uploadImgs/' + path.path;
+                                    }
+                                    result += '<li id="j-product-box" >'
+                                        + '<div class="product-div">'
+                                        + '<a class="product-div-link" href="/goods/detail/' + data[i].goodId + '" ></a>'
+                                        + ' <img class="product-list-img"  src="' + path + '" style="height: 150px">'
+                                        + '<div class="product-text">'
+                                        + '<h4>' + data[i].goodName + '</h4>'
+                                    if (level == 1) {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].aPrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    } else if (level == 2) {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].bPrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    } else if (level == 3) {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].cPrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    } else if (level == 4) {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].dPrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    } else if (level == 4) {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].ePrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    } else {
+                                        result += '<p if="price-s">'
+                                            + '<span style="display:inline-block" class="p-price t-first " >价格: ' + data[i].fPrice + '<small><del>¥13333.19</del></small></span>'
+                                            + '</p>'
+                                            + '<a href="javascript:addCart(1)" class="icon-flow-cart fr j-goods-attr" style="display:None"><i class="iconfont icon-gouwuche"></i></a>'
+                                            + '</div>'
+                                            + '</div>'
+                                            + '</li>';
+                                    }
+                                }
+                                // 如果没有数据
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+                            // 为了测试，延迟1秒加载
+                            // 插入数据到页面，放到最后面
+                            $('#lists').append(result);
+                            // // 每次数据插入，必须重置
+                            me.resetload();
+                            // setTimeout(function(){
+                            //     // 插入数据到页面，放到最后面
+                            //     $('#lists').append(result);
+                            //     // 每次数据插入，必须重置
+                            //     me.resetload();
+                            // },500);
+                        },
+                        error: function (xhr, type) {
+                            // 即使加载出错，也得重置
+                            me.resetload();
                         }
-                        // 为了测试，延迟1秒加载
-                        // 插入数据到页面，放到最后面
-                        $('#lists').append(result);
-                        // // 每次数据插入，必须重置
-                        me.resetload();
-                        // setTimeout(function(){
-                        //     // 插入数据到页面，放到最后面
-                        //     $('#lists').append(result);
-                        //     // 每次数据插入，必须重置
-                        //     me.resetload();
-                        // },500);
-                    },
-                    error: function (xhr, type) {
-                        // 即使加载出错，也得重置
-                        me.resetload();
-                    }
-                });
-                page++;
-            }
-        });
+                    });
+                    page++;
+                }
+            })
+        }
+
+        $("#weui-actionsheet__menu_jItem").find(".weui-actionsheet__cell").click(function () {
+            var $iosActionsheet = $('#iosActionsheet');
+            var $iosMask = $('#iosMask');
+            $iosActionsheet.removeClass('weui-actionsheet_toggle');
+            $iosMask.fadeOut(200);
+            levles = $(this).attr('value')
+            getInitData()
+        })
     });
 </script>
 <div class="con">
@@ -285,6 +332,23 @@
 </div>
 <div id="j-filter-div" class="j-filter-div filter-div ts-5 c-filter-div">
     <div class="mask-filter-div"></div>
+</div>
+<!--<a href="javascript:;" class="weui-btn weui-btn_default" id="showIOSActionSheet">iOS ActionSheet</a>-->
+
+<div>
+    <div class="weui-mask" id="iosMask" style="display: none"></div>
+    <div class="weui-actionsheet" id="iosActionsheet">
+        <div class="weui-actionsheet__title">
+            <p class="weui-actionsheet__title-text">首次购物，请选择要申请的级别</p>
+        </div>
+        <div class="weui-actionsheet__menu" id="weui-actionsheet__menu_jItem">
+            <div class="weui-actionsheet__cell" value="1">联创</div>
+            <div class="weui-actionsheet__cell" value="2">董事</div>
+            <div class="weui-actionsheet__cell" value="3">总代</div>
+            <div class="weui-actionsheet__cell" value="4">VIP天使</div>
+            <div class="weui-actionsheet__cell" value="5">零售</div>
+        </div>
+    </div>
 </div>
 
 </body>
