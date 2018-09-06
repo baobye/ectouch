@@ -147,6 +147,7 @@ public class OrderController extends BaseController{
         Map<String, String> map = new HashMap<String, String>();
         map.put("SHIPPER", ""+user.getUserId());//发货人ID
         map.put("ORDER_ID", ""+orderId);//订单编号
+        map.put("TYPE","1");;// 发货人ID  TYPE=1实体库发货，  TYPE=2云仓库发货
         String body = null;
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
