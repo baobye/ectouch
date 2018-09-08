@@ -32,7 +32,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
-public class OrderController {
+public class OrderController extends BaseController{
 
     @Autowired
     private WapUserMapper userMapper;
@@ -47,6 +47,32 @@ public class OrderController {
     private OrderMiddleMapper orderMiddleMapper;
 
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
+
+
+    /**
+     * 全部订单
+     * @param page
+     * @param size
+     * @param model
+     * @return
+     */
+    @RequestMapping("/allOrder")
+    @Transactional
+    public String allOrder(int page,int size ,Model model){
+        page = page - 1;
+        String name = getUserName();
+        logger.info("当前登陆用户：" + name);
+        WapUser user = userMapper.findByUsername(name);
+        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        Page<OrderInfo> pageObject = orderInfoMapper.findAll(pageable);
+        model.addAttribute("list",pageObject.getContent());//当前列表
+        model.addAttribute("number",pageObject.getNumber()+1);//当前页面
+        model.addAttribute("size",pageObject.getSize());//每页个数
+        model.addAttribute("pages",pageObject.getTotalPages());//总页数
+        return "order/allOrder";
+    }
+
 
     /**
      * 待收货
@@ -121,6 +147,7 @@ public class OrderController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("SHIPPER", ""+user.getUserId());//发货人ID
         map.put("ORDER_ID", ""+orderId);//订单编号
+        map.put("TYPE","1");;// 发货人ID  TYPE=1实体库发货，  TYPE=2云仓库发货
         String body = null;
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
