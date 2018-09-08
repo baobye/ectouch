@@ -94,10 +94,10 @@ public class RegisterController {
             map.put("message","此手机号已经注册过会员");
             return map;
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         wapUser.setInsertDate(dateFormat.format(new Date()));
         wapUser.setStatus(1);//注册为待激活状态。
-        wapUser.setLevel(6);//默认花粉
+        wapUser.setLevel(99);//默认花粉
         wapUser.setZtId(zt.getUserId());//设置直推id
         WapUser save = userMapper.save(wapUser);
         if(save != null){

@@ -59,8 +59,10 @@ public class GoodsController {
      */
     @RequestMapping("/goods/index")
     public String index(@Value("${hhmg.server}") String server,Model model){
-
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        WapUser user = userMapper.findByUsername(name);
         model.addAttribute("server",server);
+        model.addAttribute("wapUser",user);
         return "goods/index";
     }
     @RequestMapping("/goods/indexAjax")
@@ -96,10 +98,10 @@ public class GoodsController {
         model.addAttribute("user",user);
         model.addAttribute("server",server);
         if(list != null && list.size() >0){
-            double totalNumber = 0.0;
+            Integer totalNumber = 0;
             if(list != null && list.size() >0){
                 for(GoodCart goodCart : list){
-                    totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());
+                    totalNumber = Integer.valueOf(HighPreciseComputor.addInt(totalNumber,goodCart.getGoodsNumber()));
                 }
                 //购物车总数量
                 model.addAttribute("total_number",totalNumber);
@@ -422,7 +424,7 @@ public class GoodsController {
 //
 //        0 未付款 ，1已付款 ，2已发货  3已签收  4换货申请中， 5换货处理中 6 取消交易
         orderInfo.setStatus(1);//
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         orderInfo.setInsertDate(dateFormat.format(new Date()));
         orderInfo.setPayDate(dateFormat.format(new Date()));
         orderInfoMapper.save(orderInfo);

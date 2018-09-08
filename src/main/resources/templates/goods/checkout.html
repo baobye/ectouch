@@ -68,64 +68,64 @@
                 </section>
             </a>
             <input type="hidden" name="level" th:value="${level}">
-            <section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion" th:if="${level != null}">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <p><b>会员等级</b><span class="label ect-bg-colory">请确认级别</span></p>
-                    <i class="fa fa-angle-down"></i></a>
-                    <div id="collapseOne" class="panel-collapse collapse in">
-                    <ul class="ect-radio">
-                        <li>
-                            <input name="payment" type="radio" id="payment_1" value="1" iscod="1" th:checked="${level==1}" onclick="selectPayment(this)" disabled="true" style="vertical-align:middle">
-                            <label for="payment_1">花冠<i></i></label>
-                        </li>
-                        <li>
-                            <input name="payment" type="radio" id="payment_2" value="2"  th:checked="${level==2}" iscod="0" onclick="selectPayment(this)" style="vertical-align:middle">
-                            <label for="payment_2">花朵<i></i></label>
-                        </li>
-                        <li>
-                            <input name="payment" type="radio" id="payment_3" value="3" iscod="0" th:checked="${level==3}"  onclick="selectPayment(this)" style="vertical-align:middle">
-                            <label for="payment_3">花瓣<i></i></label>
-                        </li>
-                        <li>
-                            <input name="payment" type="radio" id="payment_4" value="3" iscod="0" th:checked="${level==4}" onclick="selectPayment(this)" style="vertical-align:middle">
-                            <label for="payment_4">花蕾<i></i></label>
-                        </li>
-                        <li>
-                            <input name="payment" type="radio" id="payment_5" value="3" iscod="0" th:checked="${level==5}" onclick="selectPayment(this)" style="vertical-align:middle">
-                            <label for="payment_5">花芽<i></i></label>
-                        </li>
-                        <li>
-                            <input name="payment" type="radio" id="payment_6" value="3" iscod="0" th:checked="${level==6}" onclick="selectPayment(this)" style="vertical-align:middle">
-                            <label for="payment_6">花粉<i></i></label>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            <section class="ect-margin-tb ect-padding-lr checkout-select">
+            <!--<section class="ect-margin-tb ect-padding-lr checkout-select" id="accordion" th:if="${level != null}">-->
+                <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">-->
+                    <!--<p><b>会员等级</b><span class="label ect-bg-colory">请确认级别</span></p>-->
+                    <!--<i class="fa fa-angle-down"></i></a>-->
+                    <!--<div id="collapseOne" class="panel-collapse collapse in">-->
+                    <!--<ul class="ect-radio">-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_1" value="1" iscod="1" th:checked="${level==1}" onclick="selectPayment(this)" disabled="true" style="vertical-align:middle">-->
+                            <!--<label for="payment_1">花冠<i></i></label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_2" value="2"  th:checked="${level==2}" iscod="0" onclick="selectPayment(this)" style="vertical-align:middle">-->
+                            <!--<label for="payment_2">花朵<i></i></label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_3" value="3" iscod="0" th:checked="${level==3}"  onclick="selectPayment(this)" style="vertical-align:middle">-->
+                            <!--<label for="payment_3">花瓣<i></i></label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_4" value="3" iscod="0" th:checked="${level==4}" onclick="selectPayment(this)" style="vertical-align:middle">-->
+                            <!--<label for="payment_4">花蕾<i></i></label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_5" value="3" iscod="0" th:checked="${level==5}" onclick="selectPayment(this)" style="vertical-align:middle">-->
+                            <!--<label for="payment_5">花芽<i></i></label>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<input name="payment" type="radio" id="payment_6" value="3" iscod="0" th:checked="${level==6}" onclick="selectPayment(this)" style="vertical-align:middle">-->
+                            <!--<label for="payment_6">花粉<i></i></label>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</section>-->
+            <!--<section class="ect-margin-tb ect-padding-lr checkout-select">-->
 
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour1" aria-expanded="false" class="collapsed">
-                    <p><b> 余额付款 </b></p>
-                    <i class="fa fa-angle-down"></i> </a>
-                    <input type="hidden" th:value="${user.dzb}" name="dzb" id="dzb">
-                <div id="collapseFour1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" th:text="'您当前的可用余额为'+${user.dzb}"> 您当前的可用余额为999744.00<br>
-                    <span id="ECS_SURPLUS_NOTICE"></span>
-                    <input name="surplus" type="text" id="ECS_SURPLUS" size="10" value="0" onblur="changeSurplus(this.value)" disabled="disabled">
-                </div>
+                <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour1" aria-expanded="false" class="collapsed">-->
+                    <!--<p><b> 余额付款 </b></p>-->
+                    <!--<i class="fa fa-angle-down"></i> </a>-->
+                    <!--<input type="hidden" th:value="${user.dzb}" name="dzb" id="dzb">-->
+                <!--<div id="collapseFour1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" th:text="'您当前的可用余额为'+${user.dzb}"> 您当前的可用余额为999744.00<br>-->
+                    <!--<span id="ECS_SURPLUS_NOTICE"></span>-->
+                    <!--<input name="surplus" type="text" id="ECS_SURPLUS" size="10" value="0" onblur="changeSurplus(this.value)" disabled="disabled">-->
+                <!--</div>-->
 
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" class="collapsed">
-                    <p><b> 订单附言 </b></p>
-                    <i class="fa fa-angle-down"></i> </a>
-                <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false" style="height: 45px;">
-                    <input name="userMark" type="text" class="fuyan" placeholder="请输入订单附言">
-                </div>
-            </section>
+                <!--&lt;!&ndash;<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" class="collapsed">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p><b> 订单附言 </b></p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="fa fa-angle-down"></i> </a>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div id="collapseFive" class="panel-collapse collapse" aria-expanded="false" style="height: 45px;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input name="userMark" type="text" class="fuyan" placeholder="请输入订单附言">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</section>-->
             <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
                 <p><b>商品列表</b><span class="label ect-bg-colory"><a href="/cart" class="ect-colorf">修改</a></span></p>
                 <ul>
                     <li th:each="cart,cartstat : ${list}">
                         <dl>
                             <dt class="pull-left">
-                                <a href="/index.php?m=default&c=goods&a=index&id=1&u=2" target="_blank" th:text="${cart.goodsName}">电视</a>
+                                <a href="/index.php?m=default&c=goods&a=index&id=1&u=2" target="_blank" th:text="${cart.goodsName}"></a>
                             </dt>
                             <dd class="pull-left list-num" th:text="'x '+${cart.goodsNumber}">x 1</dd>
                             <dd class="pull-right" th:text="'￥'+${cart.goodsPrice}+'元'">￥11111.00元</dd>
@@ -142,11 +142,14 @@
                     <b class="ect-colory">￥0.00元</b>
                     的红包。
                     <br/> -->
+                    当前等级:
+                    <b class="ect-colory" id="level"></b>
+                    <br />
                     商品总价:
-                    <b class="ect-colory"  th:text="'￥'+${total_desc}+'元'">￥11111.00元</b>
+                    <b class="ect-colory"  th:text="'￥'+${total_desc}+'元'"></b>
                     <input type="hidden" name="goodPriceTotal" th:value="${total_desc}" >
                     <br />
-                    应付款金额: <b class="ect-colory" name="orderPriceTotal" th:text="'￥'+${total_desc}+'元'">￥11111.00元</b><br />
+                    应付款金额: <b class="ect-colory" name="orderPriceTotal" th:text="'￥'+${total_desc}+'元'"></b><br />
                     <input type="hidden" name="orderPriceTotal" th:value="${total_desc}"  id="orderPriceTotal">
                 </div>
             </section>
@@ -200,6 +203,8 @@
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
 <script language="javascript">
+    var leve =
+        // level
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',

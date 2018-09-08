@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
     <meta charset="utf-8">
     <title>商品详情</title>
     <link rel="stylesheet" href="/themes/default/statics/fonts/iconfont.css">
-    <link rel="stylesheet" href="/themes/default/statics/css/swiper-3.2.5.min.css" />
-    <link rel="stylesheet" href="/themes/default/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/default/statics/css/swiper-3.2.5.min.css"/>
+    <link rel="stylesheet" href="/themes/default/statics/css/ectouch.css"/>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="/css/weui.min.css">
+    <style>
+        /*.p-market li {*/
+
+        /*}*/
+        .p-price .t-first {
+            display: none;
+        }
+
+        .t-firstShow {
+            display: inline-block !important;
+        }
+    </style>
 </head>
 
 <body style="max-width:640px;">
@@ -29,7 +41,8 @@
         <div class="ect-bg">
             <header class="ect-header ect-margin-tb ect-margin-lr text-center icon-write ect-bg">
                 <a href="/goods/index" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>商品详情</span>
-                <a href="javascript:;" onclick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune icon-write"></a>
+                <a href="javascript:;" onclick="openMune()"
+                   class="pull-right ect-icon ect-icon1 ect-icon-mune icon-write"></a>
             </header>
             <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
             </nav>
@@ -44,7 +57,8 @@
             <span class="goods-num" id="goods-num"><span id="g-active-num">1</span>/<span id="g-all-num">1</span></span>
             <ul class="swiper-wrapper">
                 <li class="swiper-slide tb-lr-center swiper-slide-active" style="width: 400px;">
-                    <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${goodInfo?.pictures[0]?.path}}" alt="电视">
+                    <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${goodInfo?.pictures[0]?.path}}"
+                         alt="电视">
                 </li>
             </ul>
             <div class="swiper-pagination"></div>
@@ -54,25 +68,36 @@
 
             <section class="goods-title b-color-f padding-all ">
                 <div class="dis-box">
-                    <h3 class="box-flex" th:text="${goodInfo?.goodName}">电视</h3>
+                    <h3 class="box-flex" th:text="${goodInfo?.goodName}"></h3>
                 </div>
             </section>
 
             <section class="goods-price padding-all b-color-f">
                 <p class="p-price">
 					<span class="t-first" th:text="${goodInfo.aPrice}">
-								￥11111元
                     </span>
-                     <!--<em class="em-promotion" th:text="${goodInfo.aPrice / goodInfo.fPrice}+折">5.8折</em></p>-->
+                    <span class="t-first" th:text="${goodInfo.bPrice}">
+                    </span>
+                    <span class="t-first" th:text="${goodInfo.cPrice}">
+                    </span>
+                    <span class="t-first" th:text="${goodInfo.dPrice}">
+                    </span>
+                    <span class="t-first" th:text="${goodInfo.ePrice}">
+                    </span>
+                    <span class="t-first" th:text="${goodInfo.fPrice}">
+                    </span>
+                    <!--<em class="em-promotion" th:text="${goodInfo.aPrice / goodInfo.fPrice}+折">5.8折</em></p>-->
                 </p>
-                <p class="p-market">
-                    1花冠：<del style="display:inline-block" th:text="${goodInfo.aPrice}">￥13333元 </del></br>
-                    2花朵：<del style="display:inline-block" th:text="${goodInfo.bPrice}">￥13333元 </del></br>
-                    3花瓣：<del style="display:inline-block" th:text="${goodInfo.cPrice}">￥13333元 </del></br>
-                    4花蕾：<del style="display:inline-block" th:text="${goodInfo.dPrice}">￥13333元 </del></br>
-                    5花芽：<del style="display:inline-block" th:text="${goodInfo.ePrice}">￥13333元 </del></br>
-                    6花粉：<del style="display:inline-block" th:text="${goodInfo.fPrice}">￥13333元 </del></br>
-                </p>
+                <ul class="p-market">
+                    <!--<li>原价：<del style="display:inline-block" th:text="${goodInfo.aPrice}"></del></li>-->
+                    <!--<li>原价：<del style="display:inline-block" th:text="${goodInfo.bPrice}"></del></li>-->
+                    <!--<li>原价：<del style="display:inline-block" th:text="${goodInfo.cPrice}"></del></li>-->
+                    <!--<li>原价：<del style="display:inline-block" th:text="${goodInfo.dPrice}"></del></li>-->
+                    <!--<li>原价：<del style="display:inline-block" th:text="${goodInfo.ePrice}"></del></li>-->
+                    <li>原价：
+                        <del style="display:inline-block" th:text="${goodInfo.fPrice}"></del>
+                    </li>
+                </ul>
                 <!--p class=" dis-box g-p-tthree m-top06">
                     <span class="box-flex text-left">销量：0</span>
                     <span class="box-flex text-right">库存 1</span>
@@ -81,62 +106,68 @@
 
 
             <form action="/goods/addToCart" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY">
-                <section class="goods-more-a">
-                    <!--  <a class="ect-padding-lr ect-padding-tb" href="/ectouch/index.php?m=default&c=goods&a=info&id=1&u=2"><span class="Text">商品描述</span> <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
-                    <a class="ect-padding-lr ect-padding-tb" href="/ectouch/index.php?m=default&c=goods&a=comment_list&id=1&u=2"><span class="Text">商品评论</span> <span class="pull-right"><span class="ect-color">0</span>人评价 <span class="ect-color">100%</span>好评 <i class="fa fa-chevron-right"></i></span></a>  -->
-                </section>
+                <!--<section class="goods-more-a">-->
+                <!--  <a class="ect-padding-lr ect-padding-tb" href="/ectouch/index.php?m=default&c=goods&a=info&id=1&u=2"><span class="Text">商品描述</span> <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                <a class="ect-padding-lr ect-padding-tb" href="/ectouch/index.php?m=default&c=goods&a=comment_list&id=1&u=2"><span class="Text">商品评论</span> <span class="pull-right"><span class="ect-color">0</span>人评价 <span class="ect-color">100%</span>好评 <i class="fa fa-chevron-right"></i></span></a>  -->
+                <!--</section>-->
 
-                <section class="m-top1px padding-all b-color-f goods-attr j-goods-attr j-show-div">
-                    <div class="dis-box">
-                        <label class="t-remark g-t-temark">已选</label>
-                        <div class="box-flex t-goods1 ">请选择</div>
-                        <span class="t-jiantou"><i class="iconfont icon-jiantou tf-180"></i></span>
-                    </div>
+                <!--<section class="m-top1px padding-all b-color-f goods-attr j-goods-attr j-show-div">-->
+                <!--<div class="dis-box">-->
+                <!--<label class="t-remark g-t-temark">已选</label>-->
+                <!--<div class="box-flex t-goods1 ">请选择</div>-->
+                <!--<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180"></i></span>-->
+                <!--</div>-->
 
-                    <div class="mask-filter-div"></div>
-                    <div class="show-goods-attr j-filter-show-div ts-3 b-color-1">
-                        <section class="s-g-attr-title b-color-1  product-list-small">
-                            <div class="product-div">
-                                <img src="http://127.0.0.1/ectouch/data/assets/images/201805/goods_img/1_G_1525583545933.jpg" alt="电视" class="product-list-img">
-                                <div class="product-text">
-                                    <div class="dis-box">
-                                        <h4 class="box-flex">电视</h4>
-                                        <i class="iconfont icon-guanbi1 show-div-guanbi"></i>
-                                    </div>
-                                    <p><span class="p-price t-first" id="ECS_GOODS_AMOUNT">￥11111元</span>
-                                    </p>
-                                    <p class="dis-box p-t-remark"><span class="box-flex">库存:1</span></p>
-                                </div>
-                             </div>
-                        </section>
-                        <section class="s-g-attr-con swiper-scroll b-color-f padding-all m-top1px swiper-container-vertical swiper-container-free-mode swiper-container-android">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide swiper-slide-active">
-
-
-                                    <h4 class="t-remark">数量</h4>
-                                    <div class="div-num dis-box m-top08">
-                                        <a class="num-less" onclick="changePrice('1')"></a>
-                                        <input class="box-flex" type="text" value="1" name="number" id="goods_number" autocomplete="off">
-                                        <a class="num-plus" onclick="changePrice('3')"></a>
-                                    </div>
-                                </div>
+                <!--<div class="mask-filter-div"></div>-->
+                <!--<div class="show-goods-attr j-filter-show-div ts-3 b-color-1">-->
+                <!--<section class="s-g-attr-title b-color-1  product-list-small">-->
+                <!--<div class="product-div">-->
+                <!--<img src="http://127.0.0.1/ectouch/data/assets/images/201805/goods_img/1_G_1525583545933.jpg"-->
+                <!--alt="电视" class="product-list-img">-->
+                <!--<div class="product-text">-->
+                <!--<div class="dis-box">-->
+                <!--<h4 class="box-flex">电视</h4>-->
+                <!--<i class="iconfont icon-guanbi1 show-div-guanbi"></i>-->
+                <!--</div>-->
+                <!--<p><span class="p-price t-first" id="ECS_GOODS_AMOUNT">￥11111元</span>-->
+                <!--</p>-->
+                <!--<p class="dis-box p-t-remark"><span class="box-flex">库存:1</span></p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</section>-->
+                <!--<section-->
+                <!--class="s-g-attr-con swiper-scroll b-color-f padding-all m-top1px swiper-container-vertical swiper-container-free-mode swiper-container-android">-->
+                <!---->
+                <!--<div class="swiper-scrollbar" style="display: none; opacity: 0;">-->
+                <!--<div class="swiper-scrollbar-drag" style="height: 97px;"></div>-->
+                <!--</div>-->
+                <!--</section>-->
+                <section class="goods-price padding-all b-color-f">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-slide-active">
+                            <span class="t-remark" style="
+                            color: #888 !important;font-size: 1.6rem !important;">数量</span>
+                            <div class="div-num dis-box m-top08">
+                                <a class="num-less" onclick="changePrice('1')"></a>
+                                <input class="box-flex" type="text" value="1" name="number" id="goods_number"
+                                       autocomplete="off">
+                                <a class="num-plus" onclick="changePrice('3')"></a>
                             </div>
-                            <div class="swiper-scrollbar" style="display: none; opacity: 0;"><div class="swiper-scrollbar-drag" style="height: 97px;"></div></div>
-                        </section>
-                        <section class="ect-button-more dis-box padding-all">
-                            <a class="btn-cart box-flex" type="button"  id="showToast"   th:onClick="'javascript:addToCart(\''+${goodInfo.goodId}+'\');'">加入购物车</a>
-                            <!--a class="btn-submit box-flex" type="button"  th:onClick="'javascript:addToCart_quick(\''+${goodInfo.goodId}+'\');'">立即购买</a-->
-                        </section>
-
+                        </div>
                     </div>
-
-                </section></form>
+                </section>
+                <!--<section class="ect-button-more dis-box padding-all">-->
+                <!--<a class="btn-cart box-flex" type="button" id="showToast"-->
+                <!--th:onClick="'javascript:addToCart(\''+${goodInfo.goodId}+'\');'">加入购物车</a>-->
+                <!--&lt;!&ndash;a class="btn-submit box-flex" type="button"  th:onClick="'javascript:addToCart_quick(\''+${goodInfo.goodId}+'\');'">立即购买</a&ndash;&gt;-->
+                <!--</section>-->
+                <!--</div>-->
+                <!--</section>-->
+            </form>
 
             <section class="m-top04 goods-evaluation">
                 <div class="padding-all m-top1px b-color-f g-evaluation-con"></div>
             </section>
-
 
 
         </div>
@@ -159,7 +190,6 @@
         <div class="tipMask" id="hidDiv" style="display:none"></div>
 
 
-
     </div>
 
     <div class="mask-filter-div"></div>
@@ -180,23 +210,32 @@
     <div class="tipMask" id="hidDiv" style="display:none"></div>
 
 
-
 </div>
 <div class="filter-btn dis-box">
     <!--a class="filter-btn-kefu filter-btn-a"><i class="iconfont icon-kefu"></i><em>客服</em></a-->
-    <a href="/cart" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color" id='total_number' th:text="${total_number}">0</sup><em>购物车</em></a>
-    <a type="button" class="btn-cart box-flex" th:onClick="'javascript:addToCart(\''+${goodInfo.goodId}+'\');'">加入购物车</a>
+    <a href="/cart" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
+                                                                                                    id='total_number'
+                                                                                                    th:text="${total_number}">0</sup><em>购物车</em></a>
+   <a type="button" class="btn-cart box-flex"
+    th:onClick="'javascript:addToCart(\''+${goodInfo.goodId}+'\');'">加入购物车</a>
+    <!--<a type="button" class="btn-cart box-flex"
+       th:onClick="'javascript:addToCarts(\''+${goodInfo.goodId}+'\');'">加入购物车</a>-->
+    <a class="btn-cart box-flex" href="/goods/checkout">立即结算</a>
     <!--a type="button" class="btn-submit box-flex" th:onClick="'javascript:addToCart_quick(\''+${goodInfo.goodId}+'\');'">立即购买</a-->
-</div><div class="search" style="display:none;">
+</div>
+<div class="search" style="display:none;">
     <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;"
+                                                                                             onClick="closeSearch();"><i
+                class="icon-close pull-right"></i></a></header>
     </div>
     <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2&id=1"  method="post" id="searchForm" name="searchForm">
+        <form action="/index.php?m=default&c=category&a=index&u=2&id=1" method="post" id="searchForm" name="searchForm">
             <div class="input-search"> <span>
         <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
         </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
+                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i
+                        class="glyphicon glyphicon-search"></i></button>
             </div>
         </form>
 
@@ -213,6 +252,32 @@
 
 <script type="text/javascript" src="/themes/default/js/lefttime.js"></script>
 <script type="text/javascript">
+/*    function addToCarts(goodId) {
+        var leve = sessionStorage.getItem('level');
+        var leves = sessionStorage.getItem('levels');
+        if (leves) {
+            toDoCarts(goodId, leves);
+        } else {
+            toDoCarts(goodId, leve);
+        }
+    }
+
+    function toDoCarts(goodId, leve) {
+        alert(goodId);
+        alert(leve);
+        $.ajax({
+            url: '/goods/addToCart',
+            data: {
+                goodId: goodId,
+                level: leve
+            },
+            success: function (res, err) {
+                console.log(res)
+                console.error(err)
+            }
+        })
+    }*/
+
     /*点击下拉菜单*/
     function openMune() {
         if ($(".ect-nav").is(":visible")) {
@@ -221,6 +286,7 @@
             $(".ect-nav").show();
         }
     }
+
     /*倒计时*/
     var goods_id = 1;
     var goodsattr_style = 1;
@@ -233,17 +299,21 @@
     var goodsId = 1;
     var now_time = 1526104874;
     var use_how_oos = 1;
-    $(function() {
+    $(function () {
         changePrice(2);
         //fixpng();
-        try {onload_leftTime();}
-        catch (e) {}
+        try {
+            onload_leftTime();
+        }
+        catch (e) {
+        }
     });
 
     function back_goods_number() {
         var goods_number = document.getElementById('goods_number').value;
         document.getElementById('back_number').value = goods_number;
     }
+
     /**
      * 点选可选属性或改变数量时修改商品价格的函数
      */
@@ -267,10 +337,11 @@
             'id': goodsId,
             'attr': attr,
             'number': qty
-        }, function(data) {
+        }, function (data) {
             changePriceResponse(data);
         }, 'json');
     }
+
     /**
      * 接收返回的信息
      */
@@ -288,21 +359,26 @@
 <script>
 
 
-
-
-    $(function($) {
-
-        var handler = function(e) { //禁止浏览器默认行为
+    $(function ($) {
+        var level = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        $(".t-first").removeClass('t-firstShow');
+        if (levels) {
+            $(".t-first").eq(levels - 1).addClass('t-firstShow');
+        } else {
+            $(".t-first").eq(level - 1).addClass('t-firstShow');
+        }
+        var handler = function (e) { //禁止浏览器默认行为
             e.preventDefault();
         };
         /*弹出层方式*/
-        $(".j-show-div").click(function() {
+        $(".j-show-div").click(function () {
             document.addEventListener("touchmove", handler, false);
             $(this).find(".j-filter-show-div").addClass("show");
             $(".mask-filter-div").addClass("show");
         });
         /*关闭弹出层*/
-        $(".mask-filter-div,.show-div-guanbi").click(function() {
+        $(".mask-filter-div,.show-div-guanbi").click(function () {
             document.removeEventListener("touchmove", handler, false);
             $(".j-filter-show-div").removeClass("show");
             $(".mask-filter-div").removeClass("show");
@@ -311,11 +387,11 @@
         /*商品详情相册切换*/
         var swiper = new Swiper('.goods-photo', {
             paginationClickable: true,
-            onInit: function(swiper) {
+            onInit: function (swiper) {
                 document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
                 document.getElementById("g-all-num").innerHTML = swiper.slides.length;
             },
-            onSlideChangeStart: function(swiper) {
+            onSlideChangeStart: function (swiper) {
                 document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
             }
         });

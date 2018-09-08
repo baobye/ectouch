@@ -157,7 +157,9 @@
         var size = 5;
 
         var levles = 0;
-        var level = sessionStorage.getItem('level');;
+        sessionStorage.setItem('userId', $('#userId').val());
+        sessionStorage.setItem('level', $('#level').val());
+        var level = sessionStorage.getItem('level');
         if(level == 99){
             $('#iosActionsheet').addClass('weui-actionsheet_toggle');
             $('#iosMask').fadeIn(200);
@@ -177,7 +179,6 @@
                         url: '/goods/indexAjax?page=' + page + '&size=' + 100,
                         dataType: 'json',
                         success: function (data) {
-                            console.log(data);
                             var arrLen = data.length;
 
                             // function hideActionSheet() {
@@ -189,7 +190,6 @@
                             if (levles != 0 && levles != "") {
                                 level = levles
                             }
-                            debugger
                             if (arrLen > 0) {
                                 for (var i = 0; i < arrLen; i++) {
                                     var path = data[i].pictures[0];
@@ -289,6 +289,7 @@
             $iosActionsheet.removeClass('weui-actionsheet_toggle');
             $iosMask.fadeOut(200);
             levles = $(this).attr('value')
+            sessionStorage.setItem('levels',levles)
             getInitData()
         })
     });
@@ -303,6 +304,8 @@
         </nav>
     </div>
     <div class="category">
+        <input type="hidden" name ="level" th:value="${wapUser.level}" id="level"/>
+        <input type="hidden" name ="userId" th:value="${wapUser.userId}" id="userId"/>
         <section class="product-list j-product-list product-list-medium" data="1">
             <ul id="lists">
                 <!--li id="j-product-box" th:each="good,goodstat : ${list}">
