@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>资金管理</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <link rel="stylesheet" href="/themes/default/css/user.css">
+    <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
+    <script th:inline="javascript">
+
+        function goPage(page) {
+
+            var number = [[${number}]];
+            var pages = [[${pages}]]
+            number = number + page;
+            if(number <= 0){
+                return;
+            }
+            if(number > pages){
+                return;
+            }
+            window.location.href='/money/index?page='+number+'&size=5';
+        }
+    </script>
+
+
+
+</head>
+
+<body>
+<div class="con">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>资金管理</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+        </nav>
+    </div>
+    <ul class="nav nav-tabs account" role="tablist">
+        <li class="active"><a href="/money/index?page=1&size=5" >奖金明细</a></li>
+        <li><a href="/money/record" >申请记录</a></li>
+        <li><a href="/money/recharge" >账户充值</a></li>
+        <li><a href="/money/withdraw" >余额提现</a></li>
+    </ul>
+
+    <div class="user-account-detail">
+        <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}">
+            <li>
+                <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.jjbTotal}+'元'">￥10.00元</span></p>
+                <p class="content">
+                    <span class="pull-right text-right type" th:if="${money.type eq 1}">增加</span>
+                    <span class="pull-right text-right type" th:if="${money.type eq 2}">减少</span>
+
+                </p>
+                <p class="content">
+                    <span class="pull-left text-left type" th:if="${money.status eq 0}">状态:上级已发放</span>
+                    <span class="pull-left text-left type" th:if="${money.status eq 1}">状态:上级未发放</span>
+                </p>
+            </li>
+        </ul>
+        <p class="pull-right count" style="background-color: bisque;" >您当前的可用资金为：<b class="ect-colory" th:text="'￥'+${user.dzb}+'元'">￥1000000.00元</b></p>
+    </div>
+    <ul class="pager ect-margin-lr ect-page">
+        <li class="pull-left"><a href="javascript:goPage(-1)">上一页</a></li>
+        <li class="form-select">
+            <i class="fa fa-sort-desc"></i>
+            <select name="sel_question" onChange="window.location.href=this.value;">
+                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/money/index?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
+            </select>
+        </li>
+        <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
+    </ul>
+
+    <div id="chart" style="width:400px;height:400px;"></div>
+
+    <script type="text/javascript">
+        var title;
+        var legend;
+        var xData;
+        var yData;
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            async: false,
+            url: "/echarts/all",
+            success: function (data) {
+                if (data) {
+                    xData = data.name;
+                    yData = data.value;
+                    legend = data.legend;
+                    title = data.title;
+                }
+            }
+        });
+
+        // 初始化图表标签
+        var myChart = echarts.init(document.getElementById('chart'));
+        var options={
+            //定义一个标题
+            title:{
+                text:title
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend:{
+                data:legend
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            //X轴设置
+            xAxis:{
+                data:xData
+            },
+            yAxis:{
+            },
+            //name=legend.data的时候才能显示图例
+            series:[{
+                name:title,
+                type:'bar',
+                data:yData
+            }]
+
+        };
+        myChart.setOption(options);
+    </script>
+
+</div>
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+
+</body>
+</html>

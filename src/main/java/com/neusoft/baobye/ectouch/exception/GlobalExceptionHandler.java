@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = EcException.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest request, HttpServletResponse response, Object handler, EcException ex){
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         System.out.println("=====================全局异常信息捕获=======================");
@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         String msg;
         if(ex instanceof EcException){
             msg = ex.getMessage();
-        } else {
+        } else{
             msg = "操作异常!";
         }
         ex.printStackTrace();
@@ -36,6 +36,16 @@ public class GlobalExceptionHandler {
         } finally {
         }
 
+        return modelAndView;
+    }
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultHandler(HttpServletRequest request,HttpServletResponse response,Object handler,Exception ex){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("message","系统异常请稍后重试");
+        modelAndView.addObject("buttonValue","系统异常请稍后重试");
+        modelAndView.addObject("contentUrl","/");
+        modelAndView.setViewName("/error");
         return modelAndView;
     }
 }

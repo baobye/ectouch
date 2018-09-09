@@ -10,31 +10,175 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <link rel="stylesheet" href="/css/dropload.css">
     <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
-    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
-    <script th:inline="javascript">
-
-        function goPage(page) {
-
-            var number = [[${number}]];
-            var pages = [[${pages}]]
-            number = number + page;
-            if(number <= 0){
-                return;
-            }
-            if(number > pages){
-                return;
-            }
-            window.location.href='/money/index?page='+number+'&size=5';
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-text-size-adjust:none;
         }
-    </script>
-
-
-
+        .content{
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .content .item{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align:center;
+            -webkit-box-align:center;
+            box-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+            padding:3.125%;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+        }
+        .content .item img{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border:1px solid #ddd;
+        }
+        .content .item h3{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .content .item .date{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+        .opacity{
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+        @-webkit-keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
+
+<script src="/js/dropload.min.js"></script>
+<script th:inline="javascript">
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+
+        // dropload
+        $('.con').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '/money/indexAjax?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data)
+                        var arrLen = data.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<arrLen; i++){
+                                var demo = data[i].memo;
+                                if(demo == null || demo =="null"){
+                                    demo ="";
+                                }
+                                result += '<div class="weui-form-preview">'
+                                    +'  <div class="weui-form-preview__hd">'
+                                    +'   <label class="weui-form-preview__label">总金额</label>'
+                                    +'   <em class="weui-form-preview__value">'+data[i].jjbTotal+'</em>'
+                                    +'</div>'
+                                    +'<div class="weui-form-preview__bd">'
+                                    +'   <div class="weui-form-preview__item">'
+                                    +'   <label class="weui-form-preview__label">时间</label>'
+                                    +'  <span class="weui-form-preview__value">'+data[i].insertDate+'</span>'
+                                    +' </div>' +
+                                    '                                            <div class="weui-form-preview__item">' +
+                                    '                                            <label class="weui-form-preview__label">状态</label>' +
+                                    '                                            <span class="weui-form-preview__value" >'+status+'</span>' +
+                                    '                                            </div>' +
+                                    '                                            <div class="weui-form-preview__item">' +
+                                    '                                            <label class="weui-form-preview__label">招募奖</label>' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].zmj+'</span>' +
+                                    '                                            </div>' +
+                                    '                                            <div class="weui-form-preview__item">' +
+                                    '                                            <label class="weui-form-preview__label">平推荐</label>' +
+                                    '                                            <span class="weui-form-preview__value" >'+data[i].ptj+'</span>' +
+                                    '                                            </div>' +
+                                   '                                            <div class="weui-form-preview__item">' +
+                                '                                            <label class="weui-form-preview__label">垄断奖</label>' +
+                                '                                            <span class="weui-form-preview__value" >'+data[i].ldj+'</span>' +
+                                '                                            </div>' +
+                                    '                                            </div>' +
+                                    '                                            </div>' +
+                                    '                                    <br>';
+                            }
+                            // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        // 插入数据到页面，放到最后面
+                        $('#lists').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
+                    },
+                    error: function(xhr, type){
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+                page++;
+            }
+        });
+    });
+</script>
+
+
 <div class="con">
     <div class="ect-bg">
         <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>资金管理</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
@@ -48,10 +192,10 @@
         <li><a href="/money/withdraw" >余额提现</a></li>
     </ul>
 
-    <div class="user-account-detail">
+    <!--div class="user-account-detail">
         <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}">
             <li>
-                <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.sumMoney}+'元'">￥10.00元</span></p>
+                <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.jjbTotal}+'元'">￥10.00元</span></p>
                 <p class="content">
                     <span class="pull-right text-right type" th:if="${money.type eq 1}">增加</span>
                     <span class="pull-right text-right type" th:if="${money.type eq 2}">减少</span>
@@ -64,87 +208,7 @@
             </li>
         </ul>
         <p class="pull-right count" style="background-color: bisque;" >您当前的可用资金为：<b class="ect-colory" th:text="'￥'+${user.dzb}+'元'">￥1000000.00元</b></p>
-    </div>
-    <ul class="pager ect-margin-lr ect-page">
-        <li class="pull-left"><a href="javascript:goPage(-1)">上一页</a></li>
-        <li class="form-select">
-            <i class="fa fa-sort-desc"></i>
-            <select name="sel_question" onChange="window.location.href=this.value;">
-                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/money/index?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
-            </select>
-        </li>
-        <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
-    </ul>
-
-    <div id="chart" style="width:400px;height:400px;"></div>
-
-    <script type="text/javascript">
-        var title;
-        var legend;
-        var xData;
-        var yData;
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            async: false,
-            url: "/echarts/all",
-            success: function (data) {
-                if (data) {
-                    xData = data.name;
-                    yData = data.value;
-                    legend = data.legend;
-                    title = data.title;
-                }
-            }
-        });
-
-        // 初始化图表标签
-        var myChart = echarts.init(document.getElementById('chart'));
-        var options={
-            //定义一个标题
-            title:{
-                text:title
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            legend:{
-                data:legend
-            },
-            toolbox: {
-                show: true,
-                orient: 'vertical',
-                left: 'right',
-                top: 'center',
-                feature: {
-                    mark: {show: true},
-                    dataView: {show: true, readOnly: false},
-                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                    restore: {show: true},
-                    saveAsImage: {show: true}
-                }
-            },
-            calculable: true,
-            //X轴设置
-            xAxis:{
-                data:xData
-            },
-            yAxis:{
-            },
-            //name=legend.data的时候才能显示图例
-            series:[{
-                name:title,
-                type:'bar',
-                data:yData
-            }]
-
-        };
-        myChart.setOption(options);
-    </script>
-
+    </div -->
 </div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
