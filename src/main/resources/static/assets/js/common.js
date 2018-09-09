@@ -45,6 +45,16 @@ function addToCart(goodsId, parentId) {
 
         quick = 1;
     }
+
+    var leve = sessionStorage.getItem('level');
+    var leves = sessionStorage.getItem('levels');
+    var level ;
+    if (leves) {
+        level = leves;
+    } else {
+        level = leves;
+    }
+    goods.level = level;
     goods.quick = quick;
     goods.spec = spec_arr;
     goods.goods_id = goodsId;
