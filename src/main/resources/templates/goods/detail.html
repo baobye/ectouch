@@ -213,7 +213,7 @@
 </div>
 <div class="filter-btn dis-box">
     <!--a class="filter-btn-kefu filter-btn-a"><i class="iconfont icon-kefu"></i><em>客服</em></a-->
-    <a href="/cart" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
+    <a href="" onclick="goCart()" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
                                                                                                     id='total_number'
                                                                                                     th:text="${total_number}">0</sup><em>购物车</em></a>
    <a type="button" class="btn-cart box-flex"
@@ -222,24 +222,6 @@
        th:onClick="'javascript:addToCarts(\''+${goodInfo.goodId}+'\');'">加入购物车</a>-->
     <a class="btn-cart box-flex" href="/goods/checkout">立即结算</a>
     <!--a type="button" class="btn-submit box-flex" th:onClick="'javascript:addToCart_quick(\''+${goodInfo.goodId}+'\');'">立即购买</a-->
-</div>
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;"
-                                                                                             onClick="closeSearch();"><i
-                class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2&id=1" method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i
-                        class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
-
-    </div>
 </div>
 
 <script type="text/javascript" src="/themes/default/statics/js/jquery-2.1.4.min.js"></script>
@@ -358,7 +340,18 @@
 </script>
 <script>
 
+    function goCart(){
+        var level ;
 
+        var level = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        if(levels){
+            level = levels;
+        }else{
+            level = leve;
+        }
+        window.location.href = '/cart/'+level;
+    }
     $(function ($) {
         var level = sessionStorage.getItem('level');
         var levels = sessionStorage.getItem('levels');
