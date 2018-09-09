@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/themes/default/css/style.css">
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <script type="text/javascript" src="/js/echarts.common.min.js"></script>
     <script th:inline="javascript">
 
         function goPage(page) {
@@ -26,6 +29,9 @@
             window.location.href='/money/index?page='+number+'&size=5';
         }
     </script>
+
+
+
 </head>
 
 <body>
@@ -69,21 +75,76 @@
         </li>
         <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
     </ul>
-</div>
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
 
-    </div>
+    <div id="chart" style="width:400px;height:400px;"></div>
+
+    <script type="text/javascript">
+        var title;
+        var legend;
+        var xData;
+        var yData;
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            async: false,
+            url: "/echarts/all",
+            success: function (data) {
+                if (data) {
+                    xData = data.name;
+                    yData = data.value;
+                    legend = data.legend;
+                    title = data.title;
+                }
+            }
+        });
+
+        // 初始化图表标签
+        var myChart = echarts.init(document.getElementById('chart'));
+        var options={
+            //定义一个标题
+            title:{
+                text:title
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend:{
+                data:legend
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            //X轴设置
+            xAxis:{
+                data:xData
+            },
+            yAxis:{
+            },
+            //name=legend.data的时候才能显示图例
+            series:[{
+                name:title,
+                type:'bar',
+                data:yData
+            }]
+
+        };
+        myChart.setOption(options);
+    </script>
+
 </div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
@@ -98,39 +159,6 @@
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
-<script type="text/javascript" src="/assets/js/common.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.more.js"></script>
-<script type="text/javascript" src="/assets/js/utils.js" ></script>
-<script src="/assets/swiper/js/jquery.swiper.min.js"></script>
-<script src="/themes/default/js/ectouch.js"></script>
-<script src="/themes/default/js/simple-inheritance.min.js"></script>
-<script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/themes/default/js/jquery.scrollUp.min.js"></script>
-<script type="text/javascript" src="/assets/js/validform.js" ></script>
-<script language="javascript">
-    /*banner滚动图片*/
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 1,
-        loop: true,
-        autoplay : 2000
-    });
-    /*弹出评论层并隐藏其他层*/
-    function openSearch(){
-        if($(".con").is(":visible")){
-            $(".con").hide();
-            $(".search").show();
-        }
-    }
-    function closeSearch(){
-        if($(".con").is(":hidden")){
-            $(".con").show();
-            $(".search").hide();
-        }
-    }
-</script>
+
 </body>
 </html>

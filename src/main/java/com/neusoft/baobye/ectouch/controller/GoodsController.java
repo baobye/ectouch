@@ -151,18 +151,19 @@ public class GoodsController {
                 if(user.getStatus() == 2){
                     cart.setGoodsPrice(goodInfo.getaPrice());
                 }
-                if(user.getLevel() == 1){
+                Long level = Long.parseLong((String) map.get("level"));
+                if(level == 1){
 //                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
                     cart.setGoodsPrice(goodInfo.getaPrice());
-                }else if(user.getLevel() == 2){
+                }else if(level == 2){
                     cart.setGoodsPrice(goodInfo.getbPrice());
-                }else if(user.getLevel() == 3){
+                }else if(level == 3){
                     cart.setGoodsPrice(goodInfo.getcPrice());
-                }else if(user.getLevel() == 4){
+                }else if(level == 4){
                     cart.setGoodsPrice(goodInfo.getdPrice());
-                }else if(user.getLevel() == 5){
+                }else if(level == 5){
                     cart.setGoodsPrice(goodInfo.getePrice());
-                }else if(user.getLevel() == 6){
+                }else if(level == 6){
                     cart.setGoodsPrice(goodInfo.getfPrice());
                 }
                 goodCartMapper.save(cart);
@@ -171,6 +172,22 @@ public class GoodsController {
             }else{
 
                 int number = goodCart.getGoodsNumber()+Integer.parseInt((String)map.get("number"));
+                Long level = Long.parseLong((String) map.get("level"));
+                if(level == 1){
+//                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
+                    goodCart.setGoodsPrice(goodInfo.getaPrice());
+                }else if(level == 2){
+                    goodCart.setGoodsPrice(goodInfo.getbPrice());
+                }else if(level == 3){
+                    goodCart.setGoodsPrice(goodInfo.getcPrice());
+                }else if(level == 4){
+                    goodCart.setGoodsPrice(goodInfo.getdPrice());
+                }else if(level == 5){
+                    goodCart.setGoodsPrice(goodInfo.getePrice());
+                }else if(level == 6){
+                    goodCart.setGoodsPrice(goodInfo.getfPrice());
+                }
+                //更新购物车价格
                 goodCart.setGoodsNumber(number);
                 goodCartMapper.save(goodCart);
             }
@@ -464,8 +481,8 @@ public class GoodsController {
      * 去购物车  先看看本人购物车表的商品
      * @return
      */
-    @RequestMapping("/cart")
-    public String cart(@Value("${hhmg.server}") String server,Model model){
+    @RequestMapping("/cart/{level}")
+    public String cart(@PathVariable Long level ,@Value("${hhmg.server}") String server,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
         WapUser user  = userMapper.findByUsername(name);
@@ -474,6 +491,23 @@ public class GoodsController {
             double subtotal = 0.0;
             double totalNumber = 0.0;
             for(GoodCart goodCart : list){
+
+                GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodCart.getGoodsId());
+                //重新计算价格
+                if(level == 1){
+//                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
+                    goodCart.setGoodsPrice(goodInfo.getaPrice());
+                }else if(level == 2){
+                    goodCart.setGoodsPrice(goodInfo.getbPrice());
+                }else if(level == 3){
+                    goodCart.setGoodsPrice(goodInfo.getcPrice());
+                }else if(level == 4){
+                    goodCart.setGoodsPrice(goodInfo.getdPrice());
+                }else if(level == 5){
+                    goodCart.setGoodsPrice(goodInfo.getePrice());
+                }else if(level == 6){
+                    goodCart.setGoodsPrice(goodInfo.getfPrice());
+                }
                 double sum = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodCart.getGoodsPrice());
                 subtotal = HighPreciseComputor.add(subtotal,sum);
                 totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());

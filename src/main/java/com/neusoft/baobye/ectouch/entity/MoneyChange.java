@@ -18,7 +18,6 @@ public class MoneyChange {
     private Double sumMoney;
     private Double sxf;
     private String insertDate;
-    private String upateDate;
     private Integer status;
     private String memo;
     private Integer isDel;
@@ -112,14 +111,6 @@ public class MoneyChange {
 
     public void setInsertDate(String insertDate) {
         this.insertDate = insertDate;
-    }
-
-    public String getUpateDate() {
-        return upateDate;
-    }
-
-    public void setUpateDate(String upateDate) {
-        this.upateDate = upateDate;
     }
 
     public Integer getStatus() {

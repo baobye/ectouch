@@ -1,13 +1,18 @@
 package com.neusoft.baobye.ectouch.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "wap_user")
-public class WapUser implements Serializable {
+public class WapUser implements UserDetails,Serializable {
     private static final Long serialVersionUID = 1L;
     @Id
     private Long userId;
@@ -55,6 +60,10 @@ public class WapUser implements Serializable {
     private Long teamId;
 
     private int isDel;
+    @Transient
+    private boolean enabled;
+    @Transient
+    private Collection<? extends GrantedAuthority> authorities;
 
     public Long getUserId() {
         return userId;
@@ -124,8 +133,33 @@ public class WapUser implements Serializable {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {
@@ -238,5 +272,24 @@ public class WapUser implements Serializable {
 
     public void setIsDel(int isDel) {
         this.isDel = isDel;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public WapUser() {
+    }
+
+    public WapUser(Long userId, String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.authorities = authorities;
     }
 }

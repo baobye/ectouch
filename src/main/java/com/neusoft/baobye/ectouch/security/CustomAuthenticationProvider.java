@@ -1,5 +1,7 @@
 package com.neusoft.baobye.ectouch.security;
 
+import com.neusoft.baobye.ectouch.entity.WapUser;
+import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import com.neusoft.baobye.ectouch.service.CustomUserDetailsService;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ import java.util.List;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private WapUserMapper userMapper;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 获取用户输入的用户名和密码
@@ -54,7 +58,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 //            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
 //        }
         grantedAuthorities.add(new SimpleGrantedAuthority("普通用户"));
-        return new UsernamePasswordAuthenticationToken(inputName, inputPassword, grantedAuthorities);
+        return new UsernamePasswordAuthenticationToken(user, inputPassword, grantedAuthorities);
     }
 
     @Override
