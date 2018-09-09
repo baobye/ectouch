@@ -93,7 +93,7 @@ public class ShareController {
      * @return
      */
     @RequestMapping("/loa")
-    public String loa(@Value("${hhmg.server}") String url,@Value("${hhmg.server.tempPath}") String tempPath, @Value("${hhmg.server.LOAImgPath}") String LOAImgPath,Model model){
+    public String loa(@Value("${hhmg.server}") String url,@Value("${hhmg.server.sqzs}") String tempPath, @Value("${hhmg.server.LOAImgPath}") String LOAImgPath,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user = userMapper.findByUsername(name);
 //        String imgName = PicUtil.makeLOA(tempPath,LOAImgPath,user);
