@@ -212,8 +212,8 @@ public class GoodsController {
      * @param model
      * @return
      */
-    @RequestMapping("/goods/checkout")
-    public String checkout(Model model, @Value("${total.money}") String totalMoney){
+    @RequestMapping("/goods/checkout/{level}")
+    public String checkout(@PathVariable Long level ,Model model, @Value("${total.money}") String totalMoney){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
         //把默认地址查到
@@ -235,7 +235,7 @@ public class GoodsController {
             double subtotal = 0.0;
             double totalNumber = 0;
 
-
+            /**
             if(user.getStatus() == 2){//代表新用户购买。
                 List listA = new ArrayList();
                 List listB = new ArrayList();
@@ -402,6 +402,36 @@ public class GoodsController {
                     }
                     model.addAttribute("listString",listString);
                 }
+            }*/
+            if(goodCartList != null && goodCartList.size() >0){
+                for(GoodCart goodCart : goodCartList){
+                    GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodCart.getGoodsId());
+                    //重新计算价格
+                    if(level == 1){
+//                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
+                        goodCart.setGoodsPrice(goodInfo.getaPrice());
+                    }else if(level == 2){
+                        goodCart.setGoodsPrice(goodInfo.getbPrice());
+                    }else if(level == 3){
+                        goodCart.setGoodsPrice(goodInfo.getcPrice());
+                    }else if(level == 4){
+                        goodCart.setGoodsPrice(goodInfo.getdPrice());
+                    }else if(level == 5){
+                        goodCart.setGoodsPrice(goodInfo.getePrice());
+                    }else if(level == 6){
+                        goodCart.setGoodsPrice(goodInfo.getfPrice());
+                    }
+                    double sum = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodCart.getGoodsPrice());
+                    subtotal = HighPreciseComputor.add(subtotal,sum);
+                    totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());
+                }
+                String listString = null;
+                try {
+                    listString = objectMapper.writeValueAsString(goodCartList);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                model.addAttribute("listString",listString);
             }
             //小计
             model.addAttribute("total_desc",subtotal);
@@ -530,8 +560,8 @@ public class GoodsController {
      * @return
      */
     @ResponseBody
-    @RequestMapping("/cart/ajaxUpdateCart")
-    public Map ajaxUpdateCart(HttpServletRequest request){
+    @RequestMapping("/cart/ajaxUpdateCart/{level}")
+    public Map ajaxUpdateCart(@PathVariable Long level ,HttpServletRequest request){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
         //购物车记录数
@@ -547,6 +577,22 @@ public class GoodsController {
         Map map = new HashMap();
         if(list != null && list.size() >0){
             for(GoodCart goodCart : list){
+                GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodCart.getGoodsId());
+                //重新计算价格
+                if(level == 1){
+//                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
+                    goodCart.setGoodsPrice(goodInfo.getaPrice());
+                }else if(level == 2){
+                    goodCart.setGoodsPrice(goodInfo.getbPrice());
+                }else if(level == 3){
+                    goodCart.setGoodsPrice(goodInfo.getcPrice());
+                }else if(level == 4){
+                    goodCart.setGoodsPrice(goodInfo.getdPrice());
+                }else if(level == 5){
+                    goodCart.setGoodsPrice(goodInfo.getePrice());
+                }else if(level == 6){
+                    goodCart.setGoodsPrice(goodInfo.getfPrice());
+                }
                 double sum = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodCart.getGoodsPrice());
                 subtotal = HighPreciseComputor.add(subtotal,sum);
                 totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());
