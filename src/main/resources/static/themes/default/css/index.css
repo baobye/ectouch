@@ -3026,7 +3026,7 @@ html, body, .index-header, .index-footer {
   overflow: hidden;
   margin: 0 auto;
   height: 4rem;
-  background-color: #383838;
+  background-color: #ffffff;
   padding: 0 1.3rem;
   top: 0; }
   .index-header .index-header-menu, .index-header .index-header-right {
@@ -3190,7 +3190,7 @@ h3 {
           padding: 0.18rem 0.875rem;
           font-size: 0.875rem;
           border-radius: 15px;
-          background-color: #383838;
+          background-color: #ffffff;
           margin: 0 auto;
           text-align: center;
           color: #FFFFFF;
@@ -3265,7 +3265,7 @@ h3 {
           overflow: hidden; }
         .index-recom .index-recom-bottom ul li .index-recom-bottom-price {
           font-size: 1.125rem;
-          color: #383838;
+          color: #ffffff;
           padding-right: 0.1rem; }
         .index-recom .index-recom-bottom ul li .index-recom-bottom-oldprice {
           font-size: 0.81rem;
@@ -3288,7 +3288,7 @@ h3 {
     height: 50%;
     border-right: 1px solid #F0F2F7; }
     .index-brand .index-brand-left a {
-      color: #383838; }
+      color: #ffffff; }
     .index-brand .index-brand-left img {
       max-height: 95%; }
   .index-brand .index-brand-right {
@@ -3299,7 +3299,7 @@ h3 {
       height: 50%;
       border-bottom: 1px solid #F0F2F7; }
       .index-brand .index-brand-right .index-brand-right-in a {
-        color: #383838; }
+        color: #ffffff; }
       .index-brand .index-brand-right .index-brand-right-in img {
         max-width: 302.9px;
         max-height: 155px; }
@@ -3392,7 +3392,7 @@ h3 {
       line-height: 1.2rem; }
     .index-more-list li span {
       font-size: 1.125rem;
-      color: #383838;
+      color: #ffffff;
       padding: 0 0.45rem; }
 
 .index-touch {
@@ -3420,7 +3420,7 @@ h3 {
   height: 4rem;
   bottom: 0;
   z-index: 4;
-  background-color: #383838; }
+  background-color: #ffffff; }
   .index-footer ul {
     overflow: hidden; }
 
@@ -3603,7 +3603,7 @@ body, .index-header, .index-footer {
 
 /*# sourceMappingURL=index.css.map */
 
-.swiper-wrapper .swiper-pagination-bullet-active {background: #383838;}
+.swiper-wrapper .swiper-pagination-bullet-active {background: #ffffff;}
 
 #loading{ position: fixed; left:0; top: 0; right: 0; bottom: 0; background:rgba(255,255,255,0.6);z-index: 111;}
 #loading img{ position:absolute; width:5rem; height: auto; left:50%; top: 50%; margin-left:-2rem; margin-top:-3rem;}

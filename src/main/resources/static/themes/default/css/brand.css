@@ -34,7 +34,7 @@ html {overflow-y: scroll;}
     -moz-osx-font-smoothing: grayscale;}
 
 /*header-box*/
-.brand-header-box { height:75px; line-height:75px; background-color:#383838; padding:0 20px;position:fixed; margin:auto;left:0; right:0; top:0; z-index:4; overflow:hidden;text-align:center;}
+.brand-header-box { height:75px; line-height:75px; background-color:#ffffff; padding:0 20px;position:fixed; margin:auto;left:0; right:0; top:0; z-index:4; overflow:hidden;text-align:center;}
 .brand-main { margin:75px auto;background-color:#F3F5F7;}
 .brand-header-box-left,.brand-header-box-right { color:#FFFFFF;}
 .brand-header-box h1 { font-size:2.8rem; font-weight:400; color:#FFFFFF; line-height:75px;}
@@ -45,7 +45,7 @@ html {overflow-y: scroll;}
 .brand-today-content {width: 35%;height:100%;padding: 15% 5%;background-color: #FFFFFF;font-size: 1.6rem;color: #505050;line-height: 175%;font-weight: 400;}
 .carousel {width: 65%;}
 .brand-today-content img {display: block; margin: 1rem auto;width: 100%;}
-.brand-today-img-text {width: 40%;background-color: #383838;color: #FFFFFF;text-align: center;height: 100%; padding: 16% 5%;}
+.brand-today-img-text {width: 40%;background-color: #ffffff;color: #FFFFFF;text-align: center;height: 100%; padding: 16% 5%;}
 .brand-today-img-text p {font-size: 1.8rem;display: block;}
 .brand-today-img-text span {font-size: 1.5rem;line-height: 125%;}
 .brand-today-img-content {width: 60%;overflow: hidden;}

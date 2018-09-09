@@ -2,13 +2,13 @@ bady{background-color: #f7f7f7}
 /*banner效果*/
 .swiper-container {width: 100%; height: 100%;}
 .swiper-container img {width: 100%;}
-.swiper-pagination-bullet-active {background: #383838;}
+.swiper-pagination-bullet-active {background: #ffffff;}
 
 /*搜索*/
 .ect-padding-lr { padding-left: 0.6em; padding-right: 0.6em; }
-.ect-bg {background: #383838 !important; color: #fff !important; height: auto;overflow: hidden;}
+.ect-bg {background: #ffffff !important; color: #fff !important; height: auto;overflow: hidden;}
 .search .ect-margin-tb{margin-top:0.6em; margin-bottom:0.6em;}
-.ect-header{height:1.5em; position:relative;background-color: #383838;}
+.ect-header{height:1.5em; position:relative;background-color: #ffffff;}
 .ect-header span{font-size:1em; position:absolute; left:2.4em; right:3em; text-align: center}
 .herder-close{color:#fff; float:right; font-size:2em; margin-top: -0.1em; margin-right:0.2em;}
 
@@ -36,7 +36,7 @@ header{line-height:2rem}
 .dis-box .attention-img {width: 4rem;}
 .dis-box .attention-button  {width: 8rem;} 
 .dis-box img{width: 4rem;height: 4rem; margin-left: -1.3rem;}
-.button{  border: 0px;background: #383838; width: 8rem; height: 2.5rem; border-radius: 5px;color: #fff;
+.button{  border: 0px;background: #ffffff; width: 8rem; height: 2.5rem; border-radius: 5px;color: #fff;
 } 
 .index-max-box{position: fixed;z-index: 1000;top: 0;width: 100%; max-width: 640px;min-width: 320px;}
 .index-header{position:relative;}

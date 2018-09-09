@@ -3188,7 +3188,7 @@ html.active {
       line-height: 5.625rem;
       float: left; }
       .serve2-type ul li i, .serve2-type2 ul li i {
-        color: #383838;
+        color: #ffffff;
         border-radius: 50%;
         font-size: 2.2rem; }
       .serve2-type ul li span, .serve2-type2 ul li span {
@@ -3206,7 +3206,7 @@ html.active {
   line-height: 1.875rem;
   width: 70%;
   min-width: 310px;
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 5px;
   margin: 0 auto;
   display: block;
@@ -3308,7 +3308,7 @@ html.active {
   overflow: hidden;
   margin: 0 auto;
   height: 4rem;
-  background-color: #383838;
+  background-color: #ffffff;
   padding: 0 1.3rem;
   top: 0;
   text-align: center; }
@@ -3418,7 +3418,7 @@ html.active {
 
 .member-order-list-num {
   position: absolute;
-  background-color: #383838;
+  background-color: #FF050F;
   border-radius: 50%;
   color: #FFFFFF;
   font-size: 1rem;
@@ -3532,7 +3532,7 @@ html.active {
       margin-top: 0.3125rem; }
     .member-record-silde li span {
       font-size: 1.3125rem;
-      color: #383838; }
+      color: #ffffff; }
 
 .member-record-silde-div {
   height: 100%;
@@ -3549,7 +3549,7 @@ html.active {
   height: 4rem;
   bottom: 0;
   z-index: 4;
-  background-color: #383838; }
+  background-color: #ffffff; }
   .member-footer ul li {
     width: 20%;
     text-align: center;
@@ -3562,8 +3562,9 @@ html.active {
       padding-top: 0.35rem; }
     .member-footer ul li span {
       font-size: 1.2rem; }
+    /*
     .member-footer ul li a {
-      color: #D4D4D4; }
+      color: #D4D4D4; }*/
 
 .login-html {
   height: 100%;
@@ -3639,7 +3640,7 @@ html.active {
     .login-form input.ng-invalid {
       color: #FF0000; }
     .login-form input.ng-valid {
-      color: #383838; }
+      color: #ffffff; }
 
 .login-form-id {
   border-bottom: 1px solid #E7E7E8; }
@@ -3682,7 +3683,7 @@ html.active {
   max-width: 620px;
   min-width: 310px;
   line-height: 1.875rem;
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 5px;
   display: block;
   margin: 0 auto;
@@ -3765,7 +3766,7 @@ html.active {
     left: 0; }
 
 .phone-header {
-  background-color: #383838;
+  background-color: #ffffff;
   text-align: center;
   left: 100%;
   padding: 0 2%; }
@@ -3803,7 +3804,7 @@ html.active {
       .phone-number div input.ng-invalid {
         color: #FF0000; }
       .phone-number div input.ng-valid {
-        color: #383838; }
+        color: #ffffff; }
     .phone-number div a {
       font-size: 1.125rem;
       color: #2C2C2C;
@@ -3826,20 +3827,20 @@ html.active {
   width: 100%;
   padding: 0 4%; }
   .phone-btn i {
-    color: #383838;
+    color: #ffffff;
     border-radius: 50%; }
   .phone-btn p {
     font-size: 1.25rem;
     color: #676767;
     line-height: 45px; }
     .phone-btn p a {
-      color: #383838; }
+      color: #ffffff; }
   .phone-btn button {
     font-size: 1.375rem;
     color: #FFF;
     width: 70%;
     line-height: 1.875rem;
-    background-color: #383838;
+    background-color: #ffffff;
     margin: 0 auto;
     text-align: center;
     display: block;
@@ -3856,7 +3857,7 @@ html.active {
   overflow: hidden;
   margin: 0 auto;
   height: 4rem;
-  background-color: #383838;
+  background-color: #ffffff;
   padding: 0 1.3rem;
   top: 0;
   text-align: center; }
@@ -3888,7 +3889,7 @@ html.active {
     border-color: rgba(82, 168, 236, 0.8); }
   .server1-form-div input {
     font-size: 1.25rem;
-    color: #383838;
+    color: #ffffff;
     padding-left: 0.625rem;
     width: 90%;
     border: none;
@@ -3900,7 +3901,7 @@ html.active {
 .server1-form-btn {
   width: 10%;
   height: 100%;
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 0 4px 4px 0;
   text-align: center;
   color: #FFF; }
@@ -3950,7 +3951,7 @@ html.active {
   color: #FFF;
   border-radius: 3px;
   text-align: center;
-  background-color: #383838;
+  background-color: #ffffff;
   margin-right: 2%; }
 
 .serve2-header {
@@ -3998,7 +3999,7 @@ html.active {
     margin-bottom: 0.3125rem; }
   .serve2-show p {
     font-size: 1.375rem;
-    color: #383838;
+    color: #ffffff;
     margin-right: 2%; }
   .serve2-show span {
     font-size: 1rem;
@@ -4127,7 +4128,7 @@ html.active {
       width: 86%; }
     .repick-form-radio li i {
       font-size: 2.2rem;
-      color: #383838;
+      color: #ffffff;
       border-radius: 50%; }
     .repick-form-radio li span {
       font-size: 1.125rem;
@@ -4170,7 +4171,7 @@ html.active {
   overflow: hidden;
   margin: 0 auto;
   height: 4rem;
-  background-color: #383838;
+  background-color: #ffffff;
   padding: 0 1.3rem;
   top: 0;
   line-height: 4rem;
@@ -4218,7 +4219,7 @@ html.active {
   .serve-form-radio i {
     font-size: 1.5rem;
     border-radius: 50%;
-    color: #383838;
+    color: #ffffff;
     padding-left: 0.625rem; }
   .serve-form-radio span {
     font-size: 1.125rem;
@@ -4253,7 +4254,7 @@ html.active {
   max-width: 620px;
   min-width: 310px;
   line-height: 1.875rem;
-  background-color: #383838;
+  background-color: #ffffff;
   border-radius: 5px;
   display: block;
   margin: 1rem auto;
@@ -4275,7 +4276,7 @@ label.error {
   line-height: 3.5rem;
   text-align: left;
   font-size: 1.25rem;
-  color: #383838;
+  color: #ffffff;
   border-radius: 1%;
   padding-left: 0.625rem;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 0 50px rgba(0, 0, 0, 0.1) inset; }
@@ -4563,7 +4564,7 @@ label.error {
   letter-spacing: 2px;
   margin: 0 auto;
   border-radius: 5px;
-  background-color: #383838;
+  background-color: #ffffff;
   display: block; }
 
 .page3 {
@@ -4627,7 +4628,7 @@ label.error {
 
 .address3-title-left i {
   border-radius: 50%;
-  color: #383838; }
+  color: #ffffff; }
 
 .address3-content {
   overflow: hidden; }
@@ -4658,7 +4659,7 @@ label.error {
     color: #FFF;
     width: 45%;
     line-height: 1.875rem;
-    background-color: #383838;
+    background-color: #ffffff;
     border-radius: 5px;
     margin: 0 auto;
     margin-top: 0.4375rem;
