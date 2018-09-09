@@ -213,7 +213,7 @@
 </div>
 <div class="filter-btn dis-box">
     <!--a class="filter-btn-kefu filter-btn-a"><i class="iconfont icon-kefu"></i><em>客服</em></a-->
-    <a href="" onclick="goCart()" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
+    <a href="#" onclick="goCart()" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
                                                                                                     id='total_number'
                                                                                                     th:text="${total_number}">0</sup><em>购物车</em></a>
    <a type="button" class="btn-cart box-flex"
@@ -341,16 +341,13 @@
 <script>
 
     function goCart(){
-        var level ;
-
         var level = sessionStorage.getItem('level');
         var levels = sessionStorage.getItem('levels');
         if(levels){
-            level = levels;
+            window.location.href = '/cart/'+levels;
         }else{
-            level = leve;
+            window.location.href = '/cart/'+level;
         }
-        window.location.href = '/cart/'+level;
     }
     $(function ($) {
         var level = sessionStorage.getItem('level');

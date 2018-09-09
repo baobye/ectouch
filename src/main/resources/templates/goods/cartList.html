@@ -86,7 +86,7 @@
         </ul>
     </section>
     <div class="flow-jiesuan ect-padding-lr ect-padding-tb">
-        <a href="/goods/checkout" type="button" class="btn btn-info ect-btn-info ect-bg">立即结算</a>
+        <a href="#" onclick="goCheckOut()" type="button" class="btn btn-info ect-btn-info ect-bg">立即结算</a>
     </div>
 
 
@@ -94,22 +94,6 @@
 
 
 
-
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
-
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -136,6 +120,19 @@
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
 <script language="javascript">
+
+
+    function goCheckOut() {
+
+
+        var level = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        if(levels){
+            window.location.href = '/goods/checkout/'+levels;
+        }else{
+            window.location.href = '/goods/checkout/'+level;
+        }
+    }
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
@@ -177,7 +174,15 @@
         if(goods_number <=0 ){goods_number=1;}
         if(!/^[0-9]*$/.test(goods_number)){goods_number = document.getElementById('back_number'+id).value;}
         document.getElementById('goods_number'+id).value = goods_number;
-        $.post('/cart/ajaxUpdateCart', {
+        var level;
+        var level1 = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        if(levels){
+            level = levels;
+        }else{
+            level = level1;
+        }
+        $.post('/cart/ajaxUpdateCart/'+level, {
             rec_id : id,
             goods_number : goods_number
         }, function(data) {
