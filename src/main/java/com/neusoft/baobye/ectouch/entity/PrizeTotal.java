@@ -13,11 +13,11 @@ public class PrizeTotal implements Serializable {
     private Long userId;
 
     private double jjbTotal;
-
+    //招募奖
     private double zmj;
-
+    //平推荐
     private double ptj;
-
+    //垄断奖
     private double ldj;
 
     private double ldjkc;
