@@ -30,6 +30,15 @@
         }
 
     </script>
+    <style>
+        .hyhFl{
+            box-sizing: border-box !important;
+            width: 50% !important;
+        }
+        .member-order-list-num{
+            min-width: 12% !important;
+        }
+    </style>
 </head>
 <body>
 <!--BEGIN dialog1-->
@@ -83,11 +92,12 @@
                 <i class="iconfont fl icon-dingdan"> </i><span>我的订单</span><i class="iconfont fr icon-qianjin"></i><span class="tip"></span>
             </div>
             <ul class="member-order-list">
-                <li class="fl" id="goods">
+                <li class="fl hyhFl" id="goods">
                     <span class="member-order-list-num" th:text="${totalCount}"> 34</span>
-                    <a href="/order/notShouHuo?page=1&size=5"><i class="iconfont icon-daishouhuosel"></i><span>我的订单</span></a>
+                    <a href="/order/notShouHuo?page=1&size=5"><i
+                            class="iconfont icon-daishouhuosel"></i><span>我的订单</span></a>
                 </li>
-                <li class="fl" id="payment">
+                <li class="fl hyhFl" id="payment">
                     <span class="member-order-list-num" th:text="${lowerOrderCount}"> 0</span>
                     <a href="/order/lowerOrder"><i class="iconfont icon-fahuo-"></i><span>下级订单</span></a>
                 </li>
@@ -95,12 +105,10 @@
         </div>
         <div class="member-purse">
             <div class="member-purse-title" onclick="window.location = 'money/index?page=1&size=5';">
-                <i class="iconfont fl icon-ai-wallet"></i><span>我的钱包</span><i class="iconfont fr icon-qianjin"></i><span class="tip">资金管理</span>
+                <i class="iconfont fl icon-ai-wallet"></i><span style="display: inline-block;width: 68%;">我的钱包</span></i>
+                <span class="tip" style="float: none;font-size: 1.3rem;margin-right: 0;">余额:</span>
+                <span class="tip" th:text="${wapUser.dzb}" style="float: none;padding: 0;"></span>
             </div>
-            <ul class="member-purse-list">
-                <li class="fl"><p>余额</p><span th:text="${wapUser.dzb}"> 0.00</span></li>
-                <li class="fl"> <p>积分</p><span th:text="${wapUser.jifen}"> 0</span></li>
-            </ul>
         </div>
         <div class="clearfix">
         </div>
