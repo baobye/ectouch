@@ -161,7 +161,7 @@
                 <a href="/goods/index"><i class="iconfont icon-shangpinziliao"></i><span>商品</span></a>
             </li>
             <li class="fl member-footer-list btn">
-                <a href="/cart"><i class="iconfont icon-gouwucheman"></i><span>购物车</span></a>
+                <a href="#"  onclick="goCart()"><i class="iconfont icon-gouwucheman"></i><span>购物车</span></a>
             </li>
             <li class="fl member-footer-list btn">
                 <a href="/"><i class="iconfont icon-wo"></i><span>我</span></a>
@@ -212,6 +212,17 @@
 <script src="/js/qrcode.lib.min.js"></script>
 <script src="/js/qrcode.js"></script>
 <script language="javascript">
+    function goCart(){
+        var level;
+        var level1 = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        if(levels){
+            level = levels;
+        }else{
+            level = level1;
+        }
+        window.location.href = '/cart/'+level;
+    }
     //初始化扫描二维码按钮，传入自定义的 node-type 属性
     $(function() {
         Qrcode.init($('[node-type=qr-btn]'));

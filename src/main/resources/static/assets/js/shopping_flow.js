@@ -524,24 +524,9 @@ function isNull( str ){
 /* *
  * 检查提交的订单表单
  */
-function checkOrderForm(frm)
+function checkOrderForm()
 {
-  var paymentSelected = false;
-  var shippingSelected = false;
-
-  // 检查是否选择了支付配送方式
-  for (i = 0; i < frm.elements.length; i ++ )
-  {
-    if (frm.elements[i].name == 'shipping' && frm.elements[i].checked)
-    {
-      shippingSelected = true;
-    }
-
-    if (frm.elements[i].name == 'payment' && frm.elements[i].checked)
-    {
-      paymentSelected = true;
-    }
-  }
+  debugger;
   if(parseInt($("#dzb").val()) < parseInt($("#orderPriceTotal").val())){
       var $iosDialog2 = $('#iosDialog2');
       $iosDialog2.fadeIn(200);
@@ -555,83 +540,10 @@ function checkOrderForm(frm)
     $iosDialog1.fadeIn(200);
     return false;
   }
-
-  if ( ! shippingSelected)
-  {
-    //alert(flow_no_shipping);
-    //return false;
-  }
-
-  if ( ! paymentSelected)
-  {
-    //alert(flow_no_payment);
-    //return false;
-  }
-var ECS_SURPLUS = '';
-var ECS_INTEGRAL = '';
-  // 检查用户输入的余额
-  if (document.getElementById("ECS_SURPLUS"))
-  {
-    var surplus = document.getElementById("ECS_SURPLUS").value;
-
-    var info = $.ajax({
-                  url : 'index.php?m=default&c=flow&a=check_surplus',
-                  async : false,
-                  data: {surplus:surplus},
-                  success: function(data){
-                	  ECS_SURPLUS = data;
-                  },
-                  dataType: 'text'
-                });
-
-    if (ECS_SURPLUS)
-    {
-      try
-      {
-        document.getElementById("ECS_SURPLUS_NOTICE").innerHTML = ECS_SURPLUS;
-      }
-      catch (ex)
-      {
-      }
-      return false;
-    }
-  }
-
-  // 检查用户输入的积分
-    /*
-  if (document.getElementById("ECS_INTEGRAL"))
-  {
-    var integral = document.getElementById("ECS_INTEGRAL").value;
-
-    var info = $.ajax({
-                  url : 'index.php?m=default&c=flow&a=check_integral',
-                  async : false,
-                  data: {integral:integral},
-                  success: function(data){
-                	  ECS_INTEGRAL = data;
-                  },
-                  dataType: 'text'
-                });
-
-    if (ECS_INTEGRAL)
-    {
-      return false;
-      try
-      {
-        document.getElementById("ECS_INTEGRAL_NOTICE").innerHTML = ECS_INTEGRAL;
-      }
-      catch (ex)
-      {
-      }
-    }
-  }*/
   //避免重复提交
-  $("input[name='submit']").attr("disabled",true);
-  setTimeout(function (){$("input[name='submit']").attr("disabled",false);},5000);
-  
-  frm.action = frm.action + 'done';
-  //frm.action = frm.action + '?step=done';
-  return true;
+  //$("input[name='submit']").attr("disabled",true);
+  //setTimeout(function (){$("input[name='submit']").attr("disabled",false);},5000);
+    $('#theForm').submit();
 }
 
 /* *

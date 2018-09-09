@@ -447,14 +447,13 @@ public class GoodsController {
      */
     @RequestMapping("/goods/done")
     @Transactional
-    public String done(OrderInfo orderInfo, Model model,String listString,String level){
+    public String done(OrderInfo orderInfo, Model model,String listString,String level) throws Exception {
 
         //用户信息
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
         if(user.getDzb() < orderInfo.getOrderPriceTotal()){
-
-            return "error";
+            throw new Exception("电子币不足请充值");
         }
         //1.扣电子币
         user.setDzb(user.getDzb() - orderInfo.getOrderPriceTotal());
