@@ -66,14 +66,13 @@
                 </a>
             </div>
             <div class="member-photo-name">
-                <p th:text="${wapUser.name}">baobye</p>
+                <p th:text="${wapUser.name}">姓名</p>
                 <span th:if="${wapUser.level eq 0}">您的等级是 公司 </span>
-                <span th:if="${wapUser.level eq 1}">您的等级是 花冠 </span>
-                <span th:if="${wapUser.level eq 2}">您的等级是 花朵 </span>
-                <span th:if="${wapUser.level eq 3}">您的等级是 花瓣 </span>
-                <span th:if="${wapUser.level eq 4}">您的等级是 花蕾 </span>
-                <span th:if="${wapUser.level eq 5}">您的等级是 花芽 </span>
-                <span th:if="${wapUser.level eq 6}">您的等级是 花粉 </span>
+                <span th:if="${wapUser.level eq 1}">您的等级是 联创 </span>
+                <span th:if="${wapUser.level eq 2}">您的等级是 董事 </span>
+                <span th:if="${wapUser.level eq 3}">您的等级是 总代 </span>
+                <span th:if="${wapUser.level eq 4}">您的等级是 VIP天使 </span>
+                <span th:if="${wapUser.level eq 5}">您的等级是 零售 </span>
             </div>
             <div class="member-photo-address">
                 <a href="#"><span></span><i class="iconfont"></i></a>
@@ -81,29 +80,17 @@
         </div>
         <div class="member-order">
             <div class="member-order-title" onclick="window.location = '/order/allOrder?page=1&size=5'">
-                <i class="iconfont fl icon-dingdan"> </i><span>我的订单</span><i class="iconfont fr icon-qianjin"></i><span class="tip">全部订单</span>
+                <i class="iconfont fl icon-dingdan"> </i><span>我的订单</span><i class="iconfont fr icon-qianjin"></i><span class="tip"></span>
             </div>
             <ul class="member-order-list">
-                <!--li class="fl" >
-                    <span class="member-order-list-num" th:text="${totalCount}"> 34</span>
-                    <a href="/order/lowerOrder?page=1&size=5"><i class="iconfont icon-daishouhuosel"></i><span>待发货</span></a>
-                </li-->
                 <li class="fl" id="goods">
                     <span class="member-order-list-num" th:text="${totalCount}"> 34</span>
-                    <a href="/order/notShouHuo?page=1&size=5"><i class="iconfont icon-daishouhuosel"></i><span>待收货</span></a>
+                    <a href="/order/notShouHuo?page=1&size=5"><i class="iconfont icon-daishouhuosel"></i><span>我的订单</span></a>
                 </li>
-                <!--li class="fl" id="comment">
-                    <span class="member-order-list-num"> 0</span>
-                    <a href="/index.php?m=default&c=user&a=order_comment&u=0"><i class="iconfont">&#xe619; </i><span>待评价</span></a>
-                </li-->
                 <li class="fl" id="payment">
                     <span class="member-order-list-num" th:text="${lowerOrderCount}"> 0</span>
-                    <a href="/order/lowerOrder"><i class="iconfont icon-fahuo-"></i><span>发货</span></a>
+                    <a href="/order/lowerOrder"><i class="iconfont icon-fahuo-"></i><span>下级订单</span></a>
                 </li>
-                <!--li class="fl" id="repick">
-                    <span class="member-order-list-num">12</span>
-                    <a href="member-serve1.htm"><i class="iconfont icon-tuihuanhuo"></i><span>退货</span></a>
-                </li-->
             </ul>
         </div>
         <div class="member-purse">
@@ -111,17 +98,8 @@
                 <i class="iconfont fl icon-ai-wallet"></i><span>我的钱包</span><i class="iconfont fr icon-qianjin"></i><span class="tip">资金管理</span>
             </div>
             <ul class="member-purse-list">
-                <li class="fl"><span th:text="${wapUser.dzb}"> 0.00</span>
-                    <p>余额</p>
-                </li>
-                <!--a href="/index.php?m=default&c=user&a=bonus&u=0">
-                    <li class="fl"><span> 0</span>
-                        <p>红包</p>
-                    </li>
-                </a -->
-                <!--li class="fl"><span th:text="${wapUser.jifen}"> 0</span>
-                    <p>积分</p>
-                </li-->
+                <li class="fl"><p>余额</p><span th:text="${wapUser.dzb}"> 0.00</span></li>
+                <li class="fl"> <p>积分</p><span th:text="${wapUser.jifen}"> 0</span></li>
             </ul>
         </div>
         <div class="clearfix">
@@ -131,14 +109,14 @@
                 <li onclick="window.location = '/agent/index/0'"><i class="iconfont fl icon-dailishang"></i><p class="fl">我的代理</p><i class="iconfont fr icon-qianjin"></i></li>
 
                 <li onclick="window.location = '/share/index'"><i class="iconfont fl icon-msnui-active"></i><p class="fl">会员激活</p><i class="iconfont fr icon-qianjin"></i></li>
-                <li onclick="window.location = '/buyOut/index';"><i class="iconfont fl icon-xunjianchulirenyuan"></i><p class="fl">买断</p><i class="iconfont fr icon-qianjin"></i></li>
-
+               <!-- <li onclick="window.location = '/buyOut/index';"><i class="iconfont fl icon-xunjianchulirenyuan"></i><p class="fl">买断</p><i class="iconfont fr icon-qianjin"></i></li>
+-->
                 <!--
                 <li onclick="window.location = '/index.php?m=default&c=user&a=share&u=0'"><i class="iconfont fl member-serve-li-ti">&#xe61e;</i><p class="fl">我的分享</p><i class="iconfont fr icon-qianjin"></i></li>
                 -->
                 <li onclick="window.location = '/share/barcode'" style="border-bottom:none"><i class="iconfont icon-fenxiang fl "></i><p class="fl">分享二维码</p><i class="iconfont fr icon-qianjin"></i></li>
 
-                <li  style="border-bottom:none" class="qr-btn" node-type="qr-btn"><i class="iconfont fl icon-iconfonterweima"></i><p class="fl">扫描二维码(注册，商品)</p><input node-type="jsbridge" style="visibility: hidden;" type="file" name="myPhoto" value="扫描二维码" /></li>
+                <!--<li  style="border-bottom:none" class="qr-btn" node-type="qr-btn"><i class="iconfont fl icon-iconfonterweima"></i><p class="fl">扫描二维码(注册，商品)</p><input node-type="jsbridge" style="visibility: hidden;" type="file" name="myPhoto" value="扫描二维码" /></li>-->
                 <li onclick="window.location = '/share/loa'" style="border-bottom:none"><i class="iconfont fl icon-5"></i><p class="fl">授权证书</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/index'" style="border-bottom:none"><i class="iconfont fl icon-zhanghuguanli"></i><p class="fl">账户管理</p><i class="iconfont fr icon-qianjin"></i></li>
                 <li onclick="window.location = '/profile/addressList'" style="border-bottom:none"><i class="iconfont fl icon-shouhuodizhi"></i><p class="fl">收货地址</p><i class="iconfont fr icon-qianjin"></i></li>

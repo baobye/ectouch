@@ -76,7 +76,6 @@ public class AgentController {
     @RequestMapping("/awardList/{userId}")
     @Transactional
     public String awardList(@PathVariable Long userId,Model model){
-
         List<Object[]> list = priceTotalMapper.findByUserIdAndStatus(userId,0);
         List<UserPriceView> listPrice = new ArrayList<UserPriceView>();
         for(Object[] object : list){
