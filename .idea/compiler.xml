@@ -9,8 +9,5 @@
         <module name="ectouch" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ectouch" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
