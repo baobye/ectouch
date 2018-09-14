@@ -39,10 +39,18 @@
                 <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}"><img src="/assets/images/no_picture.gif" class="pull-left" />
                     <dl>
                         <dt>
-                            <h4 class="title" th:text="'订单号：'+${orderInfo.orderCode}">订单号：2018052059818</h4>
+                            <h4 class="title" th:text="'订单号：'+${orderInfo.orderCode}"></h4>
                         </dt>
-                        <dd>订单状态：已确认,已付款,已发货</dd>
-                        <dd>订单总金额：<span class="ect-color" th:text="'￥'+${orderInfo.orderPriceTotal}+'元'">￥256.00元</span></dd>
+                        <dd>订单状态：
+                            <span th:if="${orderInfo.status} == 0">未付款</span>
+                            <span th:if="${orderInfo.status} == 1">已付款</span>
+                            <span th:if="${orderInfo.status} == 2">已发货</span>
+                            <span th:if="${orderInfo.status} == 3">已签收 </span>
+                            <span th:if="${orderInfo.status} == 4">换货申请中</span>
+                            <span th:if="${orderInfo.status} == 5">换货处理中</span>
+                            <span th:if="${orderInfo.status} == 6">取消交易</span>
+                        </dd>
+                        <dd>订单总金额：<span class="ect-color" th:text="'￥'+${orderInfo.orderPriceTotal}+'元'"></span></dd>
                         <dd  th:text="'下单时间：'+${orderInfo.insertDate}">下单时间：2018-05-20 17:30:54</dd>
                     </dl>
                     <i class="pull-right fa fa-angle-right"></i>
