@@ -21,8 +21,16 @@
     </div>
     <section class="user-order-detail" style="border-top:none;">
         <div class="user-order">
-            <p>订单状态：<span>已确认 已付款 待发货</span></p>
             <p>订单号：<span th:text="${orderInfo.orderCode}">2018052059818</span> <a href="/index.php?m=default&c=user&a=msg_list&order_id=2&u=2" type="button" class="btn btn-info" style="font-size:12px;padding:3px;">[发送/查看商家留言]</a></p>
+            <p>订单状态：
+                <span th:if="${orderInfo.status} == 0">未付款</span>
+                <span th:if="${orderInfo.status} == 1">已付款</span>
+                <span th:if="${orderInfo.status} == 2">已发货</span>
+                <span th:if="${orderInfo.status} == 3">已签收 </span>
+                <span th:if="${orderInfo.status} == 4">换货申请中</span>
+                <span th:if="${orderInfo.status} == 5">换货处理中</span>
+                <span th:if="${orderInfo.status} == 6">取消交易</span>
+            </p>
             <p>订单总金额：<span th:text="'￥'+${orderInfo.orderPriceTotal}+'元'">￥256.00元</span></p>
             <p>下单时间：<span th:text="${orderInfo.insertDate}">2018-05-20 17:30:54</span></p>
         </div>
@@ -50,17 +58,17 @@
             <li>详细地址：<b th:text="${address?.address}">万景香樟树</b></li>
 
             <li>最佳送货时间：<b></b></li>
-            <li class="text-right">
-                <p class="ect-margin-tb">
-                    商品总价：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥246.00元</b>
-                    - 折扣：<b class="ect-colory">￥0.00元 </b><br>
-                    + 配送费用:<b class="ect-colory">￥0.00元</b><br>
-                </p>
-                <p class="ect-margin-tb">
-                    - 余额付款: <b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥256.00元</b><br>
-                </p>
-                <!--p class="ect-margin-tb">应付款金额：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥0.00元</b><br> </p-->
-            </li>
+            <!--<li class="text-right">-->
+                <!--<p class="ect-margin-tb">-->
+                    <!--商品总价：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥246.00元</b>-->
+                    <!-- - 折扣：<b class="ect-colory">￥0.00元 </b><br>-->
+                    <!--+ 配送费用:<b class="ect-colory">￥0.00元</b><br>-->
+                <!--</p>-->
+                <!--<p class="ect-margin-tb">-->
+                    <!-- - 余额付款: <b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥256.00元</b><br>-->
+                <!--</p>-->
+                <!--&lt;!&ndash;p class="ect-margin-tb">应付款金额：<b class="ect-colory" th:text="${orderInfo.orderPriceTotal}">￥0.00元</b><br> </p&ndash;&gt;-->
+            <!--</li>-->
 
         </ul>
     </section>
@@ -70,7 +78,7 @@
             <!--li>应付款金额：<b class="ect-colory">￥0.00元</b></li-->
         </ul>
     </section>
-    <section class="order-detail-info ect-margin-tb ect-margin-bottom0 user-bottom0">
+    <section class="order-detail-info ect-margin-tb ect-margin-bottom0 user-bottom0" th:if="${orderInfo.status} == 2">
         <ul>
             <li>运费金额：<b th:text="${orderInfo.logisticsFee}"></b></li>
             <li>订单物流编号：<b th:text="${orderInfo.logisticsCode}"></b></li>
