@@ -29,7 +29,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/money")
-public class MoneyController {
+public class MoneyController extends BaseController{
     private Logger logger = LoggerFactory.getLogger(MoneyController.class);
 
     @Autowired
@@ -56,12 +56,9 @@ public class MoneyController {
     @ResponseBody
     public List indexAjax(Model model,int page,int size){
         page = page - 1 ;//当前页从0 开始
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info("当前登陆用户：" + name);
-        WapUser user = userMapper.findByUsername(name);
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<PrizeTotal> pageObject = priceTotalMapper.findByUserId(user.getUserId(),pageable);
+        Page<PrizeTotal> pageObject = priceTotalMapper.findByUserId(getUserId(),pageable);
 
         int pages = pageObject.getTotalPages();// 总页数
         int number = pageObject.getNumber();//当前页

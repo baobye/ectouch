@@ -530,20 +530,34 @@ function checkOrderForm()
   if(parseInt($("#dzb").val()) < parseInt($("#orderPriceTotal").val())){
       var $iosDialog2 = $('#iosDialog2');
       $iosDialog2.fadeIn(200);
-    return  false;
+    return  ;
+
   }
 
-  var addName = $("#addName").text();
-  if(isNull(addName)){
-    //alert("请选择收货地址");
-    var $iosDialog1 = $('#iosDialog1');
-    $iosDialog1.fadeIn(200);
-    return false;
-  }
-  //避免重复提交
-  //$("input[name='submit']").attr("disabled",true);
-  //setTimeout(function (){$("input[name='submit']").attr("disabled",false);},5000);
+    var level;
+    var level1 = sessionStorage.getItem('level');
+    var levels = sessionStorage.getItem('levels');
+    if(levels){
+        level = levels;
+    }else{
+        level = level1;
+    }
+    var addName = $("#addName").text();
+    if(isNull(addName)){
+        //alert("请选择收货地址");
+        var $iosDialog1 = $('#iosDialog1');
+        $iosDialog1.fadeIn(200);
+        return false;
+    }
+
+    $
+    //避免重复提交
+    //$("input[name='submit']").attr("disabled",true);
+    //setTimeout(function (){$("input[name='submit']").attr("disabled",false);},5000);
     $('#theForm').submit();
+
+
+
 }
 
 /* *

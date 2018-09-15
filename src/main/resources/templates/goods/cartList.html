@@ -45,6 +45,26 @@
             </div>
         </div>
     </div>
+    <div class="js_dialog" id="iosDialog2" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">所选等级购买金额不够</strong></div>
+            <div class="weui-dialog__bd">所选等级购买金额不够</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">确认</a>
+            </div>
+        </div>
+    </div>
+    <div class="js_dialog" id="iosDialog3" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">所选等级购买金额不够</strong></div>
+            <div class="weui-dialog__bd">所选等级购买金额不够</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">确认</a>
+            </div>
+        </div>
+    </div>
 </div>
 <!--END dialog1-->
 <div class="con">
@@ -54,7 +74,7 @@
         </nav>
     </div>
     <p class="flow-price ect-padding-lr ect-padding-tb">
-        共<b id="total_number" th:text="${total_number}">3</b>件商品，总价(不含运费)：<b class="ect-colory" id="goods_subtotal" th:text="'￥'+${total_desc}+'元'">￥11357.00元</b>
+        共<b id="total_number" th:text="${total_number}">3</b>件商品，总价(不含运费)：<b class="ect-colory" id="goods_subtotal" th:text="${total_desc}">￥11357.00元</b>
     </p>
     <section class="ect-pro-list flow-pic ect-border-bottom0">
         <ul >
@@ -123,15 +143,29 @@
 
 
     function goCheckOut() {
+        var level = sessionStorage.getItem('levels') ? sessionStorage.getItem('levels') : sessionStorage.getItem('level');
+        debugger;
+        $.ajax({
+            type:"get",
+            url:"/goods/totalMoney/"+sessionStorage.getItem('levels')+'/'+parseInt($("#goods_subtotal").text()),
+            async:false,
+            dataType:"text",
+            success: function(result){
+                if(result == 0){
+                    var $iosDialog2 = $('#iosDialog2');
+                    $iosDialog2.fadeIn(200);
+                    return ;
+                }else if(result == 3){
+                    var $iosDialog2 = $('#iosDialog3');
+                    $iosDialog2.fadeIn(200);
+                    return ;
+                }else{
+                    window.location.href = '/goods/checkout/'+level;
+                }
+            },
+        });
 
 
-        var level = sessionStorage.getItem('level');
-        var levels = sessionStorage.getItem('levels');
-        if(levels){
-            window.location.href = '/goods/checkout/'+levels;
-        }else{
-            window.location.href = '/goods/checkout/'+level;
-        }
     }
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {

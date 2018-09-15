@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-public class GoodsController {
+public class GoodsController extends BaseController{
 
     @Autowired
     private WapUserMapper userMapper;
@@ -447,14 +447,16 @@ public class GoodsController {
      */
     @RequestMapping("/goods/done")
     @Transactional
-    public String done(OrderInfo orderInfo, Model model,String listString,String level) throws Exception {
+    public String done(OrderInfo orderInfo, Model model,String listString,String level,@Value("${total.money}") String totalMoney) throws Exception {
 
         //用户信息
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
+        Double taotal = orderInfo.getOrderPriceTotal();
         if(user.getDzb() < orderInfo.getOrderPriceTotal()){
             throw new Exception("电子币不足请充值");
         }
+
         //1.扣电子币
         user.setDzb(user.getDzb() - orderInfo.getOrderPriceTotal());
         userMapper.save(user);
@@ -618,7 +620,7 @@ public class GoodsController {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
         goodCartMapper.deleteByRecId(Long.parseLong(id));
-        return "redirect:/cart";
+        return "redirect:/";
     }
 
     /**
@@ -635,4 +637,25 @@ public class GoodsController {
 
         return "";
     }
+
+    @GetMapping("/goods/totalMoney/{level}/{total}")
+    @ResponseBody
+    public int getTotalMoney(@PathVariable("level") int level,@PathVariable("total") Double total,@Value("${total.money}") String totalMoney){
+
+        WapUser user = userMapper.findByUserId(getUserId());
+        if(user.getStatus() != 2){
+            return 1;
+        }
+        if(99 == level){
+            return 3;
+        }
+        String[] totalMoneys = totalMoney.split(",");
+
+        if(total < Double.parseDouble(totalMoneys[level])){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
 }
