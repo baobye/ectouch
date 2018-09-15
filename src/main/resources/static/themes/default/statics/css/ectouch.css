@@ -122,7 +122,7 @@ a:hover{
 .dis-i-flex{display:inline-flex; display: -webkit-inline-flex;}
 /*字体颜色*/
 label.admin-text{color:#999;}
-.t-first {color: #ffffff}/*主字体颜色*/
+.t-first {color: #333}/*主字体颜色*/
 .t-two{color: #f4a213}/*黄色 － 与购物车按钮背景色一致*/
 .t-remark,
 .t-remark:link {color: #777;font-size: 1.5rem; }/*文本备注文字颜色*/
