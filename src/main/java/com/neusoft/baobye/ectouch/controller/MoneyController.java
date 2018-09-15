@@ -83,11 +83,8 @@ public class MoneyController extends BaseController{
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
-        logger.info("当前登陆用户：" + name);
         //所有变动记录
-        Page<MoneyChange> pageObject = moneyChangeMapper.findByUserId(user.getUserId(),pageable);
+        Page<MoneyChange> pageObject = moneyChangeMapper.findByUserId(getUserId(),pageable);
         return pageObject.getContent();
     }
 
@@ -108,12 +105,10 @@ public class MoneyController extends BaseController{
      */
     @RequestMapping("withdrawSubmit")
     public String withdrawSubmit(@Value("${hhmg.server.money}") String url,MoneyChange moneyChange){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("MONEY_TYPE", "1");//1电子币
-        map.put("USER_ID", ""+user.getUserId());//账号
+        map.put("USER_ID", ""+getUserId());//账号
         map.put("REAL_MONEY", ""+moneyChange.getRealMoney());//变动金额
         map.put("REASON_TYPE", "2");//减少
         String body = null;
@@ -143,11 +138,9 @@ public class MoneyController extends BaseController{
      */
     @RequestMapping("rechargeSubmit")
     public String rechargeSubmit(@Value("${hhmg.server.money}") String url,MoneyChange moneyChange ,Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         Map<String, String> map = new HashMap<String, String>();
         map.put("MONEY_TYPE", "1");//1电子币
-        map.put("USER_ID", ""+user.getUserId());//账号
+        map.put("USER_ID", ""+getUserId());//账号
         map.put("REAL_MONEY", ""+moneyChange.getRealMoney());//变动金额
         map.put("REASON_TYPE", "1");//增加
         String body = null;

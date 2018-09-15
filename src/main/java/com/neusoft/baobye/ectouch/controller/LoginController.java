@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -39,18 +39,13 @@ public class LoginController {
     }
     @RequestMapping("/")
     public String showHome(Model model) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info("当前登陆用户：" + name);
-
-        WapUser user = userMapper.findByUsername(name);
-        logger.info("当前登陆用户：" + name);
         /**
          * 已发货
          */
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(0,5,sort);
         // 状态2  已发货状态
-        Page<OrderInfo> pageObject = orderInfoMapper.findByUserIdAndStatus(user.getUserId(),2,pageable);
+        Page<OrderInfo> pageObject = orderInfoMapper.findByUserIdAndStatus(getUserId(),2,pageable);
         model.addAttribute("totalCount",pageObject.getTotalElements());
 
 
@@ -58,9 +53,9 @@ public class LoginController {
          * 发货
          */
         PageRequest pageable1 = PageRequest.of(0,5,new Sort(Sort.Direction.DESC,"insert_Date"));
-        Page pageObject1 = orderInfoMapper.nativeQuery(user.getUserId(),pageable1);
+        Page pageObject1 = orderInfoMapper.nativeQuery(getUserId(),pageable1);
         model.addAttribute("lowerOrderCount",pageObject1.getTotalElements());
-        model.addAttribute("wapUser",user);
+        model.addAttribute("wapUser",getUser());
 
         return "home";
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neusoft.baobye.ectouch.entity.*;
+import com.neusoft.baobye.ectouch.exception.EcException;
 import com.neusoft.baobye.ectouch.mapper.*;
 import com.neusoft.baobye.ectouch.util.HighPreciseComputor;
 import com.neusoft.baobye.ectouch.util.IdGenerator;
@@ -454,7 +455,7 @@ public class GoodsController extends BaseController{
         WapUser user  = userMapper.findByUsername(name);
         Double taotal = orderInfo.getOrderPriceTotal();
         if(user.getDzb() < orderInfo.getOrderPriceTotal()){
-            throw new Exception("电子币不足请充值");
+            throw new EcException("电子币不足请充值");
         }
 
         //1.扣电子币

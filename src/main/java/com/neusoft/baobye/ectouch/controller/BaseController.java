@@ -21,4 +21,9 @@ public abstract class BaseController {
         WapUser user = (WapUser) authentication.getPrincipal();
         return user.getUserId();
     }
+    public WapUser getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WapUser user = (WapUser) authentication.getPrincipal();
+        return user;
+    }
 }

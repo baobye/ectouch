@@ -292,4 +292,28 @@ public class WapUser implements UserDetails,Serializable {
         this.enabled = enabled;
         this.authorities = authorities;
     }
+
+    public WapUser(Long userId, String code, String tel, String wechat, String name, double dzb, double jifen, String idCard, String username, String password, String insertDate, String updateDate, Long sqOperId, int level, int status, Long ztId, Long zsId, Long teamId, int isDel, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.code = code;
+        this.tel = tel;
+        this.wechat = wechat;
+        this.name = name;
+        this.dzb = dzb;
+        this.jifen = jifen;
+        this.idCard = idCard;
+        this.username = username;
+        this.password = password;
+        this.insertDate = insertDate;
+        this.updateDate = updateDate;
+        this.sqOperId = sqOperId;
+        this.level = level;
+        this.status = status;
+        this.ztId = ztId;
+        this.zsId = zsId;
+        this.teamId = teamId;
+        this.isDel = isDel;
+        this.enabled = enabled;
+        this.authorities = authorities;
+    }
 }

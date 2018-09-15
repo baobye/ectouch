@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/buyOut")
-public class BuyOutController {
+public class BuyOutController extends BaseController{
     @Autowired
     private WapUserMapper userMapper;
     @Autowired
@@ -36,10 +36,8 @@ public class BuyOutController {
     @RequestMapping("/index")
     public String index(@Value("${hhmg.server.buyOutList}") String url , Model model){
 
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         Map<String, String> map = new HashMap<String, String>();
-        map.put("USER_ID", ""+user.getUserId());//账号
+        map.put("USER_ID", ""+getUserId());//账号
         String body = null;
         List<WapUser> listWap = new ArrayList<WapUser>();
         try {
@@ -89,11 +87,9 @@ public class BuyOutController {
     @RequestMapping("/buyOut/{userId}")
     public String buyOut(@PathVariable Long userId, @Value("${hhmg.server.buyOut}") String url , Model model){
 
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         Map<String, String> map = new HashMap<String, String>();
         map.put("OUT_USER_ID", ""+userId);//被买断人
-        map.put("MD_USER_ID", ""+user.getUserId());//买断人
+        map.put("MD_USER_ID", ""+getUserId());//买断人
         String body = null;
         List<WapUser> listWap = new ArrayList<WapUser>();
         try {
