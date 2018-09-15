@@ -120,10 +120,6 @@
                         var arrLen = data.length;
                         if(arrLen > 0){
                             for(var i=0; i<arrLen; i++){
-                                var demo = data[i].memo;
-                                if(demo == null || demo =="null"){
-                                    demo ="";
-                                }
                                 result += '<div class="weui-form-preview">'
                                     +'  <div class="weui-form-preview__hd">'
                                     +'   <label class="weui-form-preview__label">总金额</label>'
@@ -191,24 +187,8 @@
         <li><a href="/money/recharge" >账户充值</a></li>
         <li><a href="/money/withdraw" >余额提现</a></li>
     </ul>
-
-    <!--div class="user-account-detail">
-        <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}">
-            <li>
-                <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.jjbTotal}+'元'">￥10.00元</span></p>
-                <p class="content">
-                    <span class="pull-right text-right type" th:if="${money.type eq 1}">增加</span>
-                    <span class="pull-right text-right type" th:if="${money.type eq 2}">减少</span>
-
-                </p>
-                <p class="content">
-                    <span class="pull-left text-left type" th:if="${money.status eq 0}">状态:上级已发放</span>
-                    <span class="pull-left text-left type" th:if="${money.status eq 1}">状态:上级未发放</span>
-                </p>
-            </li>
-        </ul>
-        <p class="pull-right count" style="background-color: bisque;" >您当前的可用资金为：<b class="ect-colory" th:text="'￥'+${user.dzb}+'元'">￥1000000.00元</b></p>
-    </div -->
+    <div class="user-account-detail" id="lists">
+    </div>
 </div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
