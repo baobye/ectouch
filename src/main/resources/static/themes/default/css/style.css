@@ -39,10 +39,10 @@ del{color:#bbb;}
 /*颜色版本*/
 .ect-bg{background: #50B5BD !important; color:#fff !important; height:auto; overflow:hidden;}
 .ect-color{color: #333 !important;}/*绿色*/
-.ect-colory{color: #ffffff !important;}/*黄色*/
+.ect-colory{color: #333 !important;}/*黄色*/
 .ect-bg-colory{background: #50B5BD !important}
 .ect-colorf{color:#fff !important;}/*白色*/
-.ect-bg-colorf{background:#50B5BD;}/*背景白色*/
+.ect-bg-colorf{background:#fff;}/*背景白色*/
 .ect-color999{color:#777 !important;}/*灰色*/
 .ect-border-top{border-top:2px solid #ffffff
 }
