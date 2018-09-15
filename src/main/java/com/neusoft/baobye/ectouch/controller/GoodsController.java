@@ -455,7 +455,7 @@ public class GoodsController extends BaseController{
         WapUser user  = userMapper.findByUsername(name);
         Double taotal = orderInfo.getOrderPriceTotal();
         if(user.getDzb() < orderInfo.getOrderPriceTotal()){
-            throw new EcException("电子币不足请充值");
+            throw new EcException("点击充值","电子币不足请充值","/money/recharge");
         }
 
         //1.扣电子币

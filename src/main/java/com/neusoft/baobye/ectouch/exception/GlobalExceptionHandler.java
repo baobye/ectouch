@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         try {
             modelAndView.addObject("message",msg);
             modelAndView.addObject("buttonValue",ex.getButtonValue());
-            modelAndView.addObject("contentUrl",ex.getContentUrl());
+            modelAndView.addObject("contentUrl",ex.getContentUrl() == null || "".equals(ex.getContentUrl()) ? request.getRequestURI() : ex.getContentUrl());
             modelAndView.setViewName("/error");
         } catch(Exception e){
             modelAndView.addObject("message",msg);
