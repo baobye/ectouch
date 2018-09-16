@@ -49,7 +49,7 @@
     </ul>
 
     <div class="user-account-detail">
-        <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}">
+        <ul class=" ect-bg-colorf" th:each="money,moneystat : ${list}" style="background: #fff;">
             <li>
                 <p class="title"><span class="pull-left" th:text="${money.insertDate}">2018-05-13</span> <span class="pull-right" th:text="'￥'+${money.jjbTotal}+'元'">￥10.00元</span></p>
                 <p class="content">

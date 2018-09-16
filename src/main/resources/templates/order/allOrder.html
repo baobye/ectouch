@@ -66,7 +66,7 @@
         <li class="form-select">
             <i class="fa fa-sort-desc"></i>
             <select name="sel_question" onChange="window.location.href=this.value;">
-                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/order/notShouHuo?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
+                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/order/allOrder?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
             </select>
         </li>
         <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
@@ -97,4 +97,5 @@
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
-</body></html>
+</body>
+</html>

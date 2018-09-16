@@ -27,7 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/agent")
-public class AgentController {
+public class AgentController extends BaseController{
     @Autowired
     private WapUserMapper userMapper;
 
@@ -40,10 +40,8 @@ public class AgentController {
     @RequestMapping("/index/{userId}")
     @Transactional
     public String index(@PathVariable  Long userId,Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-        model.addAttribute("userId",user.getUserId());
-        if(user.getUserId() != userId && userId != null && userId != 0){
+        model.addAttribute("userId",getUserId());
+        if(getUserId() != userId && userId != null && userId != 0){
             model.addAttribute("userId",userId);
         }
         return "agent/index";

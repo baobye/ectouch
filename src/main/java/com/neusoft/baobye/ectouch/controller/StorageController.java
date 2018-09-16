@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/storage")
-public class StorageController {
+public class StorageController extends BaseController{
 
     @Autowired
     private WapUserMapper userMapper;
@@ -55,9 +55,7 @@ public class StorageController {
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"applyDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-        Page<Storage> list = storageMapper.findByApplySysIdAndType(user.getUserId(),type,pageable);
+        Page<Storage> list = storageMapper.findByApplySysIdAndType(getUserId(),type,pageable);
         return list.getContent();
     }
 
@@ -72,9 +70,7 @@ public class StorageController {
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"applyDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-        Page<Storage> list = storageMapper.findByApplySysIdAndType(user.getUserId(),type,pageable);
+        Page<Storage> list = storageMapper.findByApplySysIdAndType(getUserId(),type,pageable);
         return list.getContent();
     }
 }

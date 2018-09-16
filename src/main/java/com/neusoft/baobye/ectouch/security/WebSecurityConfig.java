@@ -97,9 +97,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 此处的 key 可以为任意非空值(null 或 "")，单必须和起前面
         // rememberMeServices(RememberMeServices rememberMeServices).key(key)的值相同
-//        PersistentTokenBasedRememberMeServices rememberMeServices =
-//                new PersistentTokenBasedRememberMeServices("INTERNAL_SECRET_KEY", userDetailsService, rememberMeTokenRepository);
-        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("INTERNAL_SECRET_KEY", userDetailsService);
+        PersistentTokenBasedRememberMeServices rememberMeServices =
+                new PersistentTokenBasedRememberMeServices("INTERNAL_SECRET_KEY", userDetailsService, rememberMeTokenRepository);
+//        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("INTERNAL_SECRET_KEY", userDetailsService);
         rememberMeServices.setAlwaysRemember(true);
         // 该参数不是必须的，默认值为 "remember-me", 但如果设置必须和页面复选框的 name 一致
         rememberMeServices.setParameter("remember-me");

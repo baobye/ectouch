@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ProfileController {
+public class ProfileController extends BaseController{
     @Autowired
     private WapUserMapper userMapper;
     @Autowired
@@ -39,9 +39,7 @@ public class ProfileController {
      */
     @RequestMapping("/profile/index")
     public String index(Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = mapper.findByUsername(name);
-        model.addAttribute("user",user);
+        model.addAttribute("user",getUser());
         return "profile/index";
     }
 
@@ -54,7 +52,7 @@ public class ProfileController {
     @RequestMapping("/profile/updateUser")
     @ResponseBody
     public Map saveUser(@ModelAttribute WapUser wapUser){
-        WapUser user = userMapper.findByUserId(wapUser.getUserId());
+        WapUser user = getUser();
         user.setWechat(wapUser.getWechat());
         user.setBankCode(wapUser.getBankCode());
         user.setBankName(wapUser.getBankName());
@@ -76,9 +74,7 @@ public class ProfileController {
      */
     @GetMapping("/profile/password")
     public String password(Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = mapper.findByUsername(name);
-        model.addAttribute("user",user);
+        model.addAttribute("user",getUser());
         return "profile/editPassword";
     }
 

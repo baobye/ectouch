@@ -25,7 +25,7 @@ import java.util.Map;
 
 @RequestMapping("/share")
 @Controller
-public class ShareController {
+public class ShareController extends BaseController{
 
     @Autowired
     private WapUserMapper userMapper;
@@ -45,14 +45,12 @@ public class ShareController {
     @RequestMapping("/indexAjax")
     @ResponseBody
     public List<WapUser> shareAjax(HttpServletRequest request){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         int status = Integer.parseInt(request.getParameter("status"));
         int page = Integer.parseInt(request.getParameter("page"));
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<WapUser> pageList = userMapper.findByZtIdAndStatus(user.getUserId(),status,pageable);
+        Page<WapUser> pageList = userMapper.findByZtIdAndStatus(getUserId(),status,pageable);
         return pageList.getContent();
     }
 
@@ -67,10 +65,8 @@ public class ShareController {
     public String barcode(@Value("${hhmg.server.creatQRCode}") String url, @Value("${hhmg.server}") String server, Model model){
         String body = null;
         Map<String, String> map = new HashMap<String, String>();
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         try {
-            map.put("USER_ID", ""+user.getUserId());//账号
+            map.put("USER_ID", ""+getUserId());//账号
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,11 +90,10 @@ public class ShareController {
      */
     @RequestMapping("/loa")
     public String loa(@Value("${hhmg.server.sqzs}") String url,@Value("${hhmg.server.sqzs}") String tempPath, @Value("${hhmg.server.LOAImgPath}") String LOAImgPath,Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
+
 //        String imgName = PicUtil.makeLOA(tempPath,LOAImgPath,user);
 //        model.addAttribute("imgUrl",url+"/"+"uploadFiles/twoDimensionCode/"+imgName);
-        model.addAttribute("imgUrl",url+"/"+"uploadFiles/sqzs/"+user.getUserId()+".png");
+        model.addAttribute("imgUrl",url+"/"+"uploadFiles/sqzs/"+getUserId()+".png");
         return "share/loa";
     }
 }

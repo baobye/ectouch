@@ -12,13 +12,18 @@ public abstract class BaseController {
     private WapUserMapper userMapper;
     public String getUserName(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails wapUser = (UserDetails) authentication.getPrincipal();
-        return wapUser.getUsername();
+        WapUser user = (WapUser) authentication.getPrincipal();
+        return user.getUsername();
     }
 
     public Long getUserId(){
-        WapUser user  = userMapper.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WapUser user = (WapUser) authentication.getPrincipal();
         return user.getUserId();
+    }
+    public WapUser getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WapUser user = (WapUser) authentication.getPrincipal();
+        return user;
     }
 }

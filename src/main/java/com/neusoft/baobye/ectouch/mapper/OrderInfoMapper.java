@@ -29,4 +29,8 @@ public interface OrderInfoMapper extends JpaRepository<OrderInfo,Long> {
      */
     @Query(value="SELECT * FROM ORDER_INFO WHERE USER_ID IN (SELECT USER_ID FROM WAP_USER WHERE ZS_ID =  ?1) AND STATUS = 1",nativeQuery = true)
     Page<OrderInfo> nativeQuery(long userId,Pageable pageable);
+
+
+    @Query(value="SELECT * FROM ORDER_INFO WHERE USER_ID IN (SELECT USER_ID FROM WAP_USER WHERE ZS_ID =  ?1) ",nativeQuery = true)
+    Page<OrderInfo> nativeAllOrderQuery(long userId,Pageable pageable);
 }

@@ -60,12 +60,9 @@ public class OrderController extends BaseController{
     @Transactional
     public String allOrder(int page,int size ,Model model){
         page = page - 1;
-        String name = getUserName();
-        logger.info("当前登陆用户：" + name);
-        WapUser user = userMapper.findByUsername(name);
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<OrderInfo> pageObject = orderInfoMapper.findAll(pageable);
+        Page<OrderInfo> pageObject = orderInfoMapper.nativeAllOrderQuery(getUserId(),pageable);
         model.addAttribute("list",pageObject.getContent());//当前列表
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
@@ -85,13 +82,10 @@ public class OrderController extends BaseController{
     @Transactional
     public String notShouHuo(int page, int size, Model model){
         page = page - 1;
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info("当前登陆用户：" + name);
-        WapUser user = userMapper.findByUsername(name);
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
         //状态2 已发货了
-        Page<OrderInfo> pageObject = orderInfoMapper.findByUserIdAndStatus(user.getUserId(),2,pageable);
+        Page<OrderInfo> pageObject = orderInfoMapper.findByUserIdAndStatus(getUserId(),2,pageable);
         model.addAttribute("list",pageObject.getContent());//当前列表
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
@@ -141,11 +135,8 @@ public class OrderController extends BaseController{
      */
     @RequestMapping("/delivery/{orderId}")
     public String delivery(@Value("${hhmg.server.delivery}") String url, @PathVariable long orderId, Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info("当前登陆用户：" + name);
-        WapUser user = userMapper.findByUsername(name);
         Map<String, String> map = new HashMap<String, String>();
-        map.put("SHIPPER", ""+user.getUserId());//发货人ID
+        map.put("SHIPPER", ""+getUserId());//发货人ID
         map.put("ORDER_ID", ""+orderId);//订单编号
         map.put("TYPE","1");;// 发货人ID  TYPE=1实体库发货，  TYPE=2云仓库发货
         String body = null;
@@ -177,11 +168,9 @@ public class OrderController extends BaseController{
         }else{
             page = page - 1;
         }
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user = userMapper.findByUsername(name);
         Sort sort = new Sort(Sort.Direction.DESC,"insert_Date");
         PageRequest pageable = PageRequest.of(page,size,sort);
-        Page<OrderInfo> pageObject = orderInfoMapper.nativeQuery(user.getUserId(),pageable);
+        Page<OrderInfo> pageObject = orderInfoMapper.nativeQuery(getUserId(),pageable);
         model.addAttribute("list",pageObject.getContent());//当前列表
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
