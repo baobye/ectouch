@@ -216,11 +216,11 @@
     <a href="#" onclick="goCart()" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color"
                                                                                                     id='total_number'
                                                                                                     th:text="${total_number}">0</sup><em>购物车</em></a>
-   <a type="button" class="btn-cart box-flex"
+   <a type="button" class="btn-cart box-flex" style="height: 40px;line-height: 40px;"
     th:onClick="'javascript:addToCart(\''+${goodInfo.goodId}+'\');'">加入购物车</a>
     <!--<a type="button" class="btn-cart box-flex"
        th:onClick="'javascript:addToCarts(\''+${goodInfo.goodId}+'\');'">加入购物车</a>-->
-    <a class="btn-cart box-flex" href="/goods/checkout">立即结算</a>
+    <a class="btn-cart box-flex" href="/goods/checkout" style="height: 40px;line-height: 40px;">立即结算</a>
     <!--a type="button" class="btn-submit box-flex" th:onClick="'javascript:addToCart_quick(\''+${goodInfo.goodId}+'\');'">立即购买</a-->
 </div>
 
@@ -234,6 +234,20 @@
 
 <script type="text/javascript" src="/themes/default/js/lefttime.js"></script>
 <script type="text/javascript">
+    // <div class="weui-actionsheet__cell" value="1">联创</div>
+    //     <div class="weui-actionsheet__cell" value="2">董事</div>
+    //     <div class="weui-actionsheet__cell" value="3">总代</div>
+    //     <div class="weui-actionsheet__cell" value="4">VIP天使</div>
+    //     <div class="weui-actionsheet__cell" value="5">零售</div>
+    // $(function () {
+    //     var leve = sessionStorage.getItem('level');
+    //     var leves = sessionStorage.getItem('levels');
+    //     if(leves){
+    //
+    //     }else{
+    //
+    //     }
+    // })
 /*    function addToCarts(goodId) {
         var leve = sessionStorage.getItem('level');
         var leves = sessionStorage.getItem('levels');
@@ -259,7 +273,6 @@
             }
         })
     }*/
-
     /*点击下拉菜单*/
     function openMune() {
         if ($(".ect-nav").is(":visible")) {

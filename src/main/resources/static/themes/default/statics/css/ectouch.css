@@ -183,9 +183,9 @@ a.btn-reset,a.btn-default{color:#555;}
 .btn-submit {background: #ffffff;border:1px solid #13AB53}/*主提交按钮*/
 .btn-submit:active,
 .btn-submit:hover {background: #13AB53;border:1px solid #13AB53}/*主提交按钮按下颜色*/
-.btn-cart {background: #f4a213;border:1px solid #e19511}/*加入购物车*/
+.btn-cart {background: #50B5BD;border:1px solid #50B5BD}/*加入购物车*/
 .btn-cart:active,
-.btn-cart:hover {background: #e19511;border:1px solid #e19511}/*按下颜色*/
+.btn-cart:hover {background: #50B5BD;border:1px solid #50B5BD}/*按下颜色*/
 .btn-reset{background:#fff;color:#555;border:1px solid #efefef}/*清空按钮*/
 .btn-reset:active,
 .btn-reset:hover {background:#fbfbfb;border:1px solid #fbfbfb}/*按下颜色*/
