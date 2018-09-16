@@ -262,9 +262,9 @@ h4.title-hrbg {font-size: 1.3rem;position: relative; z-index:1; height: 4rem;lin
 h4.title-hrbg span {background: #fff;padding: 1rem .6rem;font-size: 1.4rem; z-index: 10;}
 h4.title-hrbg hr {background: #f6f6f9;height: 1px;border: 0;position: absolute;left: 0;right: 0;top: 50%;margin-top: 1px;z-index: -1;}
 /*加减文本*/
-.div-num{border:1px solid #ededed; border-radius: 4px; width:12rem;}
-.div-num input{border:0;border-left:1px solid #ededed; border-right: 1px solid #ededed; border-radius: 0; height:2rem; padding:.5rem; font-size:1.2rem; text-align: center;}
-.div-num a{display:block; width:3rem; height:3rem; position: relative;}
+.div-num{border-radius: 4px; width:12rem;}
+.div-num input{border:0;border:1px solid #ededed; border-left: none; border-right: none;  border-radius: 0; height:2rem; padding:.5rem; font-size:1.2rem; text-align: center;}
+.div-num a{display:block; width:3rem; height:3rem; position: relative; border:1px solid #ededed;}
 .div-num a.num-less:before,.div-num a.num-plus:before,.div-num a.num-plus:after{content: " "; display: block; border-bottom:1px solid #888; width:1.6rem; position: absolute; left:50%; margin-left:-.8rem; top:50%; margin-top:-1px;}
 .div-num a.num-plus:after{ -moz-transform: rotate(-90deg);-webkit-transform: rotate(-90deg);-ms-transform: rotate(-90deg);-o-transform: rotate(-90deg);transform: rotate(-90deg);}
 .div-num.div-num-disabled{border:1px solid #f6f6f6;}
