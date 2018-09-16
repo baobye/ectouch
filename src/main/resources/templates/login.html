@@ -15,7 +15,32 @@
 <STYLE TYPE="text/css">
 <!--
 body{
-	background-image: url("/images/loginbg.jpg") !important;
+	margin: 0;
+	padding: 0;
+	background-image: url("/css/loginbg.jpg") !important;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.login-main{
+	box-sizing: border-box;
+	text-align: center;
+	padding: 3.9% 3%;
+	width: 76%;
+	margin: 0 auto;
+	margin-top: 21%;
+	background: rgba(243,249,247,0.8);
+	border-radius: 2%;
+}
+.login-logo{
+	display: inline-block;
+	width: 100%;
+}
+.login-logo img{
+	width: 48%;
+}
+.weui-input{
+	height: 30px;
+	line-height: 30px;
 }
 /*body {background-image: url(/images/loginbg.jpg);*/
 /*background-position: center;*/
@@ -24,7 +49,7 @@ body{
 -->
 </STYLE>
 	<body>
-	<img src="/images/loginbg.jpg"/>
+	<!--<img src="//loginbg.jpg"/>-->
 		<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
 		<!--<div class="weui-loadmore">
             <i class="weui-loading"></i>
@@ -32,21 +57,25 @@ body{
     </div>-->
 		
 		<div class="container" id="container"></div>
+	<div class="login-main">
+		<div class="login-logo">
+			<img src="/css/LOGO.png" />
+		</div>
 		<form name="formLogin" action="/login" method="post" class="">
 			<div class="page__bd">
-				<div class="page__hd" >
-					<h1 class="page__title" style="text-align: left;">🌹瑰ME...</h1>
-					<p class="page__desc" style="text-align: center;">----------<a class="link" href="#gallery">您身边的美容专家</a></p>
-				</div>
+				<!--<div class="page__hd" >-->
+					<!--<h1 class="page__title" style="text-align: left;">🌹瑰ME...</h1>-->
+					<!--<p class="page__desc" style="text-align: center;">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;<a class="link" href="#gallery">您身边的美容专家</a></p>-->
+				<!--</div>-->
 				<div class="weui-cells weui-cells_form">
 					<div class="weui-cell">
-						<div class="weui-cell__hd"><label class="weui-label" >账号:</label></div>
+						<!--<div class="weui-cell__hd"><label class="weui-label" >账号:</label></div>-->
 						<div class="weui-cell__bd">
 							<input class="weui-input" type="text" placeholder="请输入账号"  autocomplete="off"  name="username" />
 						</div>
 					</div>
 					<div class="weui-cell">
-						<div class="weui-cell__hd"><label class="weui-label" >密码:</label></div>
+						<!--<div class="weui-cell__hd"><label class="weui-label" >密码:</label></div>-->
 						<div class="weui-cell__bd">
 							<input class="weui-input" type="password" placeholder="请输入密码" name="password" />
 						</div>
@@ -55,7 +84,7 @@ body{
 						</div>
 					</div>
 					 <div class="weui-cell weui-cell_vcode">
-					<div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+					<!--<div class="weui-cell__hd"><label class="weui-label">验证码</label></div>-->
 					<div class="weui-cell__bd">
 						<input class="weui-input" type="text" placeholder="请输入验证码" autocomplete="off" name="verifyCode" id="verifyCode" />
 					</div>
@@ -83,6 +112,7 @@ body{
 				</div>
 			</div>
 		</form>
+	</div>
 		<!--<div class="page__ft">
 			<a href="javascript:home()"><img src="img/icon_footer_link.png" /></a>
 		</div>-->
