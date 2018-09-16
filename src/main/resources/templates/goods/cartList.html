@@ -30,6 +30,22 @@
 
     </script>
 
+    <style>
+        .delBtn{
+            display: inline-block;
+            color: #fff !important;
+            width: 100% !important;
+            height: 33px !important;
+            line-height: 33px !important;
+            font-size: 1.4rem !important;
+            background: #50B5BD !important;
+        }
+        .del-main{
+            border: none;
+            width: 10%;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
 <!--BEGIN dialog1-->
@@ -98,8 +114,8 @@
                         <input type="hidden" id="back_number611" th:id="'back_number'+${cart.recId}" value="1" />
                         <input type="text" class="form-num form-contro"  name="6" id="goods_number6" th:id="'goods_number'+${cart.recId}" th:name="${cart.recId}" autocomplete="off" th:value="${cart.goodsNumber}" value="1" onFocus="back_goods_number(6)"  th:onblur="'javascript:change_goods_number(2,\''+${cart.recId}+'\');'"  onblur="change_goods_number('2',6)" />
                         <span class="input-group-addon" onClick="change_goods_number('3',6)" th:onClick="'javascript:change_goods_number(3,\''+${cart.recId}+'\');'" >+</span> </div>
-                    <div class="pull-right flow-del text-center">
-                        <a  href="#editModal" data-toggle="modal"    class="weui-btn weui-btn_disabled weui-btn_warn"   th:onclick="'javascript:deleteCart(\''+${cart.recId}+'\');'">删除</a>
+                    <div class="pull-right flow-del text-center del-main">
+                        <a  href="#editModal" data-toggle="modal"    class="weui-btn weui-btn_disabled weui-btn_warn delBtn"   th:onclick="'javascript:deleteCart(\''+${cart.recId}+'\');'">删除</a>
                     </div>
                 </div>
             </li>
