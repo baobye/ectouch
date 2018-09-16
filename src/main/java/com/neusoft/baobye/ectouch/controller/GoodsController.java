@@ -86,17 +86,12 @@ public class GoodsController extends BaseController{
      */
     @RequestMapping("/goods/detail/{id}")
     public String detail(@Value("${hhmg.server}") String server,@PathVariable Long id,Model model){
-        //购物车数量
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user  = userMapper.findByUsername(name);
-        /**
-         * 购物车
-         */
-        List<GoodCart> list= goodCartMapper.findAllByUserId(user.getUserId());
+
+        List<GoodCart> list= goodCartMapper.findAllByUserId(getUserId());
         model.addAttribute("total_number",0);
         GoodInfo goodInfo = goodInfoMapper.findByGoodId(id);
         model.addAttribute("goodInfo",goodInfo);
-        model.addAttribute("user",user);
+        model.addAttribute("user",getUser());
         model.addAttribute("server",server);
         if(list != null && list.size() >0){
             Integer totalNumber = 0;
@@ -117,8 +112,7 @@ public class GoodsController extends BaseController{
     @ResponseBody
     public Map purchase(Model model, HttpServletRequest request){
         //1、首先到购物车表 查 是否有记录
-//        return "goods/addToCart";
-        String goods = request.getParameter("goods");//{"quick":1,"spec":[""],"goods_id":1,"number":"1","parent":0}
+        String goods = request.getParameter("goods");
 
         Map map = null;
         try {
@@ -131,12 +125,10 @@ public class GoodsController extends BaseController{
         //获得商品
         GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodId);
         if(goodInfo != null){
-            String name = SecurityContextHolder.getContext().getAuthentication().getName();
-            WapUser user  = userMapper.findByUsername(name);
 
             //先判断这个商品购物车中有没有
 
-            GoodCart goodCart = goodCartMapper.findByUserIdAndGoodsId(user.getUserId(),(long)goodId);
+            GoodCart goodCart = goodCartMapper.findByUserIdAndGoodsId(getUserId(),(long)goodId);
             List<TbPictures> list = new ArrayList(goodInfo.getPictures());
             String path = "";
             if(list != null && list.size()>0){
@@ -147,12 +139,12 @@ public class GoodsController extends BaseController{
                 cart.setGoodsId(goodId);
                 cart.setGoodsName(goodInfo.getGoodName());
                 cart.setGoodsNumber(Integer.parseInt((String)map.get("number")));
-                cart.setUserId(user.getUserId());
+                cart.setUserId(getUserId());
                 cart.setPath(path);
-                if(user.getStatus() == 2){
+                if(getUser().getStatus() == 2){
                     cart.setGoodsPrice(goodInfo.getaPrice());
                 }
-                Long level = Long.parseLong((String) map.get("level"));
+                Long level = getUser().getLevel() < 6  ? getUser().getLevel() : Long.parseLong((String) map.get("level"));
                 if(level == 1){
 //                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
                     cart.setGoodsPrice(goodInfo.getaPrice());
@@ -173,7 +165,7 @@ public class GoodsController extends BaseController{
             }else{
 
                 int number = goodCart.getGoodsNumber()+Integer.parseInt((String)map.get("number"));
-                Long level = Long.parseLong((String) map.get("level"));
+                Long level = getUser().getLevel() < 6  ? getUser().getLevel() : Long.parseLong((String) map.get("level"));
                 if(level == 1){
 //                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
                     goodCart.setGoodsPrice(goodInfo.getaPrice());
@@ -194,7 +186,7 @@ public class GoodsController extends BaseController{
             }
             //这是现在是单个商品的个数  要返回所有商品的个数
             double totalNumber = 0;
-            List<GoodCart> carts= goodCartMapper.findAllByUserId(user.getUserId());
+            List<GoodCart> carts= goodCartMapper.findAllByUserId(getUserId());
             if(carts != null && carts.size() >0){
                 for(GoodCart cart : carts){
                     double sum = HighPreciseComputor.mul(cart.getGoodsNumber(),cart.getGoodsPrice());
@@ -448,12 +440,22 @@ public class GoodsController extends BaseController{
      */
     @RequestMapping("/goods/done")
     @Transactional
-    public String done(OrderInfo orderInfo, Model model,String listString,String level,@Value("${total.money}") String totalMoney) throws Exception {
+    public String done(OrderInfo orderInfo, Model model,String listString,String level,@Value("${total.money}") String totalMoney ,@Value("${replenishment.money}")  String replenishment) throws Exception {
 
         //用户信息
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
+
         Double taotal = orderInfo.getOrderPriceTotal();
+        if(user.getLevel() < 6){
+            String[] replenishments = replenishment.split(",");
+            if(taotal < Double.parseDouble(replenishments[user.getLevel() -1])){
+                throw new EcException("点击返回","错误操作","/");
+            }else{
+                throw new EcException("点击返回","错误操作","/");
+            }
+        }
+
         if(user.getDzb() < orderInfo.getOrderPriceTotal()){
             throw new EcException("点击充值","电子币不足请充值","/money/recharge");
         }
@@ -641,18 +643,23 @@ public class GoodsController extends BaseController{
 
     @GetMapping("/goods/totalMoney/{level}/{total}")
     @ResponseBody
-    public int getTotalMoney(@PathVariable("level") int level,@PathVariable("total") Double total,@Value("${total.money}") String totalMoney){
+    public int getTotalMoney(@PathVariable("level") int level,@PathVariable("total") Double total,@Value("${total.money}") String totalMoney,@Value("${replenishment.money}")  String replenishment){
 
         WapUser user = userMapper.findByUserId(getUserId());
-        if(user.getStatus() != 2){
-            return 1;
+        //第二次购物
+        if(user.getLevel() < 6){
+            String[] replenishments = replenishment.split(",");
+            if(total < Double.parseDouble(replenishments[level-1])){
+                return 0;
+            }else{
+                return 1;
+            }
         }
         if(99 == level){
             return 3;
         }
         String[] totalMoneys = totalMoney.split(",");
-
-        if(total < Double.parseDouble(totalMoneys[level])){
+        if(total < Double.parseDouble(totalMoneys[level-1])){
             return 0;
         }else{
             return 1;

@@ -60,7 +60,7 @@ public class OrderController extends BaseController{
     @Transactional
     public String allOrder(int page,int size ,Model model){
         page = page - 1;
-        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        Sort sort = new Sort(Sort.Direction.DESC,"insert_Date");
         PageRequest pageable = PageRequest.of(page,size,sort);
         Page<OrderInfo> pageObject = orderInfoMapper.nativeAllOrderQuery(getUserId(),pageable);
         model.addAttribute("list",pageObject.getContent());//当前列表

@@ -163,10 +163,11 @@
         debugger;
         $.ajax({
             type:"get",
-            url:"/goods/totalMoney/"+sessionStorage.getItem('levels')+'/'+parseInt($("#goods_subtotal").text()),
+            url:"/goods/totalMoney/"+level+'/'+parseInt($("#goods_subtotal").text()),
             async:false,
             dataType:"text",
             success: function(result){
+                debugger;
                 if(result == 0){
                     var $iosDialog2 = $('#iosDialog2');
                     $iosDialog2.fadeIn(200);
