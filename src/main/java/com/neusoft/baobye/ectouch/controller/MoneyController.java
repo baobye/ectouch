@@ -1,10 +1,12 @@
 package com.neusoft.baobye.ectouch.controller;
 
 import com.neusoft.baobye.ectouch.entity.MoneyChange;
+import com.neusoft.baobye.ectouch.entity.PrizeInfo;
 import com.neusoft.baobye.ectouch.entity.PrizeTotal;
 import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.mapper.MoneyChangeMapper;
 import com.neusoft.baobye.ectouch.mapper.PriceTotalMapper;
+import com.neusoft.baobye.ectouch.mapper.PrizeInfoMapper;
 import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import com.neusoft.baobye.ectouch.util.HttpClientUtil;
 import org.slf4j.Logger;
@@ -40,6 +42,9 @@ public class MoneyController extends BaseController{
 
     @Autowired
     private PriceTotalMapper priceTotalMapper;
+
+    @Autowired
+    private PrizeInfoMapper prizeInfoMapper;
 
 
     /**
@@ -152,6 +157,25 @@ public class MoneyController extends BaseController{
         model.addAttribute("realMoney",moneyChange.getRealMoney());
         System.out.println("响应结果：" + body);
         return "money/rechargeDone";
+    }
+
+    @RequestMapping("/detail")
+    public String detail(){
+        return "money/detail";
+    }
+
+    @RequestMapping("/getPrizeInfo")
+    @ResponseBody
+    public List<PrizeInfo> getPrizeInfo(Model model,int page,int size){
+        page = page - 1 ;//当前页从0 开始
+        Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        Page<PrizeInfo> pageObject = prizeInfoMapper.findByUserId(getUserId(),pageable);
+
+        int pages = pageObject.getTotalPages();// 总页数
+        int number = pageObject.getNumber();//当前页
+
+        return pageObject.getContent();
     }
 
 

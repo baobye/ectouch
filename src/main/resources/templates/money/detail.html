@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="initial-scale=1, user-scalable=0, minimal-ui" charset="UTF-8">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/themes/default/css/style.css">
+    <script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
+    <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="/css/weui.min.css">
+    <script type="text/javascript" src="/themes/default/js/ectouch.js"></script>
+    <title>奖金明细</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+            -webkit-text-size-adjust:none;
+        }
+        html{
+            font-size:10px;
+        }
+        body{
+            background-color: #f5f5f5;
+            font-size: 1.2em;
+        }
+        .tab{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            height: 44px;
+            line-height: 44px;
+            border-bottom: 1px solid #ff3c3c;
+            background-color: #eee;
+        }
+        .tab .item{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            font-size: 14px;
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+        }
+        .tab .cur{
+            height: 42px;
+            border-bottom: 2px solid #ff3c3c;
+            color: #ff3c3c;
+        }
+        .content{
+            background-color: #fff;
+        }
+        .content .item{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align:center;
+            -webkit-box-align:center;
+            box-align:center;
+            -webkit-align-items:center;
+            align-items:center;
+            padding:3.125%;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+        }
+        .content .item img{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border:1px solid #ddd;
+        }
+        .content .item h3{
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            width: 100%;
+            max-height: 40px;
+            overflow: hidden;
+            line-height: 20px;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .content .item .date{
+            display: block;
+            height: 20px;
+            line-height: 20px;
+            color: #999;
+        }
+        .opacity{
+            -webkit-animation: opacity 0.3s linear;
+            animation: opacity 0.3s linear;
+        }
+        @-webkit-keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+        @keyframes opacity {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $('#dialogs').on('click', '.weui-dialog__btn', function(){
+                $(this).parents('.js_dialog').fadeOut(200);
+            });
+        });
+        function deleteCart(id){
+            $('#deleteCard').attr('href','/register/activate/'+id);
+            var $iosDialog1 = $('#iosDialog1');
+            $iosDialog1.fadeIn(200);
+        }
+
+    </script>
+    <link rel="stylesheet" href="/css/dropload.css">
+</head>
+<body>
+<!--BEGIN dialog1-->
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认激活？</strong></div>
+            <!--div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，</div-->
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END dialog1-->
+<div class="ect-bg">
+    <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href="/" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>奖金</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+
+    <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
+    </nav>
+</div>
+<div class="tab">
+    <a href="javascript:;" class="item cur">奖金明细</a>
+    <a href="javascript:;" class="item">订单奖金</a>
+</div>
+<div class="content">
+    <div class="lists"></div>
+    <div class="lists"></div>
+</div>
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<!--script src="/js/zepto.min.js"></script-->
+<script src="/js/dropload.min.js"></script>
+<script>
+    $(function(){
+        var itemIndex = 0;
+        var tab1LoadEnd = false;
+        var tab2LoadEnd = false;
+
+        // tab
+        $('.tab .item').on('click',function(){
+            var $this = $(this);
+            itemIndex = $this.index();
+            $this.addClass('cur').siblings('.item').removeClass('cur');
+            $('.lists').eq(itemIndex).show().siblings('.lists').hide();
+
+            // 如果选中菜单一
+            if(itemIndex == '0'){
+                page1 =0;
+                // 如果数据没有加载完
+                if(!tab1LoadEnd){
+                    // 解锁
+                    dropload.unlock();
+                    dropload.noData(false);
+                }else{
+                    // 锁定
+                    dropload.lock('down');
+                    dropload.noData();
+                }
+                // 如果选中菜单二
+            }else if(itemIndex == '1'){
+                page2 =0;
+                if(!tab2LoadEnd){
+                    // 解锁
+                    dropload.unlock();
+                    dropload.noData(false);
+                }else{
+                    // 锁定
+                    dropload.lock('down');
+                    dropload.noData();
+                }
+            }
+            // 重置
+            dropload.resetload();
+        });
+        // 页数
+        var page1 = 0;
+
+        var page2 = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        var dropload = $('.content').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                // 加载菜单一的数据
+                if(itemIndex == '0'){
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/money/indexAjax?page='+page1+'&size='+size,
+                        dataType: 'json',
+                        success: function(data){
+                            var arrLen = data.length;
+                            if(arrLen > 0){
+                                for(var i=0; i<arrLen; i++){
+                                    result += '<div class="weui-form-preview">'
+                                        +'  <div class="weui-form-preview__hd">'
+                                        +'   <label class="weui-form-preview__label">总金额</label>'
+                                        +'   <em class="weui-form-preview__value">'+data[i].jjbTotal+'</em>'
+                                        +'</div>'
+                                        +'<div class="weui-form-preview__bd">'
+                                        +'   <div class="weui-form-preview__item">'
+                                        +'   <label class="weui-form-preview__label">时间</label>'
+                                        +'  <span class="weui-form-preview__value">'+data[i].insertDate+'</span>'
+                                        +' </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">状态</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+status+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">招募奖</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+data[i].zmj+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">平推荐</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+data[i].ptj+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">垄断奖</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+data[i].ldj+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            </div>' +
+                                        '                                            </div>' +
+                                        '                                    <br>';
+                                    }
+                                // 如果没有数据
+                            }else{
+                                // 数据加载完
+                                tab1LoadEnd = true;
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+                            // 为了测试，延迟1秒加载
+                            // 插入数据到页面，放到最后面
+                            $('.lists').eq(0).append(result);
+                            // 每次数据加载完，必须重置
+                            me.resetload();
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },
+                        error: function(xhr, type){
+                         //   alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                    page1++;
+                    // 加载菜单二的数据
+                }else if(itemIndex == '1'){
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/money/getPrizeInfo?page='+page2+'&size='+size,
+                        dataType: 'json',
+                        success: function(data){
+                            var arrLen = data.length;
+                            if(arrLen > 0){
+                                for(var i=0; i<arrLen; i++){
+                                    var status = data[i].status == 0 ? '已发放':'未发放';
+                                    var type = '';
+                                    if(data[i].type == 1){
+                                        type = '招募奖';
+                                    }else if(data[i].type == 2){
+                                        type = '平推荐';
+                                    }else if(data[i].type == 3){
+                                        type = '垄断奖';
+                                    }else if(data[i].type == -1){
+                                        type = '夸奖推荐'
+                                    }else if(data[i].type == -2){
+                                        type = '推荐下级';
+                                    }
+                                    result += '<div class="weui-form-preview">'
+                                        +'  <div class="weui-form-preview__hd">'
+                                        +'   <label class="weui-form-preview__label">金额</label>'
+                                        +'   <em class="weui-form-preview__value">'+data[i].money+'</em>'
+                                        +'</div>'
+                                        +'<div class="weui-form-preview__bd">'
+                                        +'   <div class="weui-form-preview__item">'
+                                        +'   <label class="weui-form-preview__label">时间</label>'
+                                        +'  <span class="weui-form-preview__value">'+data[i].insertDate+'</span>'
+                                        +' </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">状态</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+status+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            <div class="weui-form-preview__item">' +
+                                        '                                            <label class="weui-form-preview__label">类型</label>' +
+                                        '                                            <span class="weui-form-preview__value" >'+type+'</span>' +
+                                        '                                            </div>' +
+                                        '                                            </div>' ;
+                                }
+                                // 如果没有数据
+                            }else{
+                                // 数据加载完
+                                tab2LoadEnd = true;
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+                            // 为了测试，延迟1秒加载
+                            // 插入数据到页面，放到最后面
+                            $('.lists').eq(1).append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },
+                        error: function(xhr, type){
+                         //   alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                    page2++;
+                }
+
+            }
+        });
+    });
+</script>
+</body>
+</html>
