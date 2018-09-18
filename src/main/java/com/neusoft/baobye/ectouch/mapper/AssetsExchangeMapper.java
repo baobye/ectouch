@@ -5,8 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface AssetsExchangeMapper extends JpaRepository<AssetsExchange,Long> {
 
-    Page<AssetsExchange> findByAssetsId(Long assetsId,Pageable pageable);
+    List<AssetsExchange> findByAssetsId(Long assetsId);
 
 }

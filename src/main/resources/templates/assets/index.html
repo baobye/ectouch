@@ -209,11 +209,12 @@
     <script src="/js/dropload.min.js"></script>
     <script>
         function showInputNum() {
-            $("#androidDialog").fadeIn(200)
+            window.open('')
+            // $("#androidDialog").fadeIn(200)
         }
-        function goBack(){
-            $("#androidDialog").fadeOut(200)
-        }
+        // function goBack(){
+        //     $("#androidDialog").fadeOut(200)
+        // }
         // function onSubmit() {
         //     $.ajax({
         //         url:''
@@ -292,8 +293,6 @@
                             url: '/yunAssets/indexAjax?status=1&page=' + page1 + '&size=' + size,
                             dataType: 'json',
                             success: function (data) {
-                                console.log(data)
-                                // consoel.log("yunAssets", data)
                                 var arrLen = data.length;
                                 if (arrLen > 0) {
                                     for (var i = 0; i < arrLen; i++) {
@@ -326,7 +325,7 @@
                                             '                                            </div>' +
                                             '                                            </div>' +
                                                 '<div style="height: 45px; margin-top: 5px;">' +
-                                                '<a href="javascript:;" onclick="showInputNum()" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">转到库存</a>'+
+                                                '<a href="/AssetsExchange/record/'+data[i].assetsId+'" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">查看记录</a>'+
                                                 '</div>'+
                                             '                                            </div></br>';
                                     }

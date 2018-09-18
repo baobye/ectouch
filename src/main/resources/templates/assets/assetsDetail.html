@@ -213,23 +213,20 @@
 
     <div class="page">
         <div class="page__bd" id="lists">
-            <div class="weui-form-preview">
-                <div class="weui-form-preview__hd">'
-                    <label class="weui-form-preview__label">手机号</label>
-                    <em class="weui-form-preview__value">'+data[i].tel+'</em>
-                </div>
-                <div class="weui-form-preview__bd">'
-                    <div class="weui-form-preview__item">'
-                        <label class="weui-form-preview__label">姓名</label>
-                        <span class="weui-form-preview__value">'+data[i].name+'</span>
+            <div class="weui-form-preview" th:each="assetsItem : ${assets}">
+                <!--<p th:text="${assets}"></p>-->
+                <div class="weui-form-preview__bd">
+                    <div class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">物流编号</label>
+                        <span class="weui-form-preview__value" th:text="${assetsItem.logisticsCode}"></span>
                     </div>
                     <div class="weui-form-preview__item">
-                        <label class="weui-form-preview__label">注册日期</label>
-                        <span class="weui-form-preview__value">'+data[i].insertDate+'</span>
+                        <label class="weui-form-preview__label">数量</label>
+                        <span class="weui-form-preview__value" th:text="${assetsItem.num}"></span>
                     </div>
                     <div class="weui-form-preview__item">
-                        <label class="weui-form-preview__label">微信号</label>
-                        <span class="weui-form-preview__value">'+data[i].wechat+'</span>
+                        <label class="weui-form-preview__label">地址</label>
+                        <span class="weui-form-preview__value" th:text="${assetsItem.address}"></span>
                     </div>
                 </div>
                 <div class="weui-form-preview__ft">

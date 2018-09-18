@@ -24,11 +24,11 @@ public class AssetsExchangeController {
 
     @RequestMapping("/record/{assetsId}")
     public String indexAjax(@PathVariable Long assetsId, HttpServletRequest request,Model model) {
-        int page = Integer.parseInt(request.getParameter("page"));
-        int size = Integer.parseInt(request.getParameter("size"));
-        Sort sort = new Sort(Sort.Direction.DESC, "insertDate");
-        PageRequest pageable = PageRequest.of(page, size, sort);
-        Page list = mapper.findByAssetsId(assetsId, pageable);
+//        int page = Integer.parseInt(request.getParameter("page"));
+//        int size = Integer.parseInt(request.getParameter("size"));
+//        Sort sort = new Sort(Sort.Direction.DESC, "insertDate");
+//        PageRequest pageable = PageRequest.of(page, size, sort);
+        List list = mapper.findByAssetsId(assetsId);
         model.addAttribute("assets",list);
         return "assets/assetsDetail";
     }
