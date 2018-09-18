@@ -136,8 +136,8 @@ public class ProfileController extends BaseController{
      * @param model
      * @return
      */
-    @GetMapping("/profile/update{id}")
-    public String updateAdd(@PathVariable String id,Model model){
+    @GetMapping("/profile/update{id}/{type}")
+    public String updateAdd(@PathVariable("id") String id,@PathVariable String type,Model model){
 
         WapUserAddress address = addressMapper.findByAddId(Long.parseLong(id));
         //还需要获得 城市 地区的 list
@@ -146,6 +146,7 @@ public class ProfileController extends BaseController{
         model.addAttribute("address",address);
         model.addAttribute("cityList",cityList);
         model.addAttribute("areaList",areaList);
+        model.addAttribute("type",type);
         return "profile/updateAddress";
     }
 
@@ -186,12 +187,12 @@ public class ProfileController extends BaseController{
         addressMapper.save(address);
         //购物车过来的
         if("0".equals(type)){
-            return "redirect:/profile/addressList";
+            return "redirect:/profile/addressList/0";
         } else if("1".equals(type)){
             return "redirect:/goods/checkout/"+getUser().getLevel();
         }
 
-        return "redirect:/profile/addressList";
+        return "redirect:/profile/addressList/0";
     }
 
     /**
@@ -204,7 +205,7 @@ public class ProfileController extends BaseController{
     public String deleteAdd(@PathVariable String id){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         addressMapper.deleteWapUserAddressByAddId(Long.parseLong(id));
-        return "redirect:/profile/addressList";
+        return "redirect:/profile/addressList/0";
     }
 
 

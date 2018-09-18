@@ -61,14 +61,14 @@
                 <li>
                     <div class="input-text"><b class="pull-left">收货人姓名：</b>
                         <span>
-                            <input name="addName" placeholder="收货人姓名必填" type="text" class="inputBg_touch" value="" />
+                            <input name="addName" placeholder="收货人姓名必填" type="text" class="inputBg_touch" value="" required/>
                         </span>
                     </div>
                 </li>
                 <li>
                     <div class="input-text"><b class="pull-left">手机：</b>
                         <span>
-                            <input placeholder="手机必填" name="phone" type="text" class="inputBg_touch" value="" />
+                            <input placeholder="手机必填" name="phone" type="text" class="inputBg_touch" value=""  required/>
                         </span>
                     </div>
                 </li>
@@ -85,7 +85,7 @@
 
                 <li style="display:none">
                     <div class="input-text"><b class="pull-left">城市/地区：</b><span>
-                        <select name="country" id="selCountries_" onchange="region.changed(this, 1, 'selProvinces_')">
+                        <select required name="country" id="selCountries_" onchange="region.changed(this, 1, 'selProvinces_')">
                             <option value="0">请选择</option>
                             <option value="1" selected>中国</option>
                         </select>
@@ -93,7 +93,7 @@
                 </li>
                 <li>
                     <div class="input-text"><b class="pull-left">省/直辖市：</b><span>
-                        <select name="provinceId" id="selProvinces_" onchange="region.changed(this, 2, 'selCities_')">
+                        <select required name="provinceId" id="selProvinces_" onchange="region.changed(this, 2, 'selCities_')">
                             <option value="0">请选择</option>
                             <option value="2" >北京</option>
                             <option value="3" >安徽</option>
@@ -134,7 +134,7 @@
                 </li>
                 <li>
                     <div class="input-text"><b class="pull-left">城市：</b><span>
-                        <select name="cityId" id="selCities_" onchange="region.changed(this, 3, 'selDistricts_')">
+                        <select required name="cityId" id="selCities_" onchange="region.changed(this, 3, 'selDistricts_')">
                             <option value="0">请选择</option>
                         </select>
                     </div>
@@ -147,7 +147,7 @@
                     </div>
                 </li>
                 <li class="input-text"><b class="pull-left">详细地址</b>
-                    <textarea name="address" placeholder="详细地址必填" type="text"></textarea>
+                    <textarea name="address" placeholder="详细地址必填" type="text" required></textarea>
                 </li>
             </ul>
         </div>
