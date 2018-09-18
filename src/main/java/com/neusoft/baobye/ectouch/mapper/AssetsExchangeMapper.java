@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AssetsExchangeMapper extends JpaRepository<AssetsExchange,Long> {
 
-    Page<AssetsExchange> findAssetsId(Long assetsId,Pageable pageable);
+    Page<AssetsExchange> findByAssetsId(Long assetsId,Pageable pageable);
 
 }

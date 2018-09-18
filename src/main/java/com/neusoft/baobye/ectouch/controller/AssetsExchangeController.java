@@ -28,7 +28,7 @@ public class AssetsExchangeController {
         int size = Integer.parseInt(request.getParameter("size"));
         Sort sort = new Sort(Sort.Direction.DESC, "insertDate");
         PageRequest pageable = PageRequest.of(page, size, sort);
-        Page list = mapper.findAssetsId(assetsId, pageable);
+        Page list = mapper.findByAssetsId(assetsId, pageable);
         model.addAttribute("assets",list);
         return "assets/assetsDetail";
     }
