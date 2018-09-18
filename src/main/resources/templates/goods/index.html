@@ -290,6 +290,10 @@
             $iosMask.fadeOut(200);
             levles = $(this).attr('value')
             sessionStorage.setItem('levels',levles)
+            $.ajax({
+                type: 'GET',
+                url: '/setlevel/'+levles
+            });
             getInitData()
         })
     });

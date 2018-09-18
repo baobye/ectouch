@@ -234,6 +234,31 @@
 
 <script type="text/javascript" src="/themes/default/js/lefttime.js"></script>
 <script type="text/javascript">
+
+    function goCheckOut() {
+        var level = sessionStorage.getItem('levels') ? sessionStorage.getItem('levels') : sessionStorage.getItem('level');
+        debugger;
+        $.ajax({
+            type:"get",
+            url:"/goods/totalMoney/"+level+'/'+parseInt($("#goods_subtotal").text()),
+            async:false,
+            dataType:"text",
+            success: function(result){
+                debugger;
+                if(result == 0){
+                    var $iosDialog2 = $('#iosDialog2');
+                    $iosDialog2.fadeIn(200);
+                    return ;
+                }else if(result == 3){
+                    var $iosDialog2 = $('#iosDialog3');
+                    $iosDialog2.fadeIn(200);
+                    return ;
+                }else{
+                    window.location.href = '/goods/checkout/'+level;
+                }
+            },
+        });
+    }
     // <div class="weui-actionsheet__cell" value="1">联创</div>
     //     <div class="weui-actionsheet__cell" value="2">董事</div>
     //     <div class="weui-actionsheet__cell" value="3">总代</div>

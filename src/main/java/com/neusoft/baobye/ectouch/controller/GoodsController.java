@@ -205,8 +205,11 @@ public class GoodsController extends BaseController{
      * @param model
      * @return
      */
-    @RequestMapping("/goods/checkout/{level}")
-    public String checkout(@PathVariable Long level ,Model model, @Value("${total.money}") String totalMoney){
+    @RequestMapping(value = {"/goods/checkout/{level}","/goods/checkout"})
+    public String checkout(@PathVariable(required = false) Integer level ,Model model, @Value("${total.money}") String totalMoney,@Value("${replenishment.money}")  String replenishment){
+        if(level == null){
+            level = getUser().getLevel();
+        }
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
         //把默认地址查到
@@ -220,7 +223,9 @@ public class GoodsController extends BaseController{
 
         //显示商品信息
         List<GoodCart> goodCartList= goodCartMapper.findAllByUserId(user.getUserId());
-
+        if(goodCartList.isEmpty()){
+            return "redirect:/goods/index";
+        }
         /**
          * 根据会员购买金额 和 购买数量重新算购物车内 商品的价格
          */
@@ -228,174 +233,6 @@ public class GoodsController extends BaseController{
             double subtotal = 0.0;
             double totalNumber = 0;
 
-            /**
-            if(user.getStatus() == 2){//代表新用户购买。
-                List listA = new ArrayList();
-                List listB = new ArrayList();
-                List listC = new ArrayList();
-                List listD = new ArrayList();
-                List listE = new ArrayList();
-                List listF = new ArrayList();
-                double subtotalA = 0.0;
-                double totalNumberA = 0.0;
-                double subtotalB = 0.0;
-                double totalNumberB = 0.0;
-                double subtotalC = 0.0;
-                double totalNumberC = 0.0;
-                double subtotalD = 0.0;
-                double totalNumberD = 0.0;
-                double subtotalE = 0.0;
-                double totalNumberE = 0.0;
-                double subtotalF = 0.0;
-                double totalNumberF = 0.0;
-                //1、新用户购物车价格默认是花冠的价格 要根据实际购买数量修改会员级别
-                //1
-                for(GoodCart goodCart : goodCartList){
-
-                    GoodCart goodCartA = new GoodCart();
-                    GoodCart goodCartB = new GoodCart();
-                    GoodCart goodCartC = new GoodCart();
-                    GoodCart goodCartD = new GoodCart();
-                    GoodCart goodCartE = new GoodCart();
-                    GoodCart goodCartF = new GoodCart();
-
-                    try {
-                        BeanUtils.copyProperties(goodCartA,goodCart);
-                        BeanUtils.copyProperties(goodCartB,goodCart);
-                        BeanUtils.copyProperties(goodCartC,goodCart);
-                        BeanUtils.copyProperties(goodCartD,goodCart);
-                        BeanUtils.copyProperties(goodCartE,goodCart);
-                        BeanUtils.copyProperties(goodCartF,goodCart);
-
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                    GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodCart.getGoodsId());
-                    double sumA = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getaPrice());
-                    subtotalA = HighPreciseComputor.add(subtotalA,sumA);//总金额
-                    totalNumberA =HighPreciseComputor.add(totalNumberA,goodCart.getGoodsNumber());//总数量
-                    goodCartA.setGoodsPrice(goodInfo.getaPrice());
-                    goodCartA.setRecId(goodCart.getRecId());
-                    listA.add(goodCartA);
-                    double sumB = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getbPrice());
-                    subtotalB = HighPreciseComputor.add(subtotalB,sumB);//总金额
-                    totalNumberB =HighPreciseComputor.add(totalNumberB,goodCart.getGoodsNumber());//总数量
-                    goodCartB.setGoodsPrice(goodInfo.getbPrice());
-                    goodCartB.setRecId(goodCart.getRecId());
-                    listB.add(goodCartB);
-                    double sumC = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getcPrice());
-                    subtotalC = HighPreciseComputor.add(subtotalC,sumC);//总金额
-                    totalNumberC =HighPreciseComputor.add(totalNumberC,goodCart.getGoodsNumber());//总数量
-                    goodCartC.setGoodsPrice(goodInfo.getcPrice());
-                    goodCartC.setRecId(goodCart.getRecId());
-                    listC.add(goodCartC);
-                    double sumD = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getdPrice());
-                    subtotalD = HighPreciseComputor.add(subtotalD,sumD);//总金额
-                    totalNumberD =HighPreciseComputor.add(totalNumberD,goodCart.getGoodsNumber());//总数量
-                    goodCartD.setGoodsPrice(goodInfo.getdPrice());
-                    goodCartD.setRecId(goodCart.getRecId());
-                    listD.add(goodCartD);
-                    double sumE = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getePrice());
-                    subtotalE = HighPreciseComputor.add(subtotalE,sumE);//总金额
-                    totalNumberE =HighPreciseComputor.add(totalNumberE,goodCart.getGoodsNumber());//总数量
-                    goodCartE.setGoodsPrice(goodInfo.getePrice());
-                    goodCartE.setRecId(goodCart.getRecId());
-                    listE.add(goodCartE);
-                    double sumF = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodInfo.getfPrice());
-                    subtotalF = HighPreciseComputor.add(subtotalF,sumF);//总金额
-                    totalNumberF =HighPreciseComputor.add(totalNumberF,goodCart.getGoodsNumber());//总数量
-                    goodCartF.setGoodsPrice(goodInfo.getfPrice());
-                    goodCartF.setRecId(goodCart.getRecId());
-                    listF.add(goodCartF);
-                }
-                String[] totalMoneys = totalMoney.split(",");
-                //判断金额
-                if(subtotalA > Double.parseDouble(totalMoneys[0])){
-//                    0公司，1花冠，2花朵，3花瓣，4花蕾，5花芽，6花粉
-                    model.addAttribute("level",1);
-                    model.addAttribute("total_desc",subtotalA);
-                    model.addAttribute("list",listA);
-                    try {
-                        String listAString = objectMapper.writeValueAsString(listA);
-                        model.addAttribute("listString",listAString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }else if(subtotalB > Double.parseDouble(totalMoneys[1])){
-                    model.addAttribute("level",2);
-                    model.addAttribute("total_desc",subtotalB);
-                    model.addAttribute("list",listB);
-                    try {
-                        String listBString = objectMapper.writeValueAsString(listB);
-                        model.addAttribute("listString",listBString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }else if(subtotalC > Double.parseDouble(totalMoneys[2])){
-                    model.addAttribute("level",3);
-                    model.addAttribute("total_desc",subtotalC);
-                    model.addAttribute("list",listC);
-                    try {
-                        String listCString = objectMapper.writeValueAsString(listC);
-                        model.addAttribute("listString",listCString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }else if(subtotalD > Double.parseDouble(totalMoneys[3])){
-                    model.addAttribute("level",4);
-                    model.addAttribute("total_desc",subtotalD);
-                    model.addAttribute("list",listD);
-                    try {
-                        String listDString = objectMapper.writeValueAsString(listD);
-                        model.addAttribute("listString",listDString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }else if(subtotalE > Double.parseDouble(totalMoneys[4])){
-                    model.addAttribute("level",5);
-                    model.addAttribute("total_desc",subtotalE);
-                    model.addAttribute("list",listE);
-                    try {
-                        String listEString = objectMapper.writeValueAsString(listE);
-                        model.addAttribute("listString",listEString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }else{
-                    model.addAttribute("level",6);
-                    model.addAttribute("total_desc",subtotalF);
-                    model.addAttribute("list",listF);
-                    try {
-                        String listFString = objectMapper.writeValueAsString(listF);
-                        model.addAttribute("listString",listFString);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    return "goods/checkout";
-                }
-            }else{
-                if(list != null && list.size() >0){
-                    for(GoodCart goodCart : goodCartList){
-                        double sum = HighPreciseComputor.mul(goodCart.getGoodsNumber(),goodCart.getGoodsPrice());
-                        subtotal = HighPreciseComputor.add(subtotal,sum);
-                        totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());
-                    }
-                    String listString = null;
-                    try {
-                        listString = objectMapper.writeValueAsString(goodCartList);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    model.addAttribute("listString",listString);
-                }
-            }*/
             if(goodCartList != null && goodCartList.size() >0){
                 for(GoodCart goodCart : goodCartList){
                     GoodInfo goodInfo = goodInfoMapper.findByGoodId(goodCart.getGoodsId());
@@ -418,6 +255,23 @@ public class GoodsController extends BaseController{
                     subtotal = HighPreciseComputor.add(subtotal,sum);
                     totalNumber =HighPreciseComputor.add(totalNumber,goodCart.getGoodsNumber());
                 }
+
+
+                //第一次购物 从数据库读的ｌｅｖｅｌ
+                if(99 == user.getLevel() ){
+                    String[] totalMoneys = totalMoney.split(",");
+                    if(subtotal < Double.parseDouble(totalMoneys[level-1])){
+                        throw new EcException("购买金额未达到要求","购买金额未达到"+Double.parseDouble(totalMoneys[level-1]),"/cart");
+                    }
+                }else{
+                    String[] replenishments = replenishment.split(",");
+                    if(subtotal < Double.parseDouble(replenishments[level-1])){
+                        throw new EcException("购买金额未达到要求","购买金额未达到要求"+Double.parseDouble(replenishments[level-1]),"/cart");
+                    }
+                }
+
+
+
                 String listString = null;
                 try {
                     listString = objectMapper.writeValueAsString(goodCartList);
@@ -440,19 +294,24 @@ public class GoodsController extends BaseController{
      */
     @RequestMapping("/goods/done")
     @Transactional
-    public String done(OrderInfo orderInfo, Model model,String listString,String level,@Value("${total.money}") String totalMoney ,@Value("${replenishment.money}")  String replenishment) throws Exception {
-
+    public String done(OrderInfo orderInfo, Model model,String listString,@Value("${total.money}") String totalMoney ,@Value("${replenishment.money}")  String replenishment) throws Exception {
+        //session 中　用户选择的
+        int level = getUser().getLevel();
         //用户信息
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user  = userMapper.findByUsername(name);
 
         Double taotal = orderInfo.getOrderPriceTotal();
-        if(user.getLevel() < 6){
+        //第一次购物 从数据库读的ｌｅｖｅｌ
+        if(99 == user.getLevel() ){
+            String[] totalMoneys = totalMoney.split(",");
+            if(taotal < Double.parseDouble(totalMoneys[level-1])){
+                throw new EcException("购买金额未达到要求","购买金额未达到"+Double.parseDouble(totalMoneys[level-1]),"/cart");
+            }
+        }else{
             String[] replenishments = replenishment.split(",");
-            if(taotal < Double.parseDouble(replenishments[user.getLevel() -1])){
-                throw new EcException("点击返回","错误操作","/");
-            }else{
-                throw new EcException("点击返回","错误操作","/");
+            if(taotal < Double.parseDouble(replenishments[level-1])){
+                throw new EcException("购买金额未达到要求","购买金额未达到要求"+Double.parseDouble(replenishments[level-1]),"/cart");
             }
         }
 
@@ -496,7 +355,7 @@ public class GoodsController extends BaseController{
                 orderMiddle.setType(0);
                 orderMiddle.setOrderMiddleId(System.currentTimeMillis());
                 orderMiddle.setOrderId(orderInfo.getOrderId());
-                orderMiddle.setUserLevel(Integer.parseInt(level));
+                orderMiddle.setUserLevel(level);
                 orderMiddleMapper.save(orderMiddle);
 
             }
@@ -515,10 +374,12 @@ public class GoodsController extends BaseController{
      * 去购物车  先看看本人购物车表的商品
      * @return
      */
-    @RequestMapping("/cart/{level}")
-    public String cart(@PathVariable Long level ,@Value("${hhmg.server}") String server,Model model){
+    @RequestMapping(value = {"/cart/{level}","/cart"})
+    public String cart(@PathVariable(required = false) Integer level ,@Value("${hhmg.server}") String server,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        if(level == null){
+            level = getUser().getLevel();
+        }
         WapUser user  = userMapper.findByUsername(name);
         List<GoodCart> list= goodCartMapper.findAllByUserId(user.getUserId());
         if(list != null && list.size() >0){
