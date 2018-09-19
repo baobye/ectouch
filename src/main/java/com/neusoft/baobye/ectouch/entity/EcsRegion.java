@@ -7,29 +7,29 @@ import javax.persistence.Id;
 public class EcsRegion {
     private static final long serialVersionUID = 1L;
     @Id
-    private int regionId;
+    private Integer regionId;
 
-    private int parentId;
+    private Integer parentId;
 
     private String regionName;
 
-    private int regionType;
+    private Integer regionType;
 
-    private int agencyId;
+    private Integer agencyId;
 
-    public int getRegionId() {
+    public Integer getRegionId() {
         return regionId;
     }
 
-    public void setRegionId(int regionId) {
+    public void setRegionId(Integer regionId) {
         this.regionId = regionId;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -41,19 +41,19 @@ public class EcsRegion {
         this.regionName = regionName;
     }
 
-    public int getRegionType() {
+    public Integer getRegionType() {
         return regionType;
     }
 
-    public void setRegionType(int regionType) {
+    public void setRegionType(Integer regionType) {
         this.regionType = regionType;
     }
 
-    public int getAgencyId() {
+    public Integer getAgencyId() {
         return agencyId;
     }
 
-    public void setAgencyId(int agencyId) {
+    public void setAgencyId(Integer agencyId) {
         this.agencyId = agencyId;
     }
 }
