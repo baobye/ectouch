@@ -21,7 +21,7 @@
             if(number > pages){
                 return;
             }
-            window.location.href='/order/notShouHuo?page='+number+'&size=5';
+            window.location.href='/order/allOrder?page='+number+'&size=5';
         }
     </script>
 </head>
@@ -34,6 +34,25 @@
         </nav>
     </div>
     <div class="ect-pro-list user-order" style="border-bottom:none;">
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">订单筛选</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2" id="orderTypeChangeVal" onchange="orderTypeChange()">
+                        <option value="100">查看全部</option>
+                        <option value="0">未付款</option>
+                        <option value="1">已付款</option>
+                        <option value="2">已发货</option>
+                        <option value="3">已签收</option>
+                        <option value="4">换货申请中</option>
+                        <option value="5">换货处理中</option>
+                        <option value="6">取消交易</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <ul id="J_ItemList" th:each="orderInfo,orderStat : ${list}">
             <li>
                 <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}"><img src="/assets/images/no_picture.gif" class="pull-left" />
@@ -95,6 +114,13 @@
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js" ></script>
 <script language="javascript">
+    function orderTypeChange() {
+        if($("#orderTypeChangeVal").val() == 100){
+            location.href = "/order/notShouHuo"
+        }else{
+            location.href = "/order/notShouHuo/"+$("#orderTypeChangeVal").val()
+        }
+    }
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
