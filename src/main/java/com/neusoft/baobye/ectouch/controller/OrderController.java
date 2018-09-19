@@ -11,6 +11,7 @@ import com.neusoft.baobye.ectouch.mapper.WapUserMapper;
 import com.neusoft.baobye.ectouch.util.HttpClientUtil;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.vividsolutions.jts.geomgraph.index.EdgeSetIntersector;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,11 +135,11 @@ public class OrderController extends BaseController{
      * @return
      */
     @RequestMapping("/delivery/{orderId}")
-    public String delivery(@Value("${hhmg.server.delivery}") String url, @PathVariable long orderId, Model model){
+    public String delivery(@Value("${hhmg.server.delivery}") String url, @PathVariable long orderId, Model model, HttpServletRequest request){
         Map<String, String> map = new HashMap<String, String>();
         map.put("SHIPPER", ""+getUserId());//发货人ID
         map.put("ORDER_ID", ""+orderId);//订单编号
-        map.put("TYPE","1");;// 发货人ID  TYPE=1实体库发货，  TYPE=2云仓库发货
+        map.put("TYPE",request.getParameter("type"));;// 发货人ID  TYPE=1实体库发货，  TYPE=2云仓库发货
         String body = null;
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
