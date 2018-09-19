@@ -105,24 +105,28 @@ public class ProfileController extends BaseController{
      * @param model
      * @return
      */
-    @GetMapping("/profile/addressList")
-    public String addressList(Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    @GetMapping("/profile/addressList/{type}")
+    public String addressList(@PathVariable String type, HttpServletRequest request,Model model){
 
-        List<WapUserAddress> list = addressMapper.findByUserId(userMapper.findByUsername(name).getUserId());
-
+        List<WapUserAddress> list = addressMapper.findByUserId(getUserId());
         List<WapUserAddress>  l = new ArrayList();
         for (WapUserAddress address : list){
-            int id1 = address.getProvinceId();
-            int id2 = address.getCityId();
-            int id3 = address.getAreaId();
-            String add = address.getAddress();
-            address.setAddress(regionMapper.findByRegionId(id1).getRegionName()+regionMapper.findByRegionId(id2).getRegionName()+regionMapper.findByRegionId(id3).getRegionName() + "  "+add);
-            l.add(address);
+            try {
+                int id1 = address.getProvinceId();
+                int id2 = address.getCityId();
+                int id3 = address.getAreaId();
+                String add =
+                        regionMapper.findByRegionId(6) == null ? "":regionMapper.findByRegionId(6).getRegionName()+
+                        regionMapper.findByRegionId(id2) == null ? "" :regionMapper.findByRegionId(id2).getRegionName()+
+                        regionMapper.findByRegionId(id3) == null ? "" :regionMapper.findByRegionId(id3).getRegionName() + address.getAddress();
+                address.setAddress(add);
+                l.add(address);
+            }catch (Exception e){
+                e.printStackTrace();;
+            }
         }
-
-
         model.addAttribute("list",l);
+        model.addAttribute("type",type);
         return "profile/addressList";
     }
 
@@ -132,8 +136,8 @@ public class ProfileController extends BaseController{
      * @param model
      * @return
      */
-    @GetMapping("/profile/update{id}")
-    public String updateAdd(@PathVariable String id,Model model){
+    @GetMapping("/profile/update{id}/{type}")
+    public String updateAdd(@PathVariable("id") String id,@PathVariable String type,Model model){
 
         WapUserAddress address = addressMapper.findByAddId(Long.parseLong(id));
         //还需要获得 城市 地区的 list
@@ -142,6 +146,7 @@ public class ProfileController extends BaseController{
         model.addAttribute("address",address);
         model.addAttribute("cityList",cityList);
         model.addAttribute("areaList",areaList);
+        model.addAttribute("type",type);
         return "profile/updateAddress";
     }
 
@@ -152,7 +157,6 @@ public class ProfileController extends BaseController{
      */
     @GetMapping("/profile/addAddress/{type}")
     public String addGetAddress(@PathVariable String type,Model model){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("type",type);
         if("0".equals(type)) {
             model.addAttribute("button","新增收货地址");
@@ -160,6 +164,35 @@ public class ProfileController extends BaseController{
             model.addAttribute("button","配送到这里");
         }
         return "profile/addAddress";
+    }
+
+    /**
+     * 新增和修改地址
+     * @param address
+     * @return
+     */
+    @PostMapping("/profile/addAddress/{type}")
+    public String addPostAddress(@PathVariable String type ,WapUserAddress address){
+        //新增
+        if(address.getAddId() == null){
+            address.setAddId(System.currentTimeMillis());
+        }
+        address.setUserId(getUserId());
+
+        List<WapUserAddress> list = addressMapper.findByUserIdAndDefaultAdd(getUserId(),1);
+        for(WapUserAddress add : list){
+            add.setDefaultAdd(0);
+            addressMapper.save(add);
+        }
+        addressMapper.save(address);
+        //购物车过来的
+        if("0".equals(type)){
+            return "redirect:/profile/addressList/0";
+        } else if("1".equals(type)){
+            return "redirect:/goods/checkout/"+getUser().getLevel();
+        }
+
+        return "redirect:/profile/addressList/0";
     }
 
     /**
@@ -172,39 +205,10 @@ public class ProfileController extends BaseController{
     public String deleteAdd(@PathVariable String id){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         addressMapper.deleteWapUserAddressByAddId(Long.parseLong(id));
-        return "redirect:/profile/addressList";
+        return "redirect:/profile/addressList/0";
     }
 
-    /**
-     * 新增和修改地址
-     * @param address
-     * @return
-     */
-    @PostMapping("/profile/addAddress/{type}")
-    public String addPostAddress(@PathVariable String type ,WapUserAddress address){
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        WapUser user= userMapper.findByUsername(name);
-        //新增
-        if(address.getAddId() == null){
-            address.setAddId(System.currentTimeMillis());
-        }
-        address.setUserId(userMapper.findByUsername(name).getUserId());
 
-        List<WapUserAddress> list = addressMapper.findByUserIdAndDefaultAdd(user.getUserId(),1);
-        for(WapUserAddress add : list){
-            add.setDefaultAdd(0);
-            addressMapper.save(add);
-        }
-        addressMapper.save(address);
-        //购物车过来的
-        if("0".equals(type)){
-            return "redirect:/profile/addressList";
-        } else if("1".equals(type)){
-            return "redirect:/goods/checkout";
-        }
-
-        return "redirect:/profile/addressList";
-    }
     //显示地址列表
 
     @GetMapping("/profile/getCity")

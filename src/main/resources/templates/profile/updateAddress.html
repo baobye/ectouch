@@ -40,7 +40,7 @@
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <form action="/profile/addAddress" method="post" name="theForm" onsubmit="return checkConsignee(this)">
+    <form action="/profile/addAddress" th:action="@{'/profile/addAddress/'+${type}}"  method="post" name="theForm" onsubmit="return checkConsignee(this)">
         <div class="ect-bg-colorf flow-consignee" style="background: #fff !important;">
             <ul class="o-info">
                 <li>

@@ -38,7 +38,7 @@
             display: flex;
             height: 44px;
             line-height: 44px;
-            border-bottom: 1px solid #ff3c3c;
+            border-bottom: 1px solid #50B5BD ;
             background-color: #eee;
         }
 
@@ -57,8 +57,8 @@
 
         .tab .cur {
             height: 42px;
-            border-bottom: 2px solid #ff3c3c;
-            color: #ff3c3c;
+            border-bottom: 2px solid #50B5BD ;
+            color: #50B5BD ;
         }
 
         .content {
@@ -193,27 +193,28 @@
             <!--td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${assets.assetsId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td-->
     </tr>
     </table>
-    <div class="js_dialog" id="androidDialog" style="display: none;">
-        <div class="weui-mask"></div>
-        <div class="weui-dialog weui-skin_android">
-            <div class="weui-dialog__hd"><strong class="weui-dialog__title">库存转换</strong></div>
-            <div class="weui-dialog__bd">
-                <p style="padding: 0"><input id="goodsNum" style="border: 1px solid #656667;width: 80%;height: 30px;font-size: 1.2rem;padding-left: 5px;" type="text" placeholder="请输入数量"></p>
-            </div>
-            <div class="weui-dialog__ft">
-                <a href="javascript:;" onclick="goBack()" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
-                <a href="javascript:;" onclick="onSubmit()" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
-            </div>
-        </div>
-    </div>
+    <!--<div class="js_dialog" id="androidDialog" style="display: none;">-->
+        <!--<div class="weui-mask"></div>-->
+        <!--<div class="weui-dialog weui-skin_android">-->
+            <!--<div class="weui-dialog__hd"><strong class="weui-dialog__title">库存转换</strong></div>-->
+            <!--<div class="weui-dialog__bd">-->
+                <!--<p style="padding: 0"><input id="goodsNum" style="border: 1px solid #656667;width: 80%;height: 30px;font-size: 1.2rem;padding-left: 5px;" type="text" placeholder="请输入数量"></p>-->
+            <!--</div>-->
+            <!--<div class="weui-dialog__ft">-->
+                <!--<a href="javascript:;" onclick="goBack()" class="weui-dialog__btn weui-dialog__btn_default">取消</a>-->
+                <!--<a href="javascript:;" onclick="onSubmit()" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
     <script src="/js/dropload.min.js"></script>
     <script>
         function showInputNum() {
-            $("#androidDialog").fadeIn(200)
+            window.open('')
+            // $("#androidDialog").fadeIn(200)
         }
-        function goBack(){
-            $("#androidDialog").fadeOut(200)
-        }
+        // function goBack(){
+        //     $("#androidDialog").fadeOut(200)
+        // }
         // function onSubmit() {
         //     $.ajax({
         //         url:''
@@ -292,8 +293,6 @@
                             url: '/yunAssets/indexAjax?status=1&page=' + page1 + '&size=' + size,
                             dataType: 'json',
                             success: function (data) {
-                                console.log(data)
-                                // consoel.log("yunAssets", data)
                                 var arrLen = data.length;
                                 if (arrLen > 0) {
                                     for (var i = 0; i < arrLen; i++) {
@@ -326,7 +325,7 @@
                                             '                                            </div>' +
                                             '                                            </div>' +
                                                 '<div style="height: 45px; margin-top: 5px;">' +
-                                                '<a href="javascript:;" onclick="showInputNum()" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">转到库存</a>'+
+                                                '<a href="/AssetsExchange/record/'+data[i].assetsId+'" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">查看记录</a>'+
                                                 '</div>'+
                                             '                                            </div></br>';
                                     }

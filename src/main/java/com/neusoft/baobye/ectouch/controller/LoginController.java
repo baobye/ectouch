@@ -55,7 +55,7 @@ public class LoginController extends BaseController{
         PageRequest pageable1 = PageRequest.of(0,5,new Sort(Sort.Direction.DESC,"insert_Date"));
         Page pageObject1 = orderInfoMapper.nativeQuery(getUserId(),pageable1);
         model.addAttribute("lowerOrderCount",pageObject1.getTotalElements());
-        model.addAttribute("wapUser",getUser());
+        model.addAttribute("wapUser",userMapper.findByUserId(getUserId()));
 
         return "home";
     }
@@ -130,5 +130,10 @@ public class LoginController extends BaseController{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/setlevel/{level}")
+    public void setLevel(@PathVariable Integer level){
+        getUser().setLevel(level);
     }
 }

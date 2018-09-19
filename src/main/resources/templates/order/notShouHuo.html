@@ -15,13 +15,13 @@
             var number = [[${number}]];
             var pages = [[${pages}]];
             number = number + page;
-            if(number <= 0){
+            if (number <= 0) {
                 return;
             }
-            if(number > pages){
+            if (number > pages) {
                 return;
             }
-            window.location.href='/order/notShouHuo?page='+number+'&size=5';
+            window.location.href = '/order/allOrder?page=' + number + '&size=5';
         }
     </script>
 </head>
@@ -29,14 +29,49 @@
 <body>
 <div class="con">
     <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"> <a href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>待收货</span> <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write"><a
+                href=" javascript:history.go(-1) " class="pull-left ect-icon ect-icon1 ect-icon-history"></a>
+            <span>待收货</span> <a href="javascript:;" onClick="openMune()"
+                                class="pull-right ect-icon ect-icon1 ect-icon-mune"></a></header>
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
     <div class="ect-pro-list user-order" style="border-bottom:none;">
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">订单筛选</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2" id="orderTypeChangeVal">
+                        <option value="100">查看全部</option>
+                        <option value="0">未付款</option>
+                        <option value="1">已付款</option>
+                        <option value="2">已发货</option>
+                        <option value="3">已签收</option>
+                        <option value="4">换货申请中</option>
+                        <option value="5">换货处理中</option>
+                        <option value="6">取消交易</option>
+                    </select>
+                </div>
+                <!--<div class="weui-cell weui-cell_select weui-cell_select-after">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<label class="weui-label">国家/地区</label>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<select class="weui-select" name="select2">-->
+                            <!--<option value="1">中国</option>-->
+                            <!--<option value="2">美国</option>-->
+                            <!--<option value="3">英国</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
         <ul id="J_ItemList" th:each="orderInfo,orderStat : ${list}">
             <li>
-                <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}"><img src="/assets/images/no_picture.gif" class="pull-left" />
+                <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}"><img src="/assets/images/no_picture.gif"
+                                                                                class="pull-left"/>
                     <dl>
                         <dt>
                             <h4 class="title" th:text="'订单号：'+${orderInfo.orderCode}"></h4>
@@ -51,7 +86,7 @@
                             <span th:if="${orderInfo.status} == 6">取消交易</span>
                         </dd>
                         <dd>订单总金额：<span class="ect-color" th:text="'￥'+${orderInfo.orderPriceTotal}+'元'"></span></dd>
-                        <dd  th:text="'下单时间：'+${orderInfo.insertDate}">下单时间：2018-05-20 17:30:54</dd>
+                        <dd th:text="'下单时间：'+${orderInfo.insertDate}">下单时间：2018-05-20 17:30:54</dd>
                     </dl>
                     <i class="pull-right fa fa-angle-right"></i>
                 </a>
@@ -63,7 +98,10 @@
         <li class="form-select">
             <i class="fa fa-sort-desc"></i>
             <select name="sel_question" onChange="window.location.href=this.value;">
-                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}" th:value="'/order/notShouHuo?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}" th:selected="${number==i}">请选择</option>
+                <option value="0" th:each="i : ${#numbers.sequence(1,pages)}"
+                        th:value="'/order/notShouHuo?page='+${i}+'&size=5'" th:text="${i}+'/'+${pages}"
+                        th:selected="${number==i}">请选择
+                </option>
             </select>
         </li>
         <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
@@ -72,48 +110,65 @@
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
-        border-radius:100%;
+        border-radius: 100%;
         background-color: #777;
         color: #eee;
         font-size: 40px;
-        line-height: 1;text-align: center;text-decoration: none;bottom: 1.5em;right: 10px;overflow: hidden;width: 46px;
+        line-height: 1;
+        text-align: center;
+        text-decoration: none;
+        bottom: 1.5em;
+        right: 10px;
+        overflow: hidden;
+        width: 46px;
         height: 46px;
         border: none;
         opacity: 0.6;
     }
 </style>
-<script type="text/javascript" src="/assets/js/jquery.min.js" ></script>
-<script type="text/javascript" src="/assets/js/jquery.json.js" ></script>
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.json.js"></script>
 <script type="text/javascript" src="/assets/js/common.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.more.js"></script>
-<script type="text/javascript" src="/assets/js/utils.js" ></script>
+<script type="text/javascript" src="/assets/js/utils.js"></script>
 <script src="/assets/swiper/js/jquery.swiper.min.js"></script>
 <script src="/themes/default/js/ectouch.js"></script>
 <script src="/themes/default/js/simple-inheritance.min.js"></script>
 <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/themes/default/js/jquery.scrollUp.min.js"></script>
-<script type="text/javascript" src="/assets/js/validform.js" ></script>
+<script type="text/javascript" src="/assets/js/validform.js"></script>
 <script language="javascript">
+        $("#orderTypeChangeVal").bind("change", function () {
+            if ($(this).val() == 100) {
+                window.location.href = "/order/allOrder?page=1&size=5"
+            } else {
+                window.location.href = "/order/notShouHuo?page=1&size=5&status=" + $("#orderTypeChangeVal").val()
+            }
+        })
+
     /*banner滚动图片*/
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         slidesPerView: 1,
         loop: true,
-        autoplay : 2000
+        autoplay: 2000
     });
+
     /*弹出评论层并隐藏其他层*/
-    function openSearch(){
-        if($(".con").is(":visible")){
+    function openSearch() {
+        if ($(".con").is(":visible")) {
             $(".con").hide();
             $(".search").show();
         }
     }
-    function closeSearch(){
-        if($(".con").is(":hidden")){
+
+    function closeSearch() {
+        if ($(".con").is(":hidden")) {
             $(".con").show();
             $(".search").hide();
         }
     }
 </script>
-</body></html>
+</body>
+</html>
