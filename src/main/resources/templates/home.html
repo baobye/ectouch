@@ -156,20 +156,6 @@
         </ul>
     </footer>
 </div>
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" class="herder-close" onClick="closeSearch();">×</a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=0"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-			<input name="keywords" type="search" placeholder="请输入搜索关键词！" autofocus="autofocus" id="keywordBox">
-			</span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="iconfont">&#xe617;</i></button>
-            </div>
-        </form>
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -199,6 +185,22 @@
 <script src="/js/qrcode.lib.min.js"></script>
 <script src="/js/qrcode.js"></script>
 <script language="javascript">
+    $(function(){
+        //按钮单击时执行
+        var level;
+        var level1 = sessionStorage.getItem('level');
+        var levels = sessionStorage.getItem('levels');
+        if(levels){
+            level = levels;
+        }else{
+            level = level1;
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/setlevel/'+levles
+        });
+    });
+
     function goCart(){
         var level;
         var level1 = sessionStorage.getItem('level');
