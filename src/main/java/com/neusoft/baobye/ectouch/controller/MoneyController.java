@@ -4,6 +4,7 @@ import com.neusoft.baobye.ectouch.entity.MoneyChange;
 import com.neusoft.baobye.ectouch.entity.PrizeInfo;
 import com.neusoft.baobye.ectouch.entity.PrizeTotal;
 import com.neusoft.baobye.ectouch.entity.WapUser;
+import com.neusoft.baobye.ectouch.exception.EcException;
 import com.neusoft.baobye.ectouch.mapper.MoneyChangeMapper;
 import com.neusoft.baobye.ectouch.mapper.PriceTotalMapper;
 import com.neusoft.baobye.ectouch.mapper.PrizeInfoMapper;
@@ -99,7 +100,9 @@ public class MoneyController extends BaseController{
      * @return
      */
     @RequestMapping("withdraw")
-    public String withdraw(){
+    public String withdraw(Model model){
+        WapUser user = userMapper.findByUserId(getUserId());
+        model.addAttribute("money",user.getDzb());
         return "money/withdraw";
     }
 
@@ -117,6 +120,10 @@ public class MoneyController extends BaseController{
         map.put("REAL_MONEY", ""+moneyChange.getRealMoney());//变动金额
         map.put("REASON_TYPE", "2");//减少
         String body = null;
+        WapUser user = userMapper.findByUserId(getUserId());
+        if(moneyChange.getRealMoney() > user.getDzb()){
+            throw new EcException("返回充值","提现余额不足","/money/withdraw");
+        }
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
         } catch (IOException e) {
