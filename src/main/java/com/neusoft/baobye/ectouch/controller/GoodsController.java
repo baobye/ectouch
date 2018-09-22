@@ -59,7 +59,7 @@ public class GoodsController extends BaseController{
      * @return
      */
     @RequestMapping("/goods/index")
-    public String index(@Value("${hhmg.server}") String server,Model model){
+    public String index(@Value("${hhmg.server.sqzs}") String server,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         WapUser user = userMapper.findByUsername(name);
         model.addAttribute("server",server);
@@ -85,7 +85,7 @@ public class GoodsController extends BaseController{
      * @return
      */
     @RequestMapping("/goods/detail/{id}")
-    public String detail(@Value("${hhmg.server}") String server,@PathVariable Long id,Model model){
+    public String detail(@Value("${hhmg.server.sqzs}") String server,@PathVariable Long id,Model model){
 
         List<GoodCart> list= goodCartMapper.findAllByUserId(getUserId());
         model.addAttribute("total_number",0);
