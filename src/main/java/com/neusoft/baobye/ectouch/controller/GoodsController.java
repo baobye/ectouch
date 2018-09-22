@@ -305,6 +305,9 @@ public class GoodsController extends BaseController{
         //第一次购物 从数据库读的ｌｅｖｅｌ
         if(99 == user.getLevel() ){
             String[] totalMoneys = totalMoney.split(",");
+            if(level == 99){
+                throw new EcException("返回商品","未选择等级","/goods/index");
+            }
             if(taotal < Double.parseDouble(totalMoneys[level-1])){
                 throw new EcException("购买金额未达到要求","购买金额未达到"+Double.parseDouble(totalMoneys[level-1]),"/cart");
             }
