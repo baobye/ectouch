@@ -71,7 +71,7 @@
             <ul>
                 <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank">
                     <!--<img src="/assets/images/no_picture.gif">-->
-                    <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${orderMiddle?.pictures[0]?.path}}" >
+                    <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${orderMiddle?.path}}" >
                 </a>
                     <dl>
                         <dt>
