@@ -1,9 +1,11 @@
 package com.neusoft.baobye.ectouch.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neusoft.baobye.ectouch.entity.OrderInfo;
 import com.neusoft.baobye.ectouch.entity.OrderMiddle;
 import com.neusoft.baobye.ectouch.entity.WapUser;
 import com.neusoft.baobye.ectouch.entity.WapUserAddress;
+import com.neusoft.baobye.ectouch.exception.EcException;
 import com.neusoft.baobye.ectouch.mapper.OrderInfoMapper;
 import com.neusoft.baobye.ectouch.mapper.OrderMiddleMapper;
 import com.neusoft.baobye.ectouch.mapper.WapUserAddressMapper;
@@ -47,6 +49,9 @@ public class OrderController extends BaseController{
 
     @Autowired
     private OrderMiddleMapper orderMiddleMapper;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -149,6 +154,10 @@ public class OrderController extends BaseController{
         String body = null;
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
+            Map<String,String> result  = objectMapper.convertValue(body,Map.class);
+            if("error".equals(result.get("result"))){
+                throw new EcException("确定",result.get("msg"),"order/lowerOrder");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
