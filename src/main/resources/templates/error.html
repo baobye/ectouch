@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>错误页面</title>
+    <title>提示页面</title>
     <link rel="stylesheet" href="/css/weui.min.css">
 </head>
 <body ontouchstart>
@@ -15,7 +15,8 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="javascript:history.back();" th:href="${contentUrl}" class="weui-btn weui-btn_primary" th:text="${buttonValue}"></a>
+                <!--a href="javascript:history.back();" th:href="${contentUrl}" class="weui-btn weui-btn_primary" th:text="${buttonValue}"></a-->
+                <a href="javascript:;"  th:href="${contentUrl}" class="weui-btn weui-btn_plain-primary"  th:text="${buttonValue}">按钮</a>
             </p>
         </div>
     </div>

@@ -380,12 +380,12 @@ public class GoodsController extends BaseController{
     @RequestMapping(value = {"/cart/{level}","/cart"})
     public String cart(@PathVariable(required = false) Integer level ,@Value("${hhmg.server}") String server,Model model){
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(level == null){
-            level = getUser().getLevel();
-        }
         WapUser user  = userMapper.findByUsername(name);
         List<GoodCart> list= goodCartMapper.findAllByUserId(user.getUserId());
         if(list != null && list.size() >0){
+            if(level == null){
+                level = getUser().getLevel();
+            }
             double subtotal = 0.0;
             double totalNumber = 0.0;
             for(GoodCart goodCart : list){

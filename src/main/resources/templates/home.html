@@ -195,6 +195,9 @@
         }else{
             level = level1;
         }
+        if(level == null){
+            level = 5;
+        }
         $.ajax({
             type: 'GET',
             url: '/setlevel/'+levles
@@ -209,6 +212,9 @@
             level = levels;
         }else{
             level = level1;
+        }
+        if(level == null){
+            level = 5;
         }
         window.location.href = '/cart/'+level;
     }
