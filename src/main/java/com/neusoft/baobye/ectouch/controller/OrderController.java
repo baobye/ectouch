@@ -155,7 +155,7 @@ public class OrderController extends BaseController{
         String body = null;
         try {
             body = HttpClientUtil.sendPostDataByMap(url, map, "utf-8");
-            Map<String,String> result  = objectMapper.convertValue(body,Map.class);
+            Map<String,String> result  = objectMapper.readValue(body,Map.class);
             if("error".equals(result.get("result"))){
                 throw new EcException("确定",result.get("msg"),"order/lowerOrder");
             }
