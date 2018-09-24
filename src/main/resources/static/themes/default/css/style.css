@@ -508,7 +508,7 @@ border: 1px solid transparent;border-radius: 4px;cursor: pointer;display: inline
 
 /* 资金管理*/
 .account>li{
-    width:25%;
+    width:33.3%;
     text-align: center;
 }
 .account>li>a{
