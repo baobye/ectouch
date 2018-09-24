@@ -44,7 +44,7 @@
         </div>
         <div class="ect-pro-list">
             <ul>
-                <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank"><img
+                <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank"><img th:src="@{${server}+'/uploadFiles/uploadImgs/'+${orderMiddle?.path}}"
                         src="/assets/images/no_picture.gif"></a>
                     <dl>
                         <dt>
