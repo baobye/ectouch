@@ -29,6 +29,8 @@ public class OrderMiddle {
 
     private int type;
 
+    private String path;
+
     public Long getOrderMiddleId() {
         return orderMiddleId;
     }
@@ -115,5 +117,13 @@ public class OrderMiddle {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }
