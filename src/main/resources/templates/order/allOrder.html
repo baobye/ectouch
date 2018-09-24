@@ -36,7 +36,9 @@
     <div class="ect-pro-list user-order" style="border-bottom:none;">
         <ul id="J_ItemList" th:each="orderInfo,orderStat : ${list}">
             <li>
-                <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}"><img src="/assets/images/no_picture.gif" class="pull-left" />
+                <a th:href="@{'/order/orderDetail/'+${orderInfo.orderId}}">
+                    <!--<img src="/assets/images/no_picture.gif" class="pull-left" />-->
+                   <!-- <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${orderInfo?.pictures[0]?.path}}" class="pull-left" />-->
                     <dl>
                         <dt>
                             <h4 class="title" th:text="'订单号：'+${orderInfo.orderCode}"></h4>

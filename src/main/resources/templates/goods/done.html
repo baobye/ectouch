@@ -24,9 +24,11 @@
     </div>
     <section class="ect-bg-colorf ect-padding-lr flow-done">
         <i class="glyphicon glyphicon-ok"></i>
-        <p class="ect-margin-tb">感谢您在本店购物！您的订单已提交成功，请记住您的订单号：<b class="ect-color" th:text="${orderInfo.orderCode}">2018051308312</b></p>
+        <p class="ect-margin-tb" style="text-align: center">感谢您的购物！订单已提交，请等待上级发货！
+            <!--请记住您的订单号：<b class="ect-color" th:text="${orderInfo.orderCode}">2018051308312</b>-->
+        </p>
         <!--p class="ect-margin-tb">您选定的配送方式为:<b>中通速递</b></p -->
-        <p class="ect-margin-tb">您的应付款金额为: <b th:text="${orderInfo.orderPriceTotal}">￥33343.00元</b></p>
+        <p class="ect-margin-tb" style="text-align: center">您的订单金额为: <b th:text="${orderInfo.orderPriceTotal}">￥33343.00元</b></p>
         <!--p class="ect-margin-tb">您选定的支付方式为: <b>银行汇款/转帐</b></p>
         <p class="ect-margin-tb text-center" style="background-color: rgb(255, 240, 240);padding: 10px;">银行名称
             收款人信息：全称 ××× ；帐号或地址 ××× ；开户行 ×××。

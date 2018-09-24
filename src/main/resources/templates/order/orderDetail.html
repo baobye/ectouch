@@ -69,7 +69,10 @@
         </div>
         <div class="ect-pro-list">
             <ul>
-                <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank"><img src="/assets/images/no_picture.gif"></a>
+                <li th:each="orderMiddle,stat:${list}"><a href="#" target="_blank">
+                    <!--<img src="/assets/images/no_picture.gif">-->
+                    <img src="" th:src="@{${server}+'/uploadFiles/uploadImgs/'+${orderMiddle?.pictures[0]?.path}}" >
+                </a>
                     <dl>
                         <dt>
                             <h4 class="title"><a href="#" th:text="${orderMiddle?.goodName}">洗衣机</a></h4>

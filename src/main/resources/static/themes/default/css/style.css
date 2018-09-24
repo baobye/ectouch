@@ -428,7 +428,7 @@ border: 1px solid transparent;border-radius: 4px;cursor: pointer;display: inline
 .flow-done{position:relative; border-bottom:1px solid #e3e3e3; padding-top:10em;}
 .flow-done .alert{margin-top:0.8em; margin-bottom:0;}
 .flow-done i.glyphicon{margin:2em auto; position:absolute; left:50%; margin-left:-3em;}
-.flow-done i.glyphicon:before{font-size:6em; color:#ffffff;}
+.flow-done i.glyphicon:before{font-size:6em; color:#17a4af;}
 /*==================
         搜索
 =============*/

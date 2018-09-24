@@ -60,7 +60,7 @@ public class OrderController extends BaseController{
      */
     @RequestMapping("/allOrder")
     @Transactional
-    public String allOrder(int page,int size ,Model model){
+    public String allOrder(int page,int size ,Model model,@Value("${hhmg.server.sqzs}") String server){
         page = page - 1;
         Sort sort = new Sort(Sort.Direction.DESC,"insert_Date");
         PageRequest pageable = PageRequest.of(page,size,sort);
@@ -69,6 +69,7 @@ public class OrderController extends BaseController{
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
         model.addAttribute("pages",pageObject.getTotalPages());//总页数
+        model.addAttribute("server",server);
         return "order/notShouHuo";
     }
 
@@ -82,7 +83,7 @@ public class OrderController extends BaseController{
      */
     @RequestMapping("/notShouHuo")
     @Transactional
-    public String notShouHuo(@RequestParam(defaultValue = "") String status, int page, int size, Model model){
+    public String notShouHuo(@RequestParam(defaultValue = "") String status, int page, int size, Model model,@Value("${hhmg.server.sqzs}") String server){
         page = page - 1;
         Sort sort = new Sort(Sort.Direction.DESC,"insertDate");
         PageRequest pageable = PageRequest.of(page,size,sort);
@@ -93,6 +94,7 @@ public class OrderController extends BaseController{
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
         model.addAttribute("pages",pageObject.getTotalPages());//总页数
+        model.addAttribute("server",server);
         return "order/notShouHuo";
     }
 
@@ -103,13 +105,14 @@ public class OrderController extends BaseController{
      * @return
      */
     @RequestMapping("/orderDetail/{orderId}")
-    public String orderDetail(@PathVariable Long orderId, Model model){
+    public String orderDetail(@PathVariable Long orderId, Model model,@Value("${hhmg.server.sqzs}") String server){
         OrderInfo orderInfo = orderInfoMapper.findByOrderId(orderId);
         WapUserAddress address = wapUserAddressMapper.findByAddId(orderInfo.getAddId());
         model.addAttribute("orderInfo",orderInfo);
         model.addAttribute("address",address);
         List<OrderMiddle> list = orderMiddleMapper.findByOrderId(orderId);
         model.addAttribute("list",list);
+        model.addAttribute("server",server);
         return "order/orderDetail";
     }
 
@@ -120,13 +123,14 @@ public class OrderController extends BaseController{
      * @return
      */
     @RequestMapping("/orderDeliveryDetail/{orderId}")
-    public String orderDeliveryDetail(@PathVariable long orderId, Model model){
+    public String orderDeliveryDetail(@PathVariable long orderId, Model model,@Value("${hhmg.server.sqzs}") String server){
         OrderInfo orderInfo = orderInfoMapper.findByOrderId(orderId);
         WapUserAddress address = wapUserAddressMapper.findByAddId(orderInfo.getAddId());
         model.addAttribute("orderInfo",orderInfo);
         model.addAttribute("address",address);
         List<OrderMiddle> list = orderMiddleMapper.findByOrderId(orderId);
         model.addAttribute("list",list);
+        model.addAttribute("server",server);
         return "order/orderDeliveryDetail";
     }
 
@@ -161,7 +165,7 @@ public class OrderController extends BaseController{
      * @return
      */
     @RequestMapping("lowerOrder")
-    public String lowerOrder(Integer page,Integer size,Model model){
+    public String lowerOrder(Integer page,Integer size,Model model,@Value("${hhmg.server.sqzs}") String server){
 
         if(size == null){
             size = 5;
@@ -178,6 +182,7 @@ public class OrderController extends BaseController{
         model.addAttribute("number",pageObject.getNumber()+1);//当前页面
         model.addAttribute("size",pageObject.getSize());//每页个数
         model.addAttribute("pages",pageObject.getTotalPages());//总页数
+        model.addAttribute("server",server);
         return "order/lowerOrder";
     }
     /**
