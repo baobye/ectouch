@@ -86,9 +86,12 @@ public class AgentController extends BaseController{
         PageRequest pageable = PageRequest.of(page,size,sort);
         List<Object[]> list = priceTotalMapper.findByUserIdAndStatus(userId,1,pageable);
         List<UserPriceView> listPrice = new ArrayList<UserPriceView>();
-        for(Object[] object : list){
-            UserPriceView userPriceView = new UserPriceView((BigInteger)object[0],(Double) object[1],(String)object[2],(String)object[3],(String)object[4],(String)object[5],(String)object[6],(BigInteger)object[6]);
-            listPrice.add(userPriceView);
+        if(list != null && list.size()>0){
+            for(Object[] object : list){
+                UserPriceView userPriceView = new UserPriceView(object[0].toString(),(Double) object[1],(String)object[2],(String)object[3],(String)object[4],(String)object[5],(String)object[6],object[7].toString());
+                listPrice.add(userPriceView);
+            }
+            return listPrice;
         }
         return listPrice;
     }
@@ -109,6 +112,6 @@ public class AgentController extends BaseController{
             e.printStackTrace();
         }
         System.out.println("响应结果：" + body);
-        return "redirect:/agent/awardList/"+userId;
+        return "redirect:/agent/awardListIndex";
     }
 }

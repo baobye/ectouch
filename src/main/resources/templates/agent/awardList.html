@@ -97,8 +97,8 @@
                 $(this).parents('.js_dialog').fadeOut(200);
             });
         });
-        function deleteCart(id){
-            $('#deleteCard').attr('href','/agent/awardList/'+id);
+        function deleteCart(taotalId,id){
+            $('#deleteCard').attr('href','/agent/award/'+taotalId+'/'+id);
             var $iosDialog1 = $('#iosDialog1');
             $iosDialog1.fadeIn(200);
         }
@@ -112,7 +112,6 @@
 <!--script src="/js/zepto.min.js"></script-->
 <script src="/js/dropload.min.js"></script>
 <script th:inline="javascript">
-    debugger;
     var userId = [[${userId}]];
     $(function(){
         // 页数
@@ -125,7 +124,7 @@
             scrollArea : window,
             loadDownFn : function(me){
                 // 拼接HTML
-                var result ;
+                var result ='';
                 $.ajax({
                     type: 'GET',
                     url: '/agent/awardList/'+userId+'?page='+page+'&size='+size,
@@ -158,13 +157,11 @@
                                 '               </div>' +
                                 '             </div>' +
                                 '             <div class="weui-form-preview__ft">' +
-                                '<a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:" onclick="deleteCart('+data[i].userId+')">发奖</a><br>'+
+                                '<a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:" onclick="deleteCart(\''+data[i].totalId+'\',\''+data[i].userId+'\')">发奖</a><br>'+
                                 '</div>'+
                                 '</div>';
 
                             }
-                            debugger;
-                            alert(result);
                             // 如果没有数据
                         }else{
                             // 锁定
@@ -187,7 +184,18 @@
         });
     });
 </script>
-
+<div id="dialogs">
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认发奖？</strong></div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" id="deleteCard" class="weui-dialog__btn weui-dialog__btn_primary" >确认</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="con" >
 
     <div class="ect-bg">
@@ -196,9 +204,7 @@
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <div class="page">
-        <div class="page__bd" id="lists">
-        </div>
+    <div class="user-account-detail" id="lists">
     </div>
 </div>
 

@@ -223,30 +223,6 @@
         <div class="page__bd" id="lists">
         </div>
     </div>
-
-
-
-    <!--table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr align="center" class="first-tr">
-            <td bgcolor="#ffffff">手机号</td>
-            <td bgcolor="#ffffff">姓名</td>
-            <td bgcolor="#ffffff">注册日期</td>
-            <td bgcolor="#ffffff">微信号</td>
-            <td bgcolor="#ffffff">查看下级</td>
-        </tr>
-
-        <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
-        <tr  align="center" th:if="${list!=null}" th:each="register,registerStat:${list}" >
-            <td bgcolor="#ffffff" th:text="${register.tel}">手机号</td>
-            <td bgcolor="#ffffff" th:text="${register.name}">姓名</td>
-            <td bgcolor="#ffffff" th:text="${register.insertDate}">注册日期</td>
-            <td bgcolor="#ffffff" th:text="${register.wechat}">微信号</td>
-            <td bgcolor="#ffffff">
-                <a href="/register/activate" th:href="@{'/agent/index/'+${register.userId}}" onclick="" class="btn btn-default">查看下级</a>
-                <a href="/register/activate" th:if="${award != null}" th:href="@{'/agent/awardList/'+${register.userId}}" onclick="if (!confirm('您确定要发奖吗？')) return false;" class="btn btn-default">发奖</a>
-            </td>
-        </tr>
-    </table-->
 </div>
 
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>

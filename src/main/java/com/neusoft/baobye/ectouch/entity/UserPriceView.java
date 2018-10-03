@@ -3,23 +3,22 @@ package com.neusoft.baobye.ectouch.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.math.BigInteger;
 
 public class UserPriceView   implements Serializable {
-    private BigInteger totalId;
+    private String totalId;
     private Double jjbTotal;
     private String wechat;
     private String tel;
     private String userName;
     private String name;
     private String insertDate;
-    private BigInteger userId;
+    private String userId;
 
-    public BigInteger getTotalId() {
+    public String getTotalId() {
         return totalId;
     }
 
-    public void setTotalId(BigInteger totalId) {
+    public void setTotalId(String totalId) {
         this.totalId = totalId;
     }
 
@@ -71,15 +70,15 @@ public class UserPriceView   implements Serializable {
         this.insertDate = insertDate;
     }
 
-    public BigInteger getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public UserPriceView(BigInteger totalId, Double jjbTotal, String wechat, String tel, String userName, String name, String insertDate, BigInteger userId) {
+    public UserPriceView(String totalId, Double jjbTotal, String wechat, String tel, String userName, String name, String insertDate, String userId) {
         this.totalId = totalId;
         this.jjbTotal = jjbTotal;
         this.wechat = wechat;
