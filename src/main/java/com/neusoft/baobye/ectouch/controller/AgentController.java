@@ -13,9 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -64,6 +63,12 @@ public class AgentController extends BaseController{
         Page<WapUser> list = userMapper.findByZsId(userId,pageable);
         return list.getContent();
     }
+    @GetMapping(value = {"/awardListIndex"})
+    @Transactional
+    public String getAwardList(@PathVariable(required = false) Long userId,Model model){
+        model.addAttribute("userId",getUserId());
+        return "agent/awardList";
+    }
 
     /**
      * 发奖列表
@@ -71,17 +76,21 @@ public class AgentController extends BaseController{
      * @param model
      * @return
      */
-    @RequestMapping("/awardList/{userId}")
+    @GetMapping("/awardList/{userId}")
+    @ResponseBody
     @Transactional
-    public String awardList(@PathVariable Long userId,Model model){
-        List<Object[]> list = priceTotalMapper.findByUserIdAndStatus(userId,0);
+    public List<UserPriceView> awardList(@PathVariable Long userId,Model model,HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));
+        int size = Integer.parseInt(request.getParameter("size"));
+        Sort sort = new Sort(Sort.Direction.DESC,"insert_date");
+        PageRequest pageable = PageRequest.of(page,size,sort);
+        List<Object[]> list = priceTotalMapper.findByUserIdAndStatus(userId,1,pageable);
         List<UserPriceView> listPrice = new ArrayList<UserPriceView>();
         for(Object[] object : list){
-            UserPriceView userPriceView = new UserPriceView((BigInteger)object[0],(String)object[1],(String)object[2],(int)object[3],(double)object[4],(int)object[5],(double)object[6],(int)object[7],(String)object[8],(BigInteger)object[9],(String)object[10],(String)object[11],(String)object[12],(String)object[13]);
+            UserPriceView userPriceView = new UserPriceView((BigInteger)object[0],(Double) object[1],(String)object[2],(String)object[3],(String)object[4],(String)object[5],(String)object[6],(BigInteger)object[6]);
             listPrice.add(userPriceView);
         }
-        model.addAttribute("list",listPrice);
-        return "agent/awardList";
+        return listPrice;
     }
 
     /**
