@@ -433,6 +433,10 @@
                     //点击确认
                     if(!isNaN(input))
                     {
+                        if(input<=0){
+                            $.alert("输入有误")
+                            return;
+                        }
                         if(input>sum){
                             $.alert("库存不足")
                             return;
@@ -440,7 +444,7 @@
                         $.ajax({
                             type: "get",
                             url: "/yunAssets/out",
-                            data: {'id':id, 'sum':sum},
+                            data: {'id':id, 'sum':input},
                             dataType: "text",
                             success: function(data){
                                 if(data=='成功'){
