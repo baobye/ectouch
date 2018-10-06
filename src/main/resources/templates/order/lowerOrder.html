@@ -69,21 +69,6 @@
         <li class="pull-right"><a href="javascript:goPage(1)">下一页</a></li>
     </ul>
 </div>
-<div class="search" style="display:none;">
-    <div class="ect-bg">
-        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span>搜索</span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
-    </div>
-    <div class="ect-padding-lr">
-        <form action="/index.php?m=default&c=category&a=index&u=2"  method="post" id="searchForm" name="searchForm">
-            <div class="input-search"> <span>
-        <input name="keywords" type="search" placeholder="请输入搜索关键词！" id="keywordBox">
-        </span>
-                <button type="submit" value="搜索" onclick="return check('keywordBox')"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </form>
-
-    </div>
-</div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
 <style>
     #scrollUp {
@@ -131,15 +116,5 @@
         }
     }
 </script>
-<!--footer class="logo"><a href="http://www.ectouch.cn" title="ECTouch官网"
-                        target="_blank"><img src="/themes/default/images/copyright.png" width="176" height="60"></a></footer-->
-<script type="text/javascript">
-    var from_order_empty = "请选择要合并的从订单";
-    var to_order_empty = "请选择要合并的主订单";
-    var order_same = "主订单和从订单相同，请重新选择";
-    var confirm_merge = "您确实要合并这两个订单吗？";
-    if(){
-        get_asynclist('index.php?m=default&c=user&a=async_order_list&pay=1' , '/themes/default/images/loader.gif');
-    }
-</script>
-</body></html>
+</body>
+</html>

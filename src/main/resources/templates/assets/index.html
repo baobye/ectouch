@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="/themes/default/css/user.css">
     <link rel="stylesheet" href="/themes/default/css/photoswipe.css">
     <link rel="stylesheet" href="/css/dropload.css">
-    <!-- 引入 WeUI -->
-    <link rel="stylesheet" href="/css/weui.min.css">
-    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css">
+    <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -158,12 +160,6 @@
         <nav class="ect-nav ect-nav-list" style="display:none;" th:replace="header::html">
         </nav>
     </div>
-    <!--ul class="nav nav-tabs account" role="tablist">
-        <li class="active"><a href="/yunAssets/index" >库房明细</a></li>
-        <li><a href="#" >发货</a></li>
-        <li><a href="/storage/leave/type/2/assetsType/1" >出库记录</a></li>
-        <li><a href="/storage/enter/type/1/assetsType/1" >入库记录</a></li>
-    </ul-->
     <div class="tab">
         <a href="javascript:;" class="item cur">库房明细</a>
         <a href="javascript:;" class="item">出库记录</a>
@@ -174,52 +170,13 @@
         <div class="lists"></div>
         <div class="lists"></div>
     </div>
-    <!--table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#dddddd" class="u-table">
-        <tr align="center" class="first-tr">
-            <td bgcolor="#ffffff">商品数量</td>
-            <td bgcolor="#ffffff">过期日期</td>
-            <td bgcolor="#ffffff">生产日期</td>
-            <td bgcolor="#ffffff">报警日期</td>
-            <td bgcolor="#ffffff">商品ID</td>
-        </tr>
 
-        <tr th:if="${list==null}"><td colspan="5" align="center" bgcolor="#ffffff">没有记录</td></tr>
-        <tr  align="center" th:if="${list!=null}" th:each="assets,assetStat:${list}" >
-            <td bgcolor="#ffffff" th:text="${assets.goodNum}">手机号</td>
-            <td bgcolor="#ffffff" th:text="${assets.endDate}">姓名</td>
-            <td bgcolor="#ffffff" th:text="${assets.startDate}">注册日期</td>
-            <td bgcolor="#ffffff" th:text="${assets.alarmDate}">微信号</td>
-            <td bgcolor="#ffffff" th:text="${assets.goodId}">微信号</td>
-            <!--td bgcolor="#ffffff"><a href="/register/activate" th:href="@{'/register/activate/'+${assets.assetsId}}" onclick="if (!confirm('您确定要激活此条记录吗？')) return false;" class="btn btn-default">激活</a></td-->
-    </tr>
-    </table>
-    <!--<div class="js_dialog" id="androidDialog" style="display: none;">-->
-        <!--<div class="weui-mask"></div>-->
-        <!--<div class="weui-dialog weui-skin_android">-->
-            <!--<div class="weui-dialog__hd"><strong class="weui-dialog__title">库存转换</strong></div>-->
-            <!--<div class="weui-dialog__bd">-->
-                <!--<p style="padding: 0"><input id="goodsNum" style="border: 1px solid #656667;width: 80%;height: 30px;font-size: 1.2rem;padding-left: 5px;" type="text" placeholder="请输入数量"></p>-->
-            <!--</div>-->
-            <!--<div class="weui-dialog__ft">-->
-                <!--<a href="javascript:;" onclick="goBack()" class="weui-dialog__btn weui-dialog__btn_default">取消</a>-->
-                <!--<a href="javascript:;" onclick="onSubmit()" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
     <script src="/js/dropload.min.js"></script>
     <script>
         function showInputNum() {
             window.open('')
             // $("#androidDialog").fadeIn(200)
         }
-        // function goBack(){
-        //     $("#androidDialog").fadeOut(200)
-        // }
-        // function onSubmit() {
-        //     $.ajax({
-        //         url:''
-        //     })
-        // }
         $(function () {
             var itemIndex = 0;
             var tab1LoadEnd = false;
@@ -298,14 +255,14 @@
                                     for (var i = 0; i < arrLen; i++) {
                                         var type = data[i].type == 0 ? '物理仓库' : '云库房';
                                         result += '<div class="weui-form-preview">'
-                                            + '  <div class="weui-form-preview__hd">'
-                                            + '   <label class="weui-form-preview__label">仓库类型</label>'
-                                            + '   <em class="weui-form-preview__value">' + type + '</em>'
-                                            + '</div>'
+                                            //+ '  <div class="weui-form-preview__hd">'
+                                            //+ '   <label class="weui-form-preview__label">仓库类型</label>'
+                                            //+ '   <em class="weui-form-preview__value">' + type + '</em>'
+                                            //+ '   </div>'
                                             + '<div class="weui-form-preview__bd">'
                                             + '   <div class="weui-form-preview__item">'
                                             + '   <label class="weui-form-preview__label">商品名称</label>'
-                                            + '  <span class="weui-form-preview__value">' + data[i].goodId + '</span>'
+                                            + '  <span class="weui-form-preview__value">' + data[i].goodName + '</span>'
                                             + ' </div>' +
                                             '                                            <div class="weui-form-preview__item">' +
                                             '                                            <label class="weui-form-preview__label">实体库存数量</label>' +
@@ -319,15 +276,14 @@
                                             '                                            <label class="weui-form-preview__label">插入日期</label>' +
                                             '                                            <span class="weui-form-preview__value" >' + data[i].insertDate + '</span>' +
                                             '                                            </div>' +
-                                            '                                            <div class="weui-form-preview__item">' +
-                                            '                                            <label class="weui-form-preview__label">修改日期</label>' +
-                                            '                                            <span class="weui-form-preview__value" >' + data[i].updateDate + '</span>' +
                                             '                                            </div>' +
-                                            '                                            </div>' +
-                                                '<div style="height: 45px; margin-top: 5px;">' +
-                                                '<a href="/AssetsExchange/record/'+data[i].assetsId+'" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">查看记录</a>'+
-                                                '</div>'+
-                                            '                                            </div></br>';
+                                            '<span style="height: 45px; margin-top: 5px;">' +
+                                            '<a href="#" onclick="model('+data[i].assetsId+',' + data[i].goodStNum + ')" style="float: left;margin-left: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">实体库房出库</a>'+
+                                            '</span>'+
+                                                '<span style="height: 45px; margin-top: 5px;">' +
+                                                '<a href="/AssetsExchange/record/'+data[i].assetsId+'" style="float: right;margin-right: 2.5%;" class="weui-btn weui-btn_mini weui-btn_default">查看转换记录</a>'+
+                                                '</span>'+
+                                            '</div></br>';
                                     }
                                     // 如果没有数据
                                 } else {
@@ -347,7 +303,7 @@
                                 me.resetload();
                             },
                             error: function (xhr, type) {
-                                alert('Ajax error!');
+                                // alert('Ajax error!');
                                 // 即使加载出错，也得重置
                                 me.resetload();
                             }
@@ -401,7 +357,7 @@
                                 me.resetload();
                             },
                             error: function (xhr, type) {
-                                alert('Ajax error!');
+                                // alert('Ajax error!');
                                 // 即使加载出错，也得重置
                                 me.resetload();
                             }
@@ -454,7 +410,7 @@
                                 me.resetload();
                             },
                             error: function (xhr, type) {
-                                alert('Ajax error!');
+                                // alert('Ajax error!');
                                 // 即使加载出错，也得重置
                                 me.resetload();
                             }
@@ -465,6 +421,45 @@
                 }
             });
         });
+
+
+        function model(id,sum){
+            $.prompt({
+                title: '出库',
+                text: '输入数字',
+                input: '',
+                empty: false, // 是否允许为空
+                onOK: function (input) {
+                    //点击确认
+                    if(!isNaN(input))
+                    {
+                        if(input>sum){
+                            $.alert("库存不足")
+                            return;
+                        }
+                        $.ajax({
+                            type: "get",
+                            url: "/yunAssets/out",
+                            data: {'id':id, 'sum':sum},
+                            dataType: "text",
+                            success: function(data){
+                                if(data=='成功'){
+                                    $.toast("成功");
+                                }else{
+                                    $.alert(data);
+                                }
+
+                            }
+                        });
+                    }else{
+                        $.alert("请输入数字");
+                    }
+                },
+                onCancel: function () {
+                    //点击取消
+                }
+            });
+        }
     </script>
 </div>
 <a id="scrollUp" href="#top" style="position: fixed; z-index: 10;"><i class="fa fa-angle-up"></i></a>
@@ -491,6 +486,6 @@
 <script src="/themes/default/js/code-photoswipe-1.0.11.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/assets/js/validform.js"></script>
-
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
 </body>
 </html>

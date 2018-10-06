@@ -13,6 +13,8 @@ public class Assets {
     @Id
     private Long assetsId;
 
+    private String goodName;
+
     private Long userId;
 
     private Long goodId;
@@ -178,5 +180,13 @@ public class Assets {
 
     public void setGoodStNum(int goodStNum) {
         this.goodStNum = goodStNum;
+    }
+
+    public String getGoodName() {
+        return goodName;
+    }
+
+    public void setGoodName(String goodName) {
+        this.goodName = goodName;
     }
 }
